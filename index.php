@@ -51,10 +51,7 @@
 
 		</div>	
 		<div class="col-md-7">
-	<?php	
-					
-		
-
+	<?php
 		$get=$_GET;	
 		if (!empty($_GET)){
 			switch ($_GET['act']) {
@@ -76,8 +73,14 @@
 			$view -> display('home',$get);
 		}		
 	?>
-		</div>
+	<div class="row">
+	<?php
+	$view -> hierarchy($get);
+	?>
 	</div>
+		</div>		
+	</div>
+	
 </div>
 </body>
 </html>

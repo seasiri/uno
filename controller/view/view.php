@@ -1,8 +1,7 @@
 <?php
 
-class view{   
-    public function display($call,$get){
-        
+class view{
+    public function display($call,$get){        
         switch ($call) {
             case 'insert':
                 echo "<h3><a href=?db=".$_GET['db']."&act=grid>".$_GET['db']."</a>/<small><code>".$_GET['act']."->doc_id</code></small></h3>";
@@ -45,7 +44,7 @@ class view{
                 # code...
                 break;
         }
-    }    
+    }      
     public function insert($title){
         $db = new Db();
         $view = new view();
@@ -122,6 +121,27 @@ class view{
         echo      '<button type="submit" class="btn btn-default">Submit</button>';
         echo '</div></div>';
     }
+    public function hierarchy($get){ 
+        $db = new Db();
+        $view = new view();
+        $sql= "SELECT id,name, ".$get['db']."_parent_id FROM ".$get['db']." ";
+        /*
+        $result = $db -> select($sql); 
+
+        foreach ($result as $key => $value) {
+            echo $value['name'].' id: '.$value['id'].' par: '.$value[$get['db'].'_parent_id'];
+            foreach ($result as $key2 => $value2) {
+                if (($value['id']==$value2[$get['db'].'_parent_id'])&&($value['id']!==$value2['id']))
+                {
+                    echo "<br>&nbsp;&nbsp;".$value2['name'];
+                }
+            }
+            echo '<br>';
+        }
+        */
+            
+        
+    }  
     public function edit($title,$doc_id){
         $db = new Db();
         $view = new view();
@@ -137,7 +157,7 @@ class view{
         }        
         $rows = $db -> select("SHOW COLUMNS FROM ".$title);
         $i=0;
-        echo '<form action="action.php" method="post">'; 
+        echo '<form action="/public/action/action.php"method="post">'; 
         foreach ($rows as $key => $value) 
         {                             
                 if ($i%3==0)
@@ -449,6 +469,7 @@ class view{
             }   
             echo '</tbody>'; 
             echo '</table>';
+            echo '</div>';
         }
     }
     public function dropdown($result,$table){
