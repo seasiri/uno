@@ -1,4 +1,5 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT']."/plugin/login/loginheader.php";
 class Db {
     // The database connection
     protected static $connection;
@@ -49,7 +50,7 @@ class Db {
                             $next_id= Db::select("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'bathline_v2' AND TABLE_NAME = '".$value."'"); 
                             $next_id=$next_id[0]['AUTO_INCREMENT'];
                             $column_head=$validate->column_head('task_log');                       
-                            $sql="INSERT INTO task_log (".$column_head.") VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,'".$value."',".$next_id.",'3','INSERT',1,7,8,'successfully')";                        
+                            $sql="INSERT INTO task_log (".$column_head.") VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,'".$value."',".$next_id.",'".$_SESSION['employee_id']."','INSERT',1,7,8,'successfully')";                        
                             echo $sql;
                             $result = $connection->query($sql);
                         }
@@ -74,9 +75,11 @@ class Db {
             if (strpos($query, 'DELETE') !== false) {
                 
             }
+        } 
+        else
+        {
+            $this-> error($result);
         }
-        
-        
         
         return $result;
     }

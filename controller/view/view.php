@@ -84,6 +84,13 @@ class view{
                     $view -> int_handle($temp);
 
                 }
+                if (strpos($value["Type"] , "decimal") !== false) 
+                { 
+                    $temp['column']=$value["Field"];
+                    $temp['session']=$title;
+                    $view -> int_handle($temp);
+
+                }
                 if (strpos($value["Type"] , "varchar") !== false) 
                 {               
                     echo '<div class="form-group">';
@@ -124,22 +131,48 @@ class view{
     public function hierarchy($get){ 
         $db = new Db();
         $view = new view();
-        $sql= "SELECT id,name, ".$get['db']."_parent_id FROM ".$get['db']." ";
-        /*
+        $sql= "SELECT id,name, ".$get['db']."_parent_id FROM ".$get['db']." ";        
         $result = $db -> select($sql); 
-
+        $temp=array();
+        
         foreach ($result as $key => $value) {
-            echo $value['name'].' id: '.$value['id'].' par: '.$value[$get['db'].'_parent_id'];
-            foreach ($result as $key2 => $value2) {
-                if (($value['id']==$value2[$get['db'].'_parent_id'])&&($value['id']!==$value2['id']))
-                {
-                    echo "<br>&nbsp;&nbsp;".$value2['name'];
+            $temp[$value['id']]=array();
+            foreach ($result as $key2 => $value2) {  
+                if ($value2[$get['db'].'_parent_id']!==$value2['id'])  
+                {            
+                 $temp[$value2[$get['db'].'_parent_id']][$value2['id']]= $value2['name'];
                 }
             }
-            echo '<br>';
         }
-        */
-            
+        $temp=array_filter($temp);  
+        /*      
+        for ($i=0; $i < 10 ; $i++) { 
+            foreach ($temp as $key => $value){
+                    foreach ($value as $key2 => $value2) {
+                        foreach ($temp as $key3 => $value3) {
+                           if ($key2==$key3){   
+                            $temp[$key][$key2]=$temp[$key3];
+                            unset($temp[$key3]);
+                            
+                           }
+                       }
+
+                    }
+                }  
+        }
+       echo '<pre>';
+            print_r($temp);
+            echo '</pre>';
+        function sea($result,$pole){
+            foreach ($result as $key => $value) {  
+                 sea( ai)            }
+            echo '<pre>';
+            print_r($result);
+            echo '</pre>';
+        }
+        sea($temp,$temp);     
+       */
+        
         
     }  
     public function edit($title,$doc_id){
@@ -196,6 +229,13 @@ class view{
                     echo '</div>';              
                 }
                 if (preg_match("~\bint\b~",$value["Type"]) ) 
+                {
+                    $temp['column']=$value["Field"];
+                    $temp['session']=$title;
+                    $temp['doc_id']=$doc_id;
+                    $view -> int_handle($temp);               
+                }
+                if (preg_match("~\bdecimal\b~",$value["Type"]) ) 
                 {
                     $temp['column']=$value["Field"];
                     $temp['session']=$title;
@@ -545,13 +585,13 @@ class view{
                     $result = $db -> select($sql);  
                     echo '<div class="form-group">';
                     echo '    <label>'.$table['column'].'</label>';
-                    echo '    <input type="number" class="form-control input-sm" name="'.$table['column'].'" value="'.$result[0][$table['column']].'" placeholder="">';
+                    echo '    <input step=0.01  type="number" class="form-control input-sm" name="'.$table['column'].'" value="'.$result[0][$table['column']].'" placeholder="">';
                     echo '</div>'; 
                 }
                 else{
                     echo '<div class="form-group">';
                     echo '    <label>'.$table['column'].'</label>';
-                    echo '    <input type="number" class="form-control input-sm" name="'.$table['column'].'"  placeholder="">';
+                    echo '    <input step=0.01 type="number" class="form-control input-sm" name="'.$table['column'].'"  placeholder="">';
                     echo '</div>'; 
                 }
                 break;

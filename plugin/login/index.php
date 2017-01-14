@@ -1,0 +1,1 @@
+<?php header("location:/plugin/login/main_login.php");?>

@@ -128,16 +128,20 @@ class validate
             }
             if (strpos($value["Type"] , "int") !== false) 
             {   
-                
+                /*
                 if ($post[$value['Field']] == "")
                 {
                     $query_value .="NULL,";
                 }
                 else
-                {
+                {*/
                     $query_value .=$post[$value['Field']].",";
-                }                       
+                //}                       
                             
+            }
+             if (strpos($value["Type"] , "decimal") !== false) 
+            {                  
+                $query_value .=$post[$value['Field']].",";   
             }
             if (strpos($value["Type"] , "varchar") !== false) 
             {               
