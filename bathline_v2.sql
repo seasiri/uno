@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 14, 2017 at 06:22 AM
+-- Generation Time: Jan 14, 2017 at 05:07 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -36,24 +36,6 @@ CREATE TABLE `agent` (
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `region_id` int(8) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `agent`
---
-
-INSERT INTO `agent` (`id`, `created`, `modified`, `owner`, `name`, `phone`, `description`, `region_id`) VALUES
-(1, '2017-01-14 00:29:06', '2017-01-13 17:29:06', 1, 'wood', '036411656', 'd', 1),
-(2, '2017-01-14 03:29:41', '2017-01-13 20:29:41', 1, 'ceramic', '123', '213', 1),
-(3, '2017-01-14 03:30:24', '2017-01-13 20:30:24', 1, 'ceramic', '123', '213', 1),
-(4, '2017-01-14 03:35:32', '2017-01-13 20:35:32', 1, 'ceramic', '213', '', 1),
-(5, '2017-01-14 03:36:31', '2017-01-13 20:36:31', 1, 'ceramic', '213', '', 1),
-(6, '2017-01-14 03:36:34', '2017-01-13 20:36:34', 1, 'ceramic', '213', '', 1),
-(7, '2017-01-14 03:36:35', '2017-01-13 20:36:35', 1, 'ceramic', '213', '', 1),
-(8, '2017-01-14 03:41:03', '2017-01-13 20:41:03', 1, 'ceramic', '213', '', 1),
-(9, '2017-01-14 03:49:16', '2017-01-13 20:49:16', 1, '123', '12', '2', 1),
-(10, '2017-01-14 03:49:18', '2017-01-13 20:49:18', 1, '123', '12', '2', 1),
-(11, '2017-01-14 03:49:19', '2017-01-13 20:49:19', 1, '123', '12', '2', 1),
-(12, '2017-01-14 03:49:33', '2017-01-13 20:49:33', 1, '123', '12', '2', 1);
 
 -- --------------------------------------------------------
 
@@ -1093,13 +1075,6 @@ CREATE TABLE `attachment` (
   `file_extension` varchar(8) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `attachment`
---
-
-INSERT INTO `attachment` (`id`, `created`, `modified`, `owner`, `record_name`, `record_document`, `attachment_type`, `file_dir`, `file_extension`) VALUES
-(1, '2016-12-31 01:02:20', '2016-12-30 18:04:30', 1, '2', 1, 1, '1', '1');
-
 -- --------------------------------------------------------
 
 --
@@ -1115,14 +1090,6 @@ CREATE TABLE `attachment_type` (
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `attachment_type`
---
-
-INSERT INTO `attachment_type` (`id`, `created`, `modified`, `owner`, `attachment_type_parent_id`, `name`, `description`) VALUES
-(1, '2016-12-31 01:06:01', '2016-12-30 18:06:01', 1, 1, 'เพลงของเรา', '111'),
-(2, '2017-01-01 14:30:37', '2017-01-01 07:30:37', 1, 1, '', '');
 
 -- --------------------------------------------------------
 
@@ -1145,7 +1112,7 @@ CREATE TABLE `authentication` (
 --
 
 INSERT INTO `authentication` (`id`, `username`, `password`, `email`, `verified`, `mod_timestamp`, `employee_id`) VALUES
-('304158793b89c5d93', 'seasiri', '$2y$10$KzftQTbk.c6JvJx14KtLgOf.2u8yv2BovDhzANUHwZqV.D/Na2QIq', 'seawaykung@gmail.com', 1, '2017-01-13 20:42:05', 0);
+('304158793b89c5d93', 'seasiri', '$2y$10$KzftQTbk.c6JvJx14KtLgOf.2u8yv2BovDhzANUHwZqV.D/Na2QIq', 'seawaykung@gmail.com', 1, '2017-01-14 07:58:41', 7777);
 
 -- --------------------------------------------------------
 
@@ -1162,16 +1129,6 @@ CREATE TABLE `credit` (
   `amount` decimal(10,0) NOT NULL,
   `note` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `credit`
---
-
-INSERT INTO `credit` (`id`, `created`, `modified`, `owner`, `agent_id`, `amount`, `note`) VALUES
-(1, '2017-01-14 03:08:42', '2017-01-13 20:08:42', 1, 1, '2333', ''),
-(2, '2017-01-14 03:13:32', '2017-01-13 20:13:32', 1, 1, '2131', ''),
-(3, '2017-01-14 03:14:34', '2017-01-13 20:14:34', 1, 1, '2131', ''),
-(4, '2017-01-14 03:15:31', '2017-01-13 20:15:31', 1, 1, '2131', '');
 
 -- --------------------------------------------------------
 
@@ -1240,22 +1197,12 @@ CREATE TABLE `employee` (
   `address` text COLLATE utf8_unicode_ci NOT NULL,
   `amphur_id` int(8) NOT NULL,
   `province_id` int(8) NOT NULL,
-  `username` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `advance_task` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `advance_view` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `start_date` date NOT NULL,
   `join_date` date NOT NULL,
   `national_id` varchar(32) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `employee`
---
-
-INSERT INTO `employee` (`id`, `created`, `modified`, `owner`, `firstname_thai`, `lastname_thai`, `firstname_english`, `lastname_english`, `phone`, `email`, `salary`, `address`, `amphur_id`, `province_id`, `username`, `password`, `advance_task`, `advance_view`, `start_date`, `join_date`, `national_id`) VALUES
-(1, '2016-12-30 01:20:23', '2017-01-04 05:34:38', 1, 'สิรภพ', 'ศิริศิลป์', 'siraphop', 'sirisilp', '0802689444', 'seawaykung@gmail.com', 2900, '12844 Hawthicket ln', 1, 2, 'sd', 'sad', '1:23:2', '2:24:2', '1970-01-01', '1970-01-01', '1101402029290'),
-(2, '2016-12-30 01:23:23', '2016-12-29 18:23:23', 1, 'สา', 'รา', 'sa', 'ra', '0802689444', 'seawaykung@gmail.com', 2900, '12844 Hawthicket ln', 1, 2, 'sd', 'sad', '1:23:2', '2:24:2', '2016-12-14', '2016-12-31', '1101402029290');
 
 -- --------------------------------------------------------
 
@@ -1279,6 +1226,37 @@ CREATE TABLE `job` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `job_log`
+--
+
+CREATE TABLE `job_log` (
+  `id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` timestamp NOT NULL,
+  `owner` int(8) NOT NULL,
+  `job_id` int(8) NOT NULL,
+  `employee_id` int(8) NOT NULL,
+  `job_log_status_id` int(8) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_log_status`
+--
+
+CREATE TABLE `job_log_status` (
+  `id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` timestamp NOT NULL,
+  `owner` int(8) NOT NULL,
+  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `loginattempts`
 --
 
@@ -1289,15 +1267,6 @@ CREATE TABLE `loginattempts` (
   `Username` varchar(65) DEFAULT NULL,
   `ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `loginattempts`
---
-
-INSERT INTO `loginattempts` (`IP`, `Attempts`, `LastLogin`, `Username`, `ID`) VALUES
-('::1', 2, '2017-01-13 20:41:23', 'sea', 1),
-('::1', 2, '2017-01-13 20:49:04', 'seasiri', 2),
-('::1', 3, '2017-01-14 06:13:49', '', 3);
 
 -- --------------------------------------------------------
 
@@ -1350,13 +1319,6 @@ CREATE TABLE `order_detail` (
   `order_detail_status_id` int(8) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `order_detail`
---
-
-INSERT INTO `order_detail` (`id`, `created`, `modified`, `owner`, `order_list_id`, `product_id`, `quantity`, `price`, `order_detail_status_id`) VALUES
-(1, '2017-01-14 01:25:31', '2017-01-13 18:25:31', 1, 1, 1, 2, '20000.00', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -1372,13 +1334,6 @@ CREATE TABLE `order_detail_status` (
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `order_detail_status`
---
-
-INSERT INTO `order_detail_status` (`id`, `created`, `modified`, `owner`, `name`, `description`) VALUES
-(1, '2017-01-14 01:13:14', '2017-01-13 18:13:14', 1, 'success', '1`');
-
 -- --------------------------------------------------------
 
 --
@@ -1393,13 +1348,6 @@ CREATE TABLE `order_list` (
   `agent_id` int(8) NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL COMMENT 'po_number'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `order_list`
---
-
-INSERT INTO `order_list` (`id`, `created`, `modified`, `owner`, `agent_id`, `name`) VALUES
-(1, '2017-01-14 01:10:56', '2017-01-13 18:10:56', 1, 1, '20');
 
 -- --------------------------------------------------------
 
@@ -1452,15 +1400,6 @@ CREATE TABLE `product` (
   `long_description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `product`
---
-
-INSERT INTO `product` (`id`, `created`, `modified`, `owner`, `supplier_id`, `product_catagories_id`, `product_status_id`, `name`, `name_english`, `short_description`, `long_description`) VALUES
-(1, '2016-12-31 01:10:03', '2017-01-01 13:59:56', 1, 2, 4, 1, 'B2043', 'B2043', 'ชักโครกนวัตกรรมใหม่ของทางบริษัทบาธไลนฺ์', 'ชักโครกนวัตกรรมใหม่ของทางบริษัทบาธไลนฺ์ชักโครกนวัตกรรมใหม่ของทางบริษัทบาธไลนฺ์'),
-(2, '2017-01-04 15:31:59', '2017-01-04 08:31:59', 1, 1, 4, 1, 'B-777', 'B-888', 'สินค้าชิ้นนี้ดี', 'สินค้าชิ้นนี้ดีสินค้าชิ้นนี้ดีสินค้าชิ้นนี้ดีสินค้าชิ้นนี้ดีสินค้าชิ้นนี้ดีสินค้าชิ้นนี้ดี'),
-(3, '2017-01-04 16:46:37', '2017-01-04 09:46:37', 1, 1, 3, 1, 'B2020', 'B2020', 'ชักโครกนวัตกรรมใหม่ของทางบริษัทบาธไลนฺ์', 'ชักโครกนวัตกรรมใหม่ของทางบริษัทบาธไลนฺ์ชักโครกนวัตกรรมใหม่ของทางบริษัทบาธไลนฺ์');
-
 -- --------------------------------------------------------
 
 --
@@ -1475,24 +1414,6 @@ CREATE TABLE `product_attribute` (
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `product_attribute`
---
-
-INSERT INTO `product_attribute` (`id`, `created`, `modified`, `owner`, `name`, `description`) VALUES
-(1, '2016-12-29 15:58:28', '2016-12-29 08:58:28', 1, 'Height', 'à¸„à¸§à¸²à¸¡à¸ªà¸¹à¸‡'),
-(2, '2016-12-29 15:59:33', '2016-12-29 08:59:33', 1, 'Height', 'à¸„à¸§à¸²à¸¡à¸ªà¸¹à¸‡'),
-(3, '2016-12-29 16:01:15', '2016-12-29 09:01:15', 1, 'Height', 'à¸„à¸§à¸²à¸¡à¸ªà¸¹à¸‡'),
-(4, '2016-12-29 16:02:25', '2016-12-29 09:02:25', 1, 'Height', 'à¸„à¸§à¸²à¸¡à¸ªà¸¹à¸‡'),
-(5, '2016-12-29 16:03:18', '2016-12-29 09:03:18', 1, 'Height', 'à¸„à¸§à¸²à¸¡à¸ªà¸¹à¸‡'),
-(6, '2016-12-29 16:03:42', '2016-12-29 09:03:42', 1, 'à¹‡Height', 'à¸„à¸§à¸²à¸¡'),
-(7, '2016-12-29 16:05:27', '2016-12-29 09:05:27', 1, 'à¹‡Height', 'à¸„à¸§à¸²à¸¡'),
-(8, '2016-12-29 16:07:11', '2016-12-29 09:07:11', 1, 'à¹‡Height', 'à¸„à¸§à¸²à¸¡'),
-(9, '2016-12-29 16:07:49', '2016-12-29 09:07:49', 1, 'à¹‡Height', 'à¸„à¸§à¸²à¸¡'),
-(10, '2016-12-29 16:08:10', '2016-12-29 09:08:10', 1, 'à¹‡Height', 'à¸„à¸§à¸²à¸¡'),
-(11, '2016-12-29 16:08:21', '2016-12-29 09:08:21', 1, '็Height', 'ความ'),
-(12, '2017-01-04 15:32:52', '2017-01-04 08:32:52', 1, 'ขนาดสายนํ้าดี', 'สายต่อจากท่อนํ้าดี มาตรฐานไทย');
 
 -- --------------------------------------------------------
 
@@ -1512,14 +1433,6 @@ CREATE TABLE `product_attribute_value` (
   `unit_english` varchar(16) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `product_attribute_value`
---
-
-INSERT INTO `product_attribute_value` (`id`, `created`, `modified`, `owner`, `product_id`, `product_attribute_id`, `value`, `unit_thai`, `unit_english`) VALUES
-(1, '2017-01-01 20:17:39', '2017-01-01 13:17:39', 1, 1, 2, '25', 'เซนติเมตร', 'centimeter'),
-(2, '2017-01-04 15:34:49', '2017-01-04 08:34:49', 1, 2, 12, '12', 'นิ้ว', 'inches');
-
 -- --------------------------------------------------------
 
 --
@@ -1536,17 +1449,6 @@ CREATE TABLE `product_catagories` (
   `name_english` varchar(64) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `product_catagories`
---
-
-INSERT INTO `product_catagories` (`id`, `created`, `modified`, `owner`, `product_catagories_parent_id`, `name`, `name_english`) VALUES
-(1, '2017-01-01 16:07:51', '2017-01-01 09:20:36', 1, 1, 'บาธไลน์', 'bathline'),
-(2, '2017-01-01 16:17:54', '2017-01-04 07:13:42', 1, 5, 'ชักโครก', 'toilet'),
-(3, '2017-01-01 16:18:05', '2017-01-01 11:48:16', 1, 2, 'ทูพีช', 'two piece'),
-(4, '2017-01-01 16:22:55', '2017-01-01 09:22:55', 1, 2, 'วันพีช', 'one piece'),
-(5, '2017-01-04 14:12:23', '2017-01-04 07:13:23', 1, 1, 'TORNADO', 'TORNADO');
-
 -- --------------------------------------------------------
 
 --
@@ -1561,15 +1463,6 @@ CREATE TABLE `product_status` (
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `product_status`
---
-
-INSERT INTO `product_status` (`id`, `created`, `modified`, `owner`, `name`, `description`) VALUES
-(1, '2017-01-01 14:34:54', '2017-01-01 07:34:54', 1, 'active', ''),
-(2, '2017-01-01 14:35:32', '2017-01-01 07:35:32', 1, 'discontinue', ''),
-(3, '2017-01-01 14:35:52', '2017-01-01 07:35:52', 1, 'out of stock', '');
 
 -- --------------------------------------------------------
 
@@ -1684,13 +1577,6 @@ CREATE TABLE `region` (
   `region_parent_id` int(8) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `region`
---
-
-INSERT INTO `region` (`id`, `created`, `modified`, `owner`, `name`, `description`, `region_parent_id`) VALUES
-(1, '2017-01-14 00:28:40', '2017-01-13 17:28:40', 1, 'moderntrade', 'moderntrade', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -1710,29 +1596,6 @@ CREATE TABLE `supplier` (
   `email` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `phone` int(16) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `supplier`
---
-
-INSERT INTO `supplier` (`id`, `created`, `modified`, `owner`, `name`, `description`, `city`, `province`, `country`, `email`, `phone`) VALUES
-(1, '2016-12-29 13:36:41', '2017-01-04 05:09:11', 1, 'Flossy', '', '', '', '', '', 212),
-(2, '2016-12-29 13:52:44', '2017-01-01 06:10:44', 1, 'Foshan', '', '', '', '', '', 212),
-(3, '2016-12-29 13:58:25', '2016-12-29 06:58:25', 1, '', '', '', '', '', '', 212),
-(4, '2016-12-29 13:58:37', '2016-12-29 06:58:37', 1, '', '', '', '', '', '', 212),
-(5, '2016-12-29 14:03:45', '2016-12-29 07:03:45', 1, '', '', '', '', '', '', 212),
-(6, '2016-12-29 14:04:06', '2016-12-29 07:04:06', 1, '', '', '', '', '', '', 212),
-(7, '2016-12-29 14:04:46', '2016-12-29 07:04:46', 1, '', '', '', '', '', '', 212),
-(8, '2016-12-29 14:04:53', '2016-12-29 07:04:53', 1, '', '', '', '', '', '', 212),
-(9, '2016-12-29 14:05:35', '2016-12-29 07:05:35', 1, '', '', '', '', '', '', 212),
-(10, '2016-12-29 14:05:40', '2016-12-29 07:05:40', 1, '', '', '', '', '', '', 212),
-(11, '2016-12-29 14:05:51', '2016-12-29 07:05:51', 1, '', '', '', '', '', '', 212),
-(12, '2016-12-29 14:25:21', '2016-12-29 07:25:21', 1, '', '', '', '', '', '', 212),
-(13, '2016-12-29 14:43:52', '2016-12-29 07:43:52', 1, '', '', '', '', '', '', 212),
-(14, '2016-12-29 14:43:53', '2016-12-29 07:43:53', 1, '', '', '', '', '', '', 212),
-(15, '2016-12-29 14:45:07', '2016-12-29 07:45:07', 1, '', '', '', '', '', '', 212),
-(16, '2016-12-29 14:45:23', '2016-12-29 07:45:23', 1, '', '', '', '', '', '', 212),
-(17, '2016-12-29 14:46:25', '2016-12-29 07:46:25', 1, '', '', '', '', '', '', 212);
 
 -- --------------------------------------------------------
 
@@ -1761,20 +1624,6 @@ CREATE TABLE `task` (
   `success_msg_english` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `task`
---
-
-INSERT INTO `task` (`id`, `created`, `modified`, `owner`, `task_parent_id`, `task_action_type_id`, `task_status_id`, `amphur_id`, `province_id`, `country_id`, `name`, `description`, `task_open`, `task_close`, `error_msg_thai`, `error_msg_english`, `success_msg_thai`, `success_msg_english`) VALUES
-(1, '2017-01-01 20:37:27', '2017-01-04 09:16:06', 1, 1, 2, 1, 5, 9, 'thailand', 'งานตลาด', 'ขายตลาดนัด', '1970-01-01', '1970-01-01', '', '', '', ''),
-(2, '2017-01-01 21:04:40', '2017-01-05 17:50:20', 1, 3, 2, 1, 15, 11, 'thailand', 'จัดร้านค้าในคลองถม', '', '1970-01-01', '1970-01-01', '', '', '', ''),
-(3, '2017-01-04 16:17:19', '2017-01-05 17:46:48', 1, 5, 2, 1, 3, 11, '', 'ตรวจสอบข้อมูลคู่แข่ง', '', '1970-01-01', '1970-01-01', '', '', '', ''),
-(4, '2017-01-04 16:18:14', '2017-01-05 17:08:29', 1, 1, 2, 1, 16, 18, '', 'ตรวจสอบข้อมูลคู่แข่ง ', '', '1970-01-01', '1970-01-01', '', '', '', ''),
-(5, '2017-01-04 16:18:48', '2017-01-05 17:12:09', 1, 4, 2, 1, 14, 15, '', 'moderntrade', '', '1970-01-01', '1970-01-01', '', '', '', ''),
-(6, '2017-01-06 01:00:11', '2017-01-05 18:43:40', 1, 2, 1, 1, 16, 18, '', 'homepro', '', '1970-01-01', '1970-01-01', '', '', '', ''),
-(7, '2017-01-06 01:00:58', '2017-01-05 18:00:58', 1, 6, 3, 1, 13, 16, '', 'wood', '', '1970-01-01', '1970-01-01', '', '', '', ''),
-(8, '2017-01-06 01:48:40', '2017-01-05 18:48:40', 1, 7, 1, 1, 18, 16, '', 'sda', '', '1970-01-01', '1970-01-01', '', '', '', '');
-
 -- --------------------------------------------------------
 
 --
@@ -1789,15 +1638,6 @@ CREATE TABLE `task_action_type` (
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `task_action_type`
---
-
-INSERT INTO `task_action_type` (`id`, `created`, `modified`, `owner`, `name`, `description`) VALUES
-(1, '2017-01-01 20:29:33', '2017-01-01 13:29:33', 1, 'edit', 'edit'),
-(2, '2017-01-01 20:30:18', '2017-01-01 13:30:18', 1, 'insert', 'insert'),
-(3, '2017-01-01 20:30:40', '2017-01-01 13:30:40', 1, 'delete', 'delete');
 
 -- --------------------------------------------------------
 
@@ -1815,16 +1655,6 @@ CREATE TABLE `task_flow` (
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `task_flow`
---
-
-INSERT INTO `task_flow` (`id`, `created`, `modified`, `owner`, `task_list`, `name`, `description`) VALUES
-(1, '2016-12-27 16:03:25', '2016-12-27 09:03:25', 1, '', '', ''),
-(2, '2016-12-27 16:03:39', '2016-12-27 09:03:39', 1, '', '', ''),
-(3, '2016-12-27 16:13:02', '2016-12-27 09:13:02', 1, '', '', ''),
-(4, '2016-12-27 16:40:42', '2016-12-27 09:40:42', 1, '', '', '');
-
 -- --------------------------------------------------------
 
 --
@@ -1840,140 +1670,10 @@ CREATE TABLE `task_log` (
   `record_document` int(8) NOT NULL,
   `task_id` int(8) NOT NULL,
   `task_action_type` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `query` text COLLATE utf8_unicode_ci NOT NULL,
   `task_log_status_id` int(4) NOT NULL,
-  `employee_from` int(4) NOT NULL,
-  `employee_to` int(4) NOT NULL,
   `task_msg` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `task_log`
---
-
-INSERT INTO `task_log` (`id`, `created`, `modified`, `owner`, `record_name`, `record_document`, `task_id`, `task_action_type`, `task_log_status_id`, `employee_from`, `employee_to`, `task_msg`) VALUES
-(1, '2016-12-29 15:53:23', '2016-12-29 08:53:23', 1, 'product', 34, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(2, '2016-12-29 15:53:23', '2016-12-29 08:53:23', 1, 'product_catagories', 1, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(3, '2016-12-29 15:53:23', '2016-12-29 08:53:23', 1, 'supplier', 18, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(4, '2016-12-29 15:53:35', '2016-12-29 08:53:35', 1, 'product', 35, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(5, '2016-12-29 15:53:35', '2016-12-29 08:53:35', 1, 'product_catagories', 1, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(6, '2016-12-29 15:53:35', '2016-12-29 08:53:35', 1, 'supplier', 18, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(7, '2016-12-29 15:56:53', '2016-12-29 08:56:53', 1, 'product', 36, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(8, '2016-12-29 15:56:58', '2016-12-29 08:56:58', 1, 'product', 37, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(9, '2016-12-29 15:56:59', '2016-12-29 08:56:59', 1, 'product', 38, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(10, '2016-12-29 15:57:00', '2016-12-29 08:57:00', 1, 'product', 39, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(11, '2016-12-29 15:58:28', '2016-12-29 08:58:28', 1, 'product_attribute', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(12, '2016-12-29 15:59:33', '2016-12-29 08:59:33', 1, 'product_attribute', 3, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(13, '2016-12-29 16:01:15', '2016-12-29 09:01:15', 1, 'product_attribute', 4, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(14, '2016-12-29 16:02:25', '2016-12-29 09:02:25', 1, 'product_attribute', 5, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(15, '2016-12-29 16:03:18', '2016-12-29 09:03:18', 1, 'product_attribute', 6, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(16, '2016-12-29 16:03:42', '2016-12-29 09:03:42', 1, 'product_attribute', 7, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(17, '2016-12-29 16:05:27', '2016-12-29 09:05:27', 1, 'product_attribute', 8, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(18, '2016-12-29 16:07:11', '2016-12-29 09:07:11', 1, 'product_attribute', 9, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(19, '2016-12-29 16:07:49', '2016-12-29 09:07:49', 1, 'product_attribute', 10, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(20, '2016-12-29 16:08:10', '2016-12-29 09:08:10', 1, 'product_attribute', 11, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(21, '2016-12-29 16:08:21', '2016-12-29 09:08:21', 1, 'product_attribute', 12, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(22, '2016-12-29 16:10:21', '2016-12-29 09:10:21', 1, 'employee', 7, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(23, '2016-12-29 16:10:26', '2016-12-29 09:10:26', 1, 'employee', 8, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(24, '2016-12-29 16:10:27', '2016-12-29 09:10:27', 1, 'employee', 9, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(25, '2016-12-29 16:13:02', '2016-12-29 09:13:02', 1, 'employee', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(26, '2016-12-29 16:13:23', '2016-12-29 09:13:23', 1, 'employee', 3, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(27, '2016-12-29 16:17:55', '2016-12-29 09:17:55', 1, 'employee', 4, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(28, '2016-12-29 18:49:14', '2016-12-29 11:49:14', 1, 'employee', 5, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(29, '2016-12-29 18:49:25', '2016-12-29 11:49:25', 1, 'employee', 6, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(30, '2016-12-29 18:49:27', '2016-12-29 11:49:27', 1, 'employee', 7, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(31, '2016-12-29 18:54:50', '2016-12-29 11:54:50', 1, 'employee', 8, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(32, '2016-12-29 18:54:54', '2016-12-29 11:54:54', 1, 'employee', 9, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(33, '2016-12-29 19:01:02', '2016-12-29 12:01:02', 1, 'employee', 10, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(34, '2016-12-30 01:20:23', '2016-12-29 18:20:23', 1, 'employee', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(35, '2016-12-30 01:23:23', '2016-12-29 18:23:23', 1, 'employee', 3, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(36, '2016-12-30 01:43:22', '2016-12-29 18:43:22', 1, 'employee', 3, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(37, '2016-12-30 01:43:37', '2016-12-29 18:43:37', 1, 'employee', 3, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(38, '2016-12-30 01:45:09', '2016-12-29 18:45:09', 1, 'employee', 3, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(39, '2016-12-30 02:45:11', '2016-12-29 19:45:11', 1, 'employee', 3, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(40, '2016-12-31 01:02:20', '2016-12-30 18:02:20', 1, 'attachment', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(41, '2016-12-31 01:02:42', '2016-12-30 18:02:42', 1, 'attachment', 2, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(42, '2016-12-31 01:02:49', '2016-12-30 18:02:49', 1, 'attachment', 2, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(43, '2016-12-31 01:03:02', '2016-12-30 18:03:02', 1, 'attachment', 2, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(44, '2016-12-31 01:03:38', '2016-12-30 18:03:38', 1, 'attachment', 2, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(45, '2016-12-31 01:04:21', '2016-12-30 18:04:21', 1, 'attachment', 2, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(46, '2016-12-31 01:04:30', '2016-12-30 18:04:30', 1, 'attachment', 2, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(47, '2016-12-31 01:06:01', '2016-12-30 18:06:01', 1, 'attachment_type', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(48, '2016-12-31 01:10:03', '2016-12-30 18:10:03', 1, 'product', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(49, '2016-12-31 01:10:13', '2016-12-30 18:10:13', 1, 'product', 2, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(50, '2016-12-31 01:27:41', '2016-12-30 18:27:41', 1, 'view_permission_type', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(51, '2017-01-01 13:10:25', '2017-01-01 06:10:25', 1, 'supplier', 18, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(52, '2017-01-01 13:10:44', '2017-01-01 06:10:44', 1, 'supplier', 18, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(53, '2017-01-01 14:30:37', '2017-01-01 07:30:37', 1, 'attachment_type', 3, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(54, '2017-01-01 14:34:54', '2017-01-01 07:34:54', 1, 'product_status', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(55, '2017-01-01 14:35:32', '2017-01-01 07:35:32', 1, 'product_status', 3, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(56, '2017-01-01 14:35:52', '2017-01-01 07:35:52', 1, 'product_status', 4, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(57, '2017-01-01 15:31:29', '2017-01-01 08:31:29', 1, 'product_catagories', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(58, '2017-01-01 16:07:51', '2017-01-01 09:07:51', 1, 'product_catagories', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(59, '2017-01-01 16:17:54', '2017-01-01 09:17:54', 1, 'product_catagories', 3, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(60, '2017-01-01 16:18:05', '2017-01-01 09:18:05', 1, 'product_catagories', 4, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(61, '2017-01-01 16:20:36', '2017-01-01 09:20:36', 1, 'product_catagories', 4, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(62, '2017-01-01 16:21:07', '2017-01-01 09:21:07', 1, 'product_catagories', 4, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(63, '2017-01-01 16:21:52', '2017-01-01 09:21:52', 1, 'product_catagories', 4, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(64, '2017-01-01 16:22:16', '2017-01-01 09:22:16', 1, 'product_catagories', 4, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(65, '2017-01-01 16:22:55', '2017-01-01 09:22:55', 1, 'product_catagories', 5, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(66, '2017-01-01 18:31:35', '2017-01-01 11:31:35', 1, 'product_catagories', 5, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(67, '2017-01-01 18:32:22', '2017-01-01 11:32:22', 1, 'product_catagories', 5, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(68, '2017-01-01 18:47:29', '2017-01-01 11:47:29', 1, 'product_catagories', 5, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(69, '2017-01-01 18:47:37', '2017-01-01 11:47:37', 1, 'product_catagories', 5, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(70, '2017-01-01 18:48:05', '2017-01-01 11:48:05', 1, 'product_catagories', 5, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(71, '2017-01-01 18:48:16', '2017-01-01 11:48:16', 1, 'product_catagories', 5, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(72, '2017-01-01 20:14:57', '2017-01-01 13:14:57', 1, 'product', 2, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(73, '2017-01-01 20:17:39', '2017-01-01 13:17:39', 1, 'product_attribute_value', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(74, '2017-01-01 20:28:43', '2017-01-01 13:28:43', 1, 'task_status', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(75, '2017-01-01 20:29:33', '2017-01-01 13:29:33', 1, 'task_action_type', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(76, '2017-01-01 20:30:18', '2017-01-01 13:30:18', 1, 'task_action_type', 3, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(77, '2017-01-01 20:30:40', '2017-01-01 13:30:40', 1, 'task_action_type', 4, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(78, '2017-01-01 20:37:27', '2017-01-01 13:37:27', 1, 'task', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(79, '2017-01-01 20:59:56', '2017-01-01 13:59:56', 1, 'product', 2, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(80, '2017-01-01 21:04:40', '2017-01-01 14:04:40', 1, 'task', 3, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(81, '2017-01-01 21:44:46', '2017-01-01 14:44:46', 1, 'employee', 3, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(82, '2017-01-01 23:05:14', '2017-01-01 16:05:14', 1, 'view_permission', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(83, '2017-01-04 12:09:11', '2017-01-04 05:09:11', 1, 'supplier', 18, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(84, '2017-01-04 12:34:38', '2017-01-04 05:34:38', 1, 'employee', 3, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(85, '2017-01-04 14:12:23', '2017-01-04 07:12:23', 1, 'product_catagories', 6, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(86, '2017-01-04 14:13:23', '2017-01-04 07:13:23', 1, 'product_catagories', 6, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(87, '2017-01-04 14:13:42', '2017-01-04 07:13:42', 1, 'product_catagories', 6, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(88, '2017-01-04 15:31:59', '2017-01-04 08:31:59', 1, 'product', 3, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(89, '2017-01-04 15:32:52', '2017-01-04 08:32:52', 1, 'product_attribute', 13, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(90, '2017-01-04 15:34:49', '2017-01-04 08:34:49', 1, 'product_attribute_value', 3, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(91, '2017-01-04 15:58:43', '2017-01-04 08:58:43', 1, 'task', 3, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(92, '2017-01-04 16:16:06', '2017-01-04 09:16:06', 1, 'task', 3, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(93, '2017-01-04 16:17:19', '2017-01-04 09:17:19', 1, 'task', 4, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(94, '2017-01-04 16:18:14', '2017-01-04 09:18:14', 1, 'task', 5, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(95, '2017-01-04 16:18:48', '2017-01-04 09:18:48', 1, 'task', 6, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(96, '2017-01-04 16:19:05', '2017-01-04 09:19:05', 1, 'task', 6, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(97, '2017-01-04 16:19:42', '2017-01-04 09:19:42', 1, 'task', 6, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(98, '2017-01-04 16:46:37', '2017-01-04 09:46:37', 1, 'product', 4, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(99, '2017-01-06 00:08:29', '2017-01-05 17:08:29', 1, 'task', 6, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(100, '2017-01-06 00:08:45', '2017-01-05 17:08:45', 1, 'task', 6, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(101, '2017-01-06 00:12:09', '2017-01-05 17:12:09', 1, 'task', 6, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(102, '2017-01-06 00:46:48', '2017-01-05 17:46:48', 1, 'task', 6, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(103, '2017-01-06 00:50:20', '2017-01-05 17:50:20', 1, 'task', 6, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(104, '2017-01-06 01:00:11', '2017-01-05 18:00:11', 1, 'task', 7, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(105, '2017-01-06 01:00:58', '2017-01-05 18:00:58', 1, 'task', 8, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(106, '2017-01-06 01:01:23', '2017-01-05 18:01:23', 1, 'task', 8, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(107, '2017-01-06 01:42:56', '2017-01-05 18:42:56', 1, 'task', 8, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(108, '2017-01-06 01:43:41', '2017-01-05 18:43:41', 1, 'task', 8, 3, 'UPDATE', 1, 7, 8, 'successfully'),
-(109, '2017-01-06 01:48:40', '2017-01-05 18:48:40', 1, 'task', 9, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(110, '2017-01-14 00:04:16', '2017-01-13 17:04:16', 1, 'task_log_status', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(111, '2017-01-14 00:28:40', '2017-01-13 17:28:40', 1, 'region', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(112, '2017-01-14 00:29:06', '2017-01-13 17:29:06', 1, 'agent', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(113, '2017-01-14 01:10:56', '2017-01-13 18:10:56', 1, 'order_list', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(114, '2017-01-14 01:13:14', '2017-01-13 18:13:14', 1, 'order_detail_status', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(115, '2017-01-14 01:25:31', '2017-01-13 18:25:31', 1, 'order_detail', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(116, '2017-01-14 03:08:42', '2017-01-13 20:08:42', 1, 'credit', 2, 3, 'INSERT', 1, 7, 8, 'successfully'),
-(117, '2017-01-14 03:35:32', '2017-01-13 20:35:32', 1, 'agent', 5, 0, 'INSERT', 1, 7, 8, 'successfully'),
-(118, '2017-01-14 03:36:31', '2017-01-13 20:36:31', 1, 'agent', 6, 0, 'INSERT', 1, 7, 8, 'successfully'),
-(119, '2017-01-14 03:36:34', '2017-01-13 20:36:34', 1, 'agent', 7, 0, 'INSERT', 1, 7, 8, 'successfully'),
-(120, '2017-01-14 03:36:35', '2017-01-13 20:36:35', 1, 'agent', 8, 0, 'INSERT', 1, 7, 8, 'successfully'),
-(121, '2017-01-14 03:49:16', '2017-01-13 20:49:16', 1, 'agent', 10, 0, 'INSERT', 1, 7, 8, 'successfully'),
-(122, '2017-01-14 03:49:18', '2017-01-13 20:49:18', 1, 'agent', 11, 0, 'INSERT', 1, 7, 8, 'successfully'),
-(123, '2017-01-14 03:49:19', '2017-01-13 20:49:19', 1, 'agent', 12, 0, 'INSERT', 1, 7, 8, 'successfully');
 
 -- --------------------------------------------------------
 
@@ -1990,13 +1690,6 @@ CREATE TABLE `task_log_status` (
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `task_log_status`
---
-
-INSERT INTO `task_log_status` (`id`, `created`, `modified`, `owner`, `name`, `description`) VALUES
-(1, '2017-01-14 00:04:16', '2017-01-13 17:04:16', 1, 'fail', 'fail to task');
-
 -- --------------------------------------------------------
 
 --
@@ -2011,13 +1704,6 @@ CREATE TABLE `task_status` (
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `task_status`
---
-
-INSERT INTO `task_status` (`id`, `created`, `modified`, `owner`, `name`, `description`) VALUES
-(1, '2017-01-01 20:28:43', '2017-01-01 13:28:43', 1, 'active', 'active');
 
 -- --------------------------------------------------------
 
@@ -2036,13 +1722,6 @@ CREATE TABLE `view_permission` (
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `view_permission`
---
-
-INSERT INTO `view_permission` (`id`, `created`, `modified`, `owner`, `view_permission_type_id`, `view_permission_parent_id`, `name`, `description`) VALUES
-(1, '2017-01-01 23:05:14', '2017-01-01 16:05:14', 1, 1, 1, 'sea', 's');
-
 -- --------------------------------------------------------
 
 --
@@ -2057,13 +1736,6 @@ CREATE TABLE `view_permission_type` (
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `view_permission_type`
---
-
-INSERT INTO `view_permission_type` (`id`, `created`, `modified`, `owner`, `name`, `description`) VALUES
-(1, '2016-12-31 01:27:41', '2016-12-30 18:27:41', 1, '1', '');
 
 --
 -- Indexes for dumped tables
@@ -2136,6 +1808,18 @@ ALTER TABLE `employee`
 -- Indexes for table `job`
 --
 ALTER TABLE `job`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `job_log`
+--
+ALTER TABLE `job_log`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `job_log_status`
+--
+ALTER TABLE `job_log_status`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2290,7 +1974,7 @@ ALTER TABLE `view_permission_type`
 -- AUTO_INCREMENT for table `agent`
 --
 ALTER TABLE `agent`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `amphur`
 --
@@ -2300,17 +1984,17 @@ ALTER TABLE `amphur`
 -- AUTO_INCREMENT for table `attachment`
 --
 ALTER TABLE `attachment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `attachment_type`
 --
 ALTER TABLE `attachment_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `credit`
 --
 ALTER TABLE `credit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `delivery`
 --
@@ -2330,17 +2014,27 @@ ALTER TABLE `delivery_process_status`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `job`
 --
 ALTER TABLE `job`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `job_log`
+--
+ALTER TABLE `job_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `job_log_status`
+--
+ALTER TABLE `job_log_status`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `loginattempts`
 --
 ALTER TABLE `loginattempts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `note`
 --
@@ -2355,17 +2049,17 @@ ALTER TABLE `note_type`
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `order_detail_status`
 --
 ALTER TABLE `order_detail_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `order_list`
 --
 ALTER TABLE `order_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `order_log`
 --
@@ -2380,27 +2074,27 @@ ALTER TABLE `order_process_status`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `product_attribute`
 --
 ALTER TABLE `product_attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `product_attribute_value`
 --
 ALTER TABLE `product_attribute_value`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `product_catagories`
 --
 ALTER TABLE `product_catagories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `product_status`
 --
 ALTER TABLE `product_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `province`
 --
@@ -2410,52 +2104,52 @@ ALTER TABLE `province`
 -- AUTO_INCREMENT for table `region`
 --
 ALTER TABLE `region`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `task_action_type`
 --
 ALTER TABLE `task_action_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `task_flow`
 --
 ALTER TABLE `task_flow`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `task_log`
 --
 ALTER TABLE `task_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `task_log_status`
 --
 ALTER TABLE `task_log_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `task_status`
 --
 ALTER TABLE `task_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `view_permission`
 --
 ALTER TABLE `view_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `view_permission_type`
 --
 ALTER TABLE `view_permission_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

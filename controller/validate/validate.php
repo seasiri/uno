@@ -27,7 +27,6 @@ class validate
     $post['id']="id";
     $post['created']="created";
     $post['modified']="CURRENT_TIMESTAMP";
-    $post['owner']='owner';
     $disable_input_list= array("form_title","act");
     $disable_append_quote= array("CURRENT_TIMESTAMP","DEFAULT");
         foreach ($post as $key => $value) {
@@ -85,7 +84,56 @@ class validate
         }            
             $sql['value']=rtrim($query_value,",");
             $sql['value'].=" WHERE id =".$post['doc'];
-            
+            $sql['value'].= " AND ( ";
+            foreach ($rows as $key => $value) 
+            {   
+                //modified
+                if (preg_match("~\btimestamp\b~",$value["Type"]) )
+                {   
+                    $sql['value'].="".$value['Field']." != modified OR ";       
+                }
+                if (preg_match("~\bdatetime\b~",$value["Type"]) )
+                {   
+                    if ($value['Field']=="created"){
+                        $sql['value'].="".$value['Field']." != ".$post[$value['Field']]." OR ";
+                    }
+                    else{
+                        $sql['value'].="".$value['Field']." != '".$post[$value['Field']]."' OR ";
+                    }  
+                }
+                if (preg_match("~\bdate\b~",$value["Type"]) ) 
+                {   
+                    $datetime = strtotime($post[$value['Field']]);
+                    $mysqldate = date("Y-m-d", $datetime);
+                    $sql['value'].="".$value['Field']." != '".$mysqldate."' OR ";         
+                }
+                if (preg_match("~\bint\b~",$value["Type"]) )
+                {                   
+                    $sql['value'].="".$value['Field']." != ".$post[$value['Field']]." OR ";                              
+                }
+                if (preg_match("~\bvarchar\b~",$value["Type"]) )
+                {               
+                       
+                    if ($value['Field']=="created"){
+                        $sql['value'].="".$value['Field']." != ".$post[$value['Field']]."' OR ";
+                    }
+                    else{
+                        $sql['value'].="".$value['Field']." != '".$post[$value['Field']]."' OR ";
+                    }
+                }
+                if (preg_match("~\btext\b~",$value["Type"]) )
+                {               
+                    $sql['value'].="".$value['Field']." != '".$post[$value['Field']]."' OR ";
+                }
+                if (preg_match("~\bemail\b~",$value["Type"]) )
+                {               
+                    $sql['value'].="".$value['Field']." != ".$post[$value['Field']]."' OR "; 
+                }
+                    
+                }
+            $sql['value']= preg_replace('/\W\w+\s*(\W*)$/', '$1', $sql['value']);
+            $sql['value'].= " )";
+            //echo $sql['value'];
             return $sql;
     }
     public function validate_variable_type($input){

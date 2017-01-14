@@ -51,7 +51,8 @@ class view{
         $rows = $db -> select("SHOW COLUMNS FROM ".$title);
         $i=0;
 
-        echo '<form action="/public/action/action.php" method="post">'; 
+        echo '<form action="/public/action/action.php" method="post" enctype="multipart/form-data">'; 
+        echo ' <input id="fileToUpload" name="fileToUpload" type="file" class="file" />';
         foreach ($rows as $key => $value) 
         {                             
                 if ($i%3==0)
@@ -190,7 +191,8 @@ class view{
         }        
         $rows = $db -> select("SHOW COLUMNS FROM ".$title);
         $i=0;
-        echo '<form action="/public/action/action.php"method="post">'; 
+        echo '<form action="/public/action/action.php"method="post" enctype="multipart/form-data">'; 
+        echo ' <input id="fileToUpload" name="fileToUpload" type="file" class="file" />';
         foreach ($rows as $key => $value) 
         {                             
                 if ($i%3==0)
@@ -601,7 +603,83 @@ class view{
         
     }
 }
-class action{
+class attachment{
+   public function upload($file,$post){ 
+        if ($file['fileToUpload']['size']== 0){
+            return 1;
+            break;
+        }
+        $file_name=rand(100000000,999999999);
+        $now=date("ymdhi");
+        $target_dir = $_SERVER['DOCUMENT_ROOT']."/public/upload/attachment/"; 
+        $target_file = $target_dir . basename($file["fileToUpload"]["name"]); 
+        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+        $target_file = $target_dir . basename($now."-".$file_name.".".$imageFileType);       
+        $uploadOk = 1;
+        
+        // Check if image file is a actual image or fake image
+        if(isset($_POST["submit"])) {
+            $check = getimagesize($file["fileToUpload"]["tmp_name"]);
+            if($check !== false) {
+                echo "File is an image - " . $check["mime"] . ".";
+                $uploadOk = 1;
+            } else {
+                echo "File is not an image.";
+                $uploadOk = 0;
+            }
+        }
+        // Check if file already exists
+        if (file_exists($target_file)) {
+            echo "Sorry, file already exists.";
+            $uploadOk = 0;
+        }
+        // Check file size
+        $file_size=1048576*5;
+        if ($file["fileToUpload"]["size"] > $file_size) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+        // Allow certain file formats
+        if($imageFileType != "JPG" && $imageFileType != "jpg" && $imageFileType != "jpeg" && $imageFileType != "JPEG"
+        && $imageFileType != "PNG" && $imageFileType != "png" 
+        && $imageFileType != "PDF" && $imageFileType != "pdf"
+        ) {
+            echo "Sorry, only JPG, PNG and PDF files are allowed.";
+            $uploadOk = 0;
+        }
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.";
+            return false;
+        // if everything is ok, try to upload file
+        } else {
+            if (move_uploaded_file($file["fileToUpload"]["tmp_name"], $target_file)) {
+                echo "The file ". basename( $file["fileToUpload"]["name"]). " has been uploaded.";
+                $this -> log($target_file,$post);
+                return true;
+            } else {
+                return false;
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+   }
+   public function log($dir,$post){
+        $db = new Db();
+        $validate = new validate();
+        $table_list=$validate->table_list();  
+        $extension = pathinfo($dir,PATHINFO_EXTENSION);            
+         foreach ( $table_list as $key => $value) {
+             if (strpos($post['form_title'], "".$value."") !== false) {
+                    $next_id= $db -> select("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'bathline_v2' AND TABLE_NAME = '".$value."'"); 
+                    $next_id=$next_id[0]['AUTO_INCREMENT'];
+                    $column_head=$validate->column_head('attachment');                       
+                    $sql="INSERT INTO attachment (".$column_head.") VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'".$_SESSION['employee_id']."','".$value."',".$next_id.",1,'".$dir."','".$extension."')";  
+                    echo "<br>".$sql."</br>";
+                    $result = $db->query($sql);
+                }
+          }  
+        
+   }
 
 }
 ?>

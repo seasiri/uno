@@ -41,6 +41,7 @@ class Db {
 
         // Query the database
         $result = $connection -> query($query);
+        //echo $connection -> affected_rows."<br>";         
         if ($result)
         {
             if (strpos($query, 'INSERT') !== false) {
@@ -50,23 +51,21 @@ class Db {
                             $next_id= Db::select("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'bathline_v2' AND TABLE_NAME = '".$value."'"); 
                             $next_id=$next_id[0]['AUTO_INCREMENT'];
                             $column_head=$validate->column_head('task_log');                       
-                            $sql="INSERT INTO task_log (".$column_head.") VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,'".$value."',".$next_id.",'".$_SESSION['employee_id']."','INSERT',1,7,8,'successfully')";                        
+                            $sql="INSERT INTO task_log (".$column_head.") VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'".$_SESSION['employee_id']."','".$value."',".$next_id.",1,'INSERT','".mysqli_real_escape_string($connection,$query)."',1,'successfully')";  
                             echo $sql;
                             $result = $connection->query($sql);
                         }
                   }  
             }
-            if (strpos($query, 'UPDATE') !== false) {
-                $table_list=$validate->table_list();              
-                 foreach ( $table_list as $key => $value) {
-                     if (strpos($query, " ".$value." ") !== false) {
-                            $next_id= Db::select("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'bathline_v2' AND TABLE_NAME = '".$value."'"); 
-                            $next_id=$next_id[0]['AUTO_INCREMENT'];
+            if (strpos($query, 'UPDATE') !== false && mysqli_affected_rows($connection) > 0) {  
+                $table_list=$validate->table_list();                            
+                foreach ( $table_list as $key => $value) {
+                    if (strpos($query, " ".$value." ") !== false) {
+                            preg_match('/(?<=WHERE id =)\S+/i', $query, $doc_id);   
                             $column_head=$validate->column_head('task_log');                       
-                            $sql="INSERT INTO task_log (".$column_head.") VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,'".$value."',".$next_id.",'3','UPDATE',1,7,8,'successfully')";                        
-                            echo $sql;
-                            $result = $connection->query($sql);
-                        }
+                            $sql="INSERT INTO task_log (".$column_head.") VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'".$_SESSION['employee_id']."','".$value."',".$doc_id[0].",1,'UPDATE','".mysqli_real_escape_string($connection,$query)."',1,'successfully')";  
+                            $result = $connection->query($sql);  
+                        }                      
                   }  
             }
             if (strpos($query, 'UPDATE') !== false) {
