@@ -206,7 +206,7 @@ class view{
                 if (preg_match("~\bdate\b~",$value["Type"]) ) 
                 {   
                     $datetime = strtotime($doc[$value["Field"]]);
-                    $mysqldate = date("T-m-d", $datetime);                                                 
+                    $mysqldate = date("Y-m-d", $datetime);                                                 
                     echo '<div class="form-group">';
                     echo '    <label>'.$value["Field"].'</label>';
                     echo '    <input type="date" class="form-control input-sm" name="'.$value["Field"].'"  placeholder="" value="'.$mysqldate.'">';
@@ -294,17 +294,17 @@ class view{
     }
     public function grid($title){                
         switch ($title) {
-            case 'view_permission_type':
+            case 'action_permission_type':
                     $show_list= "id,
                                 name,
                                 description                                                                                                                                                                          
                                 ";
                 view::grid_make($title,$show_list); 
                 break;
-            case 'view_permission':
+            case 'action_permission':
                     $show_list= "id,
-                                view_permission_type_id,
-                                view_permission_parent_id,
+                                action_permission_type_id,
+                                action_permission_parent_id,
                                 name,
                                 description                                                                                                                                                                           
                                 ";
@@ -433,10 +433,24 @@ class view{
             case 'job':
                     $show_list= "id,
                                 job_parent_id,
-                                task_flow_id,
                                 name,
                                 name_english,
                                 description                                                                                            
+                                ";
+                view::grid_make($title,$show_list); 
+                break; 
+            case 'job_log':
+                    $show_list= "id,
+                                job_id,
+                                employee_id,
+                                job_log_status                                                                                          
+                                ";
+                view::grid_make($title,$show_list); 
+                break; 
+            case 'job_log_status':
+                    $show_list= "id,
+                                name,
+                                description                                                                                        
                                 ";
                 view::grid_make($title,$show_list); 
                 break; 
@@ -506,7 +520,7 @@ class view{
                      
                 }      
                     
-                echo '<td><a href="/?db='.$title.'&act=edit&doc='.$array['id'].'"> edit </a> / <a href="/?db='.$title.'&act=edit"> del </a></td>';
+                echo '<td><a href="?db='.$title.'&act=edit&doc='.$array['id'].'"> edit </a> / <a href="/?db='.$title.'&act=edit"> del </a></td>';
                 echo '</tr>'; 
             }   
             echo '</tbody>'; 

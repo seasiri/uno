@@ -2,6 +2,27 @@
 
 class validate
 {
+    public function lookup_working_job($base_id,$id){
+        $db = new Db();
+        $user = $db -> select("SELECT job_id, job_log_status_id FROM job_log WHERE employee_id = ".$user_id." ORDER BY id DESC");
+        foreach ($user as $key => $value) {
+           if (strpos($base_id, '_id')){
+            $base = rtrim($base_id,'_id');
+            }  
+        }
+        if (strpos($base_id, '_id')){
+            $base = rtrim($base_id,'_id');
+        }        
+        $result = $db -> select("SELECT * FROM ".$base." WHERE id = ".$id);
+        if ($result)
+        {
+            return $result;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public function column_head($input){
         $db = new Db();
         $column_list="";
@@ -147,7 +168,7 @@ class validate
     $post['id']="DEFAULT";
     $post['created']="CURRENT_TIMESTAMP";
     $post['modified']="CURRENT_TIMESTAMP";
-    $post['owner']='1';
+    $post['owner']=$_SESSION['employee_id'];
     $disable_input_list= array("form_title","act");
     $disable_append_quote= array("CURRENT_TIMESTAMP","DEFAULT");
         foreach ($post as $key => $value) {

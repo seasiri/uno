@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 14, 2017 at 05:07 PM
+-- Generation Time: Jan 15, 2017 at 01:56 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -19,6 +19,54 @@ SET time_zone = "+00:00";
 --
 -- Database: `bathline_v2`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `action_permission`
+--
+
+CREATE TABLE `action_permission` (
+  `id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` timestamp NOT NULL,
+  `owner` int(11) NOT NULL,
+  `action_permission_type_id` int(4) NOT NULL,
+  `action_permission_parent_id` int(4) NOT NULL,
+  `task_id` int(4) NOT NULL,
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `action_permission`
+--
+
+INSERT INTO `action_permission` (`id`, `created`, `modified`, `owner`, `action_permission_type_id`, `action_permission_parent_id`, `task_id`, `name`, `description`) VALUES
+(1, '2017-01-15 11:26:29', '2017-01-15 04:26:29', 1, 1, 1, 1, 'เพิ่ม', 'เพิ่มใบPO ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `action_permission_type`
+--
+
+CREATE TABLE `action_permission_type` (
+  `id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` timestamp NOT NULL,
+  `owner` int(4) NOT NULL,
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `action_permission_type`
+--
+
+INSERT INTO `action_permission_type` (`id`, `created`, `modified`, `owner`, `name`, `description`) VALUES
+(1, '2017-01-15 11:03:49', '2017-01-15 04:03:49', 1, 'INSERT', 'ป้อนข้อมูล'),
+(2, '2017-01-15 11:04:07', '2017-01-15 04:04:07', 1, 'EDIT', 'แก้ไขข้อมูล');
 
 -- --------------------------------------------------------
 
@@ -1112,7 +1160,7 @@ CREATE TABLE `authentication` (
 --
 
 INSERT INTO `authentication` (`id`, `username`, `password`, `email`, `verified`, `mod_timestamp`, `employee_id`) VALUES
-('304158793b89c5d93', 'seasiri', '$2y$10$KzftQTbk.c6JvJx14KtLgOf.2u8yv2BovDhzANUHwZqV.D/Na2QIq', 'seawaykung@gmail.com', 1, '2017-01-14 07:58:41', 7777);
+('304158793b89c5d93', 'seasiri', '$2y$10$KzftQTbk.c6JvJx14KtLgOf.2u8yv2BovDhzANUHwZqV.D/Na2QIq', 'seawaykung@gmail.com', 1, '2017-01-15 08:17:31', 1);
 
 -- --------------------------------------------------------
 
@@ -1187,6 +1235,7 @@ CREATE TABLE `employee` (
   `created` datetime NOT NULL,
   `modified` timestamp NOT NULL,
   `owner` int(8) NOT NULL,
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `firstname_thai` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `lastname_thai` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `firstname_english` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
@@ -1204,6 +1253,13 @@ CREATE TABLE `employee` (
   `national_id` varchar(32) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`id`, `created`, `modified`, `owner`, `name`, `firstname_thai`, `lastname_thai`, `firstname_english`, `lastname_english`, `phone`, `email`, `salary`, `address`, `amphur_id`, `province_id`, `advance_task`, `advance_view`, `start_date`, `join_date`, `national_id`) VALUES
+(1, '2017-01-15 11:46:49', '2017-01-15 04:46:49', 1, 'ซี', 'สิรภพ', 'ศิริศิลป์', 'Siraphop', 'Sirisilp', '0802689444', 'seawaykung@gmail.com', 10000, '52 ปรางค์สามยอด', 843, 7, '', '', '2017-01-15', '2017-01-15', '1101402029290');
+
 -- --------------------------------------------------------
 
 --
@@ -1215,13 +1271,27 @@ CREATE TABLE `job` (
   `created` datetime NOT NULL,
   `modified` timestamp NOT NULL,
   `owner` int(8) NOT NULL,
-  `view_permission_id` int(4) NOT NULL,
   `job_parent_id` int(4) NOT NULL,
-  `task_flow_id` int(4) NOT NULL,
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `name_english` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `job`
+--
+
+INSERT INTO `job` (`id`, `created`, `modified`, `owner`, `job_parent_id`, `name`, `name_english`, `description`) VALUES
+(1, '2017-01-15 11:35:32', '2017-01-15 04:35:32', 1, 1, 'root', 'root', 'root'),
+(3, '2017-01-15 13:20:37', '2017-01-15 06:50:20', 7777, 6, 'แผนกจัดซื้อ', ' Purchasing Department', 'สามารถสั่งซื้อสินค้ามาได้ตรงตามเวลา และมีประสิทธิภาพในการควบคุมสินค้า ที่สั่งซื้อมา'),
+(2, '2017-01-15 11:35:32', '2017-01-15 06:50:33', 1, 6, 'แผนกขาย', 'Sales Department', 'เพิ่มยอดขาย สร้างรายได้ให้แก่บริษัท เอาใจใส่ลูกค้า และบริการ ในยามคับขัน '),
+(4, '2017-01-15 13:24:30', '2017-01-15 06:50:44', 7777, 6, 'แผนกคลังสินค้า', 'Warehouse Department', 'ดูแล รักษาสภาพโกดังเก็บของ และสินค้านั้นๆ มีการดูแลตรวจสภาพสินค้า และจำนวนสินค้า สามารถบ่งชี้ปัญหาของขาดและเกินสต็อค มีความรักและห่วงใยในการทำงาน'),
+(5, '2017-01-15 13:29:36', '2017-01-15 06:50:53', 7777, 6, 'แผนกการตลาด', 'Marketing Department', 'ออกสำรวจตลาด เพื่อ เพิ่มช่องทาง ในการขาย ขยายภาพลักษณ์ของบริษัท เข้าใจและรับรู้วสิ่งที่ผู้บริโภคนั้นต้องการ  ใส่ใจทุกรายละเอียดของลูกค้าในเชิงความรู้สึก'),
+(6, '2017-01-15 13:35:17', '2017-01-15 06:50:10', 7777, 10, 'แผนกบุคคล', '็Human Resource Manager', 'สามารถเป็นตัวเชื่อมให้กับ บุคคลากรของบริษัททุกท่านด้วยใจเป็นกลาง ผ่านความชัดเจน และ ร่มเย็น ตรวจสอบและดูแลข้อเท็จจริงของบุคคลากร สามารถหาบุคคลากรใหม่ เมื่อขาดแคลยนโดยคำนึงถึงประสิทธิภาพใน สายงาน และ ผลงาน'),
+(7, '2017-01-15 13:37:38', '2017-01-15 06:51:08', 7777, 6, 'แผนกจัดส่ง', 'Shipping Department', 'ส่งปลอดภัย ตรงเวลา และ แน่วแน่ หมั่นดูแลเอาใจใส่ยานพาหนะ และ พักผ่อนอย่างเพียงพอ'),
+(8, '2017-01-15 13:41:12', '2017-01-15 06:51:20', 7777, 6, 'แผนกบัญชีการเงิน', ' Financial Accountant', 'ตรวจสอบความเป็นมาของเงิน และบันทึก ได้อย่างมีประสิทธิภาพ สามารถทำรายงาน วิเคราะห์ เชิงลึก เพื่อเป็นแนวทางและข้อมูลให้แก่ผู้บริหารได้ รับผิดชอบและซื่อสัตย์'),
+(9, '2017-01-15 13:46:35', '2017-01-15 06:46:35', 7777, 1, 'ประธานกรรมการบริหาร ', 'Chief Executive Officer', ''),
+(10, '2017-01-15 13:49:46', '2017-01-15 06:49:46', 7777, 9, ' ประธานเจ้าหน้าที่บริหาร', 'Chief Executive Officer', '');
 
 -- --------------------------------------------------------
 
@@ -1239,6 +1309,15 @@ CREATE TABLE `job_log` (
   `job_log_status_id` int(8) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `job_log`
+--
+
+INSERT INTO `job_log` (`id`, `created`, `modified`, `owner`, `job_id`, `employee_id`, `job_log_status_id`) VALUES
+(1, '2017-01-15 15:16:02', '2017-01-15 08:16:02', 1, 2, 1, 1),
+(2, '2017-01-15 15:16:02', '2017-01-15 09:30:29', 1, 2, 1, 3),
+(3, '2017-01-15 15:16:02', '2017-01-15 09:35:15', 1, 3, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -1254,6 +1333,16 @@ CREATE TABLE `job_log_status` (
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `job_log_status`
+--
+
+INSERT INTO `job_log_status` (`id`, `created`, `modified`, `owner`, `name`, `description`) VALUES
+(1, '2017-01-15 11:39:55', '2017-01-15 04:39:55', 1, 'HIRE', 'รับหน้าที่'),
+(2, '2017-01-15 11:40:40', '2017-01-15 04:40:40', 1, 'FIRE', 'ไล่ออก'),
+(3, '2017-01-15 11:40:49', '2017-01-15 04:43:00', 1, 'RESIGN', 'ลาออก'),
+(4, '2017-01-15 11:41:24', '2017-01-15 04:41:24', 1, 'DETENTION', 'พักงาน');
+
 -- --------------------------------------------------------
 
 --
@@ -1267,6 +1356,15 @@ CREATE TABLE `loginattempts` (
   `Username` varchar(65) DEFAULT NULL,
   `ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `loginattempts`
+--
+
+INSERT INTO `loginattempts` (`IP`, `Attempts`, `LastLogin`, `Username`, `ID`) VALUES
+('127.0.0.1', 1, '2017-01-14 18:04:01', 'seasiri', 1),
+('127.0.0.1', 3, '2017-01-15 03:33:46', 'sea', 2),
+('::1', 1, '2017-01-15 08:17:38', 'seasiri', 3);
 
 -- --------------------------------------------------------
 
@@ -1611,6 +1709,7 @@ CREATE TABLE `task` (
   `task_parent_id` int(4) NOT NULL,
   `task_action_type_id` int(4) NOT NULL,
   `task_status_id` int(4) NOT NULL,
+  `job_id` int(8) NOT NULL,
   `amphur_id` int(4) NOT NULL,
   `province_id` int(4) NOT NULL,
   `country_id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
@@ -1623,6 +1722,26 @@ CREATE TABLE `task` (
   `success_msg_thai` text COLLATE utf8_unicode_ci NOT NULL,
   `success_msg_english` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `task`
+--
+
+INSERT INTO `task` (`id`, `created`, `modified`, `owner`, `task_parent_id`, `task_action_type_id`, `task_status_id`, `job_id`, `amphur_id`, `province_id`, `country_id`, `name`, `description`, `task_open`, `task_close`, `error_msg_thai`, `error_msg_english`, `success_msg_thai`, `success_msg_english`) VALUES
+(1, '2017-01-15 11:18:20', '2017-01-15 06:02:14', 1, 1, 1, 1, 1, 843, 7, 'ไทย', 'root', 'root', '2017-01-15', '2018-01-15', '', '', '', ''),
+(3, '2017-01-15 13:11:41', '2017-01-15 07:11:49', 7777, 6, 3, 1, 8, 843, 7, 'ไทย', 'ยื่นขออนุมัติวงเงิน ใบสั่งซื้อ', 'ยื่นอนุมัติวงเงิน ใบสั่งซื้อ', '2017-01-15', '2018-01-15', '', '', '', ''),
+(2, '2017-01-15 11:18:20', '2017-01-15 07:00:08', 1, 1, 1, 1, 2, 843, 7, 'ไทย', 'บันทึกใบ PO', 'ิบันทึกใบPO ผ่านทางระบบ bathline uno ', '2017-01-15', '2018-01-15', '', '', '', ''),
+(4, '2017-01-15 13:17:01', '2017-01-15 07:05:21', 7777, 6, 4, 1, 8, 843, 7, 'ไทย', 'อนุมัติวงเงิน ใบสั่งซื้อแบบ อัตโนมัติ', 'อนุมัติวงเงิน อัตโนมัติโดยมีระบบคอยควบคุมไม่ให้เกินวงเงิน', '2017-01-15', '2018-01-15', '', '', '', ''),
+(5, '2017-01-15 13:55:22', '2017-01-15 06:55:55', 7777, 3, 4, 1, 10, 843, 7, 'ไทย', 'อนุมัติวงเงิน ใบสั่งซื้อ', 'อนุมัติวงเงิน เมื่อมีความสมเหตุสมผล', '2017-01-15', '2018-01-15', '', '', '', ''),
+(6, '2017-01-15 14:02:48', '2017-01-15 07:02:48', 7777, 2, 4, 1, 2, 843, 7, 'ไทย', 'ตรวจสอบความถูกต้อง ใบสั่งซื้อ', 'ตรวจสอบความถูกต้อง ใบสั่งซื้อ', '2017-01-15', '2018-01-15', '', '', '', ''),
+(7, '2017-01-15 14:03:41', '2017-01-15 07:03:41', 7777, 6, 2, 1, 2, 843, 7, 'ไทย', 'แก้ไขใบสั่งซื้อ', 'แก้ไขใบสั่งซื้อ', '2017-01-15', '2018-01-15', '', '', '', ''),
+(8, '2017-01-15 14:42:26', '2017-01-15 07:42:26', 7777, 4, 2, 1, 2, 843, 7, 'ไทย', 'แบ่งส่ง', 'แบ่งส่ง', '2017-01-15', '2018-01-15', '', '', '', ''),
+(9, '2017-01-15 14:48:43', '2017-01-15 07:48:43', 7777, 8, 4, 1, 4, 843, 7, 'ไทย', 'เช็คสินค้า กับ ใบสั่งซื้อ', 'เช็คสินค้า กับ ใบสั่งซื้อ', '2017-01-15', '2018-01-15', '', '', '', ''),
+(10, '2017-01-15 14:59:50', '2017-01-15 07:59:50', 7777, 9, 1, 1, 7, 843, 7, 'ไทย', 'เริ่มการส่งสินค้า', 'เริ่มการส่งสินค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
+(11, '2017-01-15 15:00:40', '2017-01-15 08:00:40', 7777, 9, 3, 1, 7, 843, 7, 'ไทย', 'ส่งเสร็จสิ้น', 'ส่งเสร็จสิ้น', '2017-01-15', '2018-01-15', '', '', '', ''),
+(12, '2017-01-15 15:02:24', '2017-01-15 08:02:24', 7777, 11, 4, 1, 4, 843, 7, 'ไทย', 'ตรวจสอบสินค้าชำรุด', 'ตรวจสอบสินค้าชำรุด', '2017-01-15', '2018-01-15', '', '', '', ''),
+(13, '2017-01-15 15:04:11', '2017-01-15 08:04:11', 7777, 12, 1, 1, 8, 843, 7, 'ไทย', 'บันทึกเงินเข้า', 'บันทึกเงินเข้า', '2017-01-15', '2018-01-15', '', '', '', ''),
+(14, '2017-01-15 15:05:00', '2017-01-15 08:05:00', 7777, 12, 1, 1, 8, 843, 7, 'ไทย', 'ลงรายละเอียดสินค้าชำรุด', 'ลงรายละเอียดสินค้าชำรุด', '2017-01-15', '2018-01-15', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1638,6 +1757,16 @@ CREATE TABLE `task_action_type` (
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `task_action_type`
+--
+
+INSERT INTO `task_action_type` (`id`, `created`, `modified`, `owner`, `name`, `description`) VALUES
+(1, '2017-01-15 11:12:21', '2017-01-15 04:12:21', 1, 'INSERT', 'ป้อนข้อมูล'),
+(2, '2017-01-15 12:45:47', '2017-01-15 05:45:47', 1, 'EDIT', 'แก้ไขข้อมูล'),
+(3, '2017-01-15 13:12:23', '2017-01-15 06:12:50', 7777, 'PENDING_APPROVAL', 'ยื่นอนุมัติ'),
+(4, '2017-01-15 13:12:38', '2017-01-15 06:12:38', 7777, 'APPROVAL', 'อนุมัติ');
 
 -- --------------------------------------------------------
 
@@ -1675,6 +1804,75 @@ CREATE TABLE `task_log` (
   `task_msg` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `task_log`
+--
+
+INSERT INTO `task_log` (`id`, `created`, `modified`, `owner`, `record_name`, `record_document`, `task_id`, `task_action_type`, `query`, `task_log_status_id`, `task_msg`) VALUES
+(1, '2017-01-15 11:03:49', '2017-01-15 04:03:49', 7777, 'view_permission_type', 2, 1, 'INSERT', 'INSERT INTO view_permission_type (id,created,modified,owner,name,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'INSERT\',\'ป้อนข้อมูล\')', 1, 'successfully'),
+(2, '2017-01-15 11:04:07', '2017-01-15 04:04:07', 7777, 'view_permission_type', 3, 1, 'INSERT', 'INSERT INTO view_permission_type (id,created,modified,owner,name,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'EDIT\',\'แก้ไขข้อมูล\')', 1, 'successfully'),
+(3, '2017-01-15 11:12:21', '2017-01-15 04:12:21', 7777, 'task_action_type', 2, 1, 'INSERT', 'INSERT INTO task_action_type (id,created,modified,owner,name,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'INSERT\',\'ป้อนข้อมูล\')', 1, 'successfully'),
+(4, '2017-01-15 11:13:34', '2017-01-15 04:13:34', 7777, 'task_status', 2, 1, 'INSERT', 'INSERT INTO task_status (id,created,modified,owner,name,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'ACTIVE\',\'สถานะเปิด\')', 1, 'successfully'),
+(5, '2017-01-15 11:14:55', '2017-01-15 04:14:55', 7777, 'task_status', 3, 1, 'INSERT', 'INSERT INTO task_status (id,created,modified,owner,name,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'DEACTIVATE\',\'สถานะปิด\')', 1, 'successfully'),
+(6, '2017-01-15 11:15:08', '2017-01-15 04:15:08', 7777, 'task_status', 1, 1, 'UPDATE', 'UPDATE task_status SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'ACTIVATE\',description=\'สถานะเปิด\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'ACTIVATE\' OR description != \'สถานะเปิด\' )', 1, 'successfully'),
+(7, '2017-01-15 11:18:20', '2017-01-15 04:18:20', 7777, 'task', 2, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,1,843,7,\'ไทย\',\'เพิ่มใบPO\',\'เพิ่มใบPO\',\'2017-01-15\',\'2017-02-15\',\'ไม่สามารถเพิ่มได้\',\'the data type is invalid\',\'เพิ่มสำเร็จ\',\'insert PO Order sucessfully\')', 1, 'successfully'),
+(8, '2017-01-15 11:22:33', '2017-01-15 04:22:33', 7777, 'task', 1, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=1,task_status_id=1,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'ใบPO\',description=\'ใบPO\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 1 OR task_status_id != 1 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'ใบPO\' OR description != \'ใบPO\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(9, '2017-01-15 11:26:29', '2017-01-15 04:26:29', 7777, 'action_permission', 2, 1, 'INSERT', 'INSERT INTO action_permission (id,created,modified,owner,action_permission_type_id,action_permission_parent_id,task_id,name,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,1,\'เพิ่ม\',\'เพิ่มใบPO \')', 1, 'successfully'),
+(10, '2017-01-15 11:35:32', '2017-01-15 04:35:32', 7777, 'job', 2, 1, 'INSERT', 'INSERT INTO job (id,created,modified,owner,job_parent_id,task_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,\'แผนกขาย\',\'Sales Department\',\'ขายของตั้งแต่การรับอ้อเด้อลูกค้าจนไปถึงการดูแลลูกให้มีความพึงพอใจกับการบริการให้มากที่สุด\')', 1, 'successfully'),
+(11, '2017-01-15 11:39:55', '2017-01-15 04:39:55', 7777, 'job_log_status', 2, 1, 'INSERT', 'INSERT INTO job_log_status (id,created,modified,owner,name,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'HIRE\',\'รับหน้าที่\')', 1, 'successfully'),
+(12, '2017-01-15 11:40:40', '2017-01-15 04:40:40', 7777, 'job_log_status', 3, 1, 'INSERT', 'INSERT INTO job_log_status (id,created,modified,owner,name,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'FIRE\',\'ไล่ออก\')', 1, 'successfully'),
+(13, '2017-01-15 11:40:49', '2017-01-15 04:40:49', 7777, 'job_log_status', 4, 1, 'INSERT', 'INSERT INTO job_log_status (id,created,modified,owner,name,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'ลาออก\',\'ลาออก\')', 1, 'successfully'),
+(14, '2017-01-15 11:41:24', '2017-01-15 04:41:24', 7777, 'job_log_status', 5, 1, 'INSERT', 'INSERT INTO job_log_status (id,created,modified,owner,name,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'DETENTION\',\'พักงาน\')', 1, 'successfully'),
+(15, '2017-01-15 11:43:00', '2017-01-15 04:43:00', 7777, 'job_log_status', 3, 1, 'UPDATE', 'UPDATE job_log_status SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'RESIGN\',description=\'ลาออก\' WHERE id =3 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'RESIGN\' OR description != \'ลาออก\' )', 1, 'successfully'),
+(16, '2017-01-15 11:46:49', '2017-01-15 04:46:49', 7777, 'employee', 2, 1, 'INSERT', 'INSERT INTO employee (id,created,modified,owner,firstname_thai,lastname_thai,firstname_english,lastname_english,phone,email,salary,address,amphur_id,province_id,advance_task,advance_view,start_date,join_date,national_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'สิรภพ\',\'ศิริศิลป์\',\'Siraphop\',\'Sirisilp\',\'0802689444\',\'seawaykung@gmail.com\',10000,\'52 ปรางค์สามยอด\',843,7,\'\',\'\',\'2017-01-15\',\'2017-01-15\',\'1101402029290\')', 1, 'successfully'),
+(17, '2017-01-15 12:41:20', '2017-01-15 05:41:20', 7777, 'task', 1, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=1,task_status_id=1,job_id=1,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'ใบPO\',description=\'ใบPO\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 1 OR task_status_id != 1 OR job_id != 1 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'ใบPO\' OR description != \'ใบPO\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(18, '2017-01-15 12:45:47', '2017-01-15 05:45:47', 7777, 'task_action_type', 3, 1, 'INSERT', 'INSERT INTO task_action_type (id,created,modified,owner,name,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'EDIT\',\'แก้ไขข้อมูล\')', 1, 'successfully'),
+(19, '2017-01-15 13:02:14', '2017-01-15 06:02:14', 7777, 'task', 1, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=1,task_status_id=1,job_id=1,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'root\',description=\'root\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 1 OR task_status_id != 1 OR job_id != 1 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'root\' OR description != \'root\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(20, '2017-01-15 13:11:41', '2017-01-15 06:11:41', 7777, 'task', 4, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,2,1,1,2,843,7,\'ไทย\',\'อนุมัติวงเงิน\',\'อนุมัติวงเงิน\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(21, '2017-01-15 13:12:23', '2017-01-15 06:12:23', 7777, 'task_action_type', 4, 1, 'INSERT', 'INSERT INTO task_action_type (id,created,modified,owner,name,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,\'PENDING_APPROVAL\',\'ิอนุมัติ\')', 1, 'successfully'),
+(22, '2017-01-15 13:12:38', '2017-01-15 06:12:38', 7777, 'task_action_type', 5, 1, 'INSERT', 'INSERT INTO task_action_type (id,created,modified,owner,name,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,\'APPROVAL\',\'อนุมัติ\')', 1, 'successfully'),
+(23, '2017-01-15 13:12:50', '2017-01-15 06:12:50', 7777, 'task_action_type', 3, 1, 'UPDATE', 'UPDATE task_action_type SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=7777,name=\'PENDING_APPROVAL\',description=\'ยื่นอนุมัติ\' WHERE id =3 AND ( id != id OR created != created OR modified != modified OR owner != 7777 OR name != \'PENDING_APPROVAL\' OR description != \'ยื่นอนุมัติ\' )', 1, 'successfully'),
+(24, '2017-01-15 13:14:35', '2017-01-15 06:14:35', 7777, 'task', 3, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=7777,task_parent_id=2,task_action_type_id=3,task_status_id=1,job_id=2,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'ยื่นอนุมัติวงเงิน\',description=\'ยื่นอนุมัติวงเงิน\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =3 AND ( id != id OR created != created OR modified != modified OR owner != 7777 OR task_parent_id != 2 OR task_action_type_id != 3 OR task_status_id != 1 OR job_id != 2 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'ยื่นอนุมัติวงเงิน\' OR description != \'ยื่นอนุมัติวงเงิน\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(25, '2017-01-15 13:17:01', '2017-01-15 06:17:01', 7777, 'task', 5, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,2,4,1,2,843,7,\'ไทย\',\'อนุมัติวงเงิน อัตโนมัติ\',\'อนุมัติวงเงิน อัตโนมัติโดยมีระบบคอยควบคุมไม่ให้เกินวงเงิน\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(26, '2017-01-15 13:20:37', '2017-01-15 06:20:37', 7777, 'job', 4, 1, 'INSERT', 'INSERT INTO job (id,created,modified,owner,job_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,1,\'แผนกจัดซื้อ\',\' Purchasing Department\',\'สามารถสั่งซื้อสินค้ามาได้ตรงตามเวลา และมีประสิทธิภาพในการควบคุมสินค้า ที่สั่งซื้อมา\')', 1, 'successfully'),
+(27, '2017-01-15 13:21:04', '2017-01-15 06:21:04', 7777, 'job', 2, 1, 'UPDATE', 'UPDATE job SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,job_parent_id=1,name=\'แผนกขาย\',name_english=\'Sales Department\',description=\'ดูแลตั้งแต่การรับอ้อเด้อลูกค้าจนไปถึงการดูแลลูกใ...\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR job_parent_id != 1 OR name != \'แผนกขาย\' OR name_english != \'Sales Department\' OR description != \'ดูแลตั้งแต่การรับอ้อเด้อลูกค้าจนไปถึงการดูแลลูกใ...\' )', 1, 'successfully'),
+(28, '2017-01-15 13:24:30', '2017-01-15 06:24:30', 7777, 'job', 5, 1, 'INSERT', 'INSERT INTO job (id,created,modified,owner,job_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,1,\'แผนกคลังสินค้า\',\'Warehouse Department\',\'ดูแล รักษาสภาพโกดังเก็บของ และสินค้านั้นๆ มีการดูแลตรวจสภาพสินค้า และจำนวนสินค้า สามารถบ่งชี้ปัญหาของขาดและเกินสต็อค มีความรักและห่วงใยในการทำงาน\')', 1, 'successfully'),
+(29, '2017-01-15 13:29:36', '2017-01-15 06:29:36', 7777, 'job', 6, 1, 'INSERT', 'INSERT INTO job (id,created,modified,owner,job_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,1,\'แผนกการตลาด\',\'Marketing Department\',\'ออกสำรวจตลาด เพื่อ เพิ่มช่องทาง ในการขาย ขยายภาพลักษณ์ของบริษัท เข้าใจและรับรู้วสิ่งที่ผู้บริโภคนั้นต้องการ  ใส่ใจทุกรายละเอียดของลูกค้าในเชิงความรู้สึก\')', 1, 'successfully'),
+(30, '2017-01-15 13:35:17', '2017-01-15 06:35:17', 7777, 'job', 7, 1, 'INSERT', 'INSERT INTO job (id,created,modified,owner,job_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,1,\'แผนกบุคคล\',\'็Human Resource Manager\',\'สามารถเป็นตัวเชื่อมให้กับ บุคคลากรของบริษัททุกท่านด้วยใจเป็นกลาง ผ่านความชัดเจน และ ร่มเย็น ตรวจสอบและดูแลข้อเท็จจริงของบุคคลากร สามารถหาบุคคลากรใหม่ เมื่อขาดแคลยนโดยคำนึงถึงประสิทธิภาพใน สายงาน และ ผลงาน\')', 1, 'successfully'),
+(31, '2017-01-15 13:37:38', '2017-01-15 06:37:38', 7777, 'job', 8, 1, 'INSERT', 'INSERT INTO job (id,created,modified,owner,job_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,1,\'แผนกจัดส่ง\',\'Shipping Department\',\'ส่งปลอดภัย ตรงเวลา และ แน่วแน่ หมั่นดูแลเอาใจใส่ยานพาหนะ และ พักผ่อนอย่างเพียงพอ\')', 1, 'successfully'),
+(32, '2017-01-15 13:41:12', '2017-01-15 06:41:12', 7777, 'job', 9, 1, 'INSERT', 'INSERT INTO job (id,created,modified,owner,job_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,1,\'แผนกบัญชีการเงิน\',\' Financial Accountant\',\'ตรวจสอบความเป็นมาของเงิน และบันทึก ได้อย่างมีประสิทธิภาพ สามารถทำรายงาน วิเคราะห์ เชิงลึก เพื่อเป็นแนวทางและข้อมูลให้แก่ผู้บริหารได้ รับผิดชอบและซื่อสัตย์\')', 1, 'successfully'),
+(33, '2017-01-15 13:43:30', '2017-01-15 06:43:30', 7777, 'task', 3, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=7777,task_parent_id=2,task_action_type_id=3,task_status_id=1,job_id=8,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'ยื่นอนุมัติวงเงิน\',description=\'ยื่นอนุมัติวงเงิน\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =3 AND ( id != id OR created != created OR modified != modified OR owner != 7777 OR task_parent_id != 2 OR task_action_type_id != 3 OR task_status_id != 1 OR job_id != 8 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'ยื่นอนุมัติวงเงิน\' OR description != \'ยื่นอนุมัติวงเงิน\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(34, '2017-01-15 13:43:42', '2017-01-15 06:43:42', 7777, 'task', 4, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=7777,task_parent_id=2,task_action_type_id=4,task_status_id=1,job_id=8,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'อนุมัติวงเงิน อัตโนมัติ\',description=\'อนุมัติวงเงิน อัตโนมัติโดยมีระบบคอยควบคุมไม่ให้เกินวงเงิน\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =4 AND ( id != id OR created != created OR modified != modified OR owner != 7777 OR task_parent_id != 2 OR task_action_type_id != 4 OR task_status_id != 1 OR job_id != 8 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'อนุมัติวงเงิน อัตโนมัติ\' OR description != \'อนุมัติวงเงิน อัตโนมัติโดยมีระบบคอยควบคุมไม่ให้เกินวงเงิน\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(35, '2017-01-15 13:44:01', '2017-01-15 06:44:01', 7777, 'task', 2, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=1,task_status_id=1,job_id=2,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'ใบPO\',description=\'ใบPO\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 1 OR task_status_id != 1 OR job_id != 2 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'ใบPO\' OR description != \'ใบPO\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(36, '2017-01-15 13:46:35', '2017-01-15 06:46:35', 7777, 'job', 10, 1, 'INSERT', 'INSERT INTO job (id,created,modified,owner,job_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,1,\'ประธานกรรมการบริหาร \',\'Chief Executive Officer\',\'\')', 1, 'successfully'),
+(37, '2017-01-15 13:49:46', '2017-01-15 06:49:46', 7777, 'job', 11, 1, 'INSERT', 'INSERT INTO job (id,created,modified,owner,job_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,9,\' ประธานเจ้าหน้าที่บริหาร\',\'Chief Executive Officer\',\'\')', 1, 'successfully'),
+(38, '2017-01-15 13:50:10', '2017-01-15 06:50:10', 7777, 'job', 6, 1, 'UPDATE', 'UPDATE job SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=7777,job_parent_id=10,name=\'แผนกบุคคล\',name_english=\'็Human Resource Manager\',description=\'สามารถเป็นตัวเชื่อมให้กับ บุคคลากรของบริษัททุกท่านด้วยใจเป็นกลาง ผ่านความชัดเจน และ ร่มเย็น ตรวจสอบและดูแลข้อเท็จจริงของบุคคลากร สามารถหาบุคคลากรใหม่ เมื่อขาดแคลยนโดยคำนึงถึงประสิทธิภาพใน สายงาน และ ผลงาน\' WHERE id =6 AND ( id != id OR created != created OR modified != modified OR owner != 7777 OR job_parent_id != 10 OR name != \'แผนกบุคคล\' OR name_english != \'็Human Resource Manager\' OR description != \'สามารถเป็นตัวเชื่อมให้กับ บุคคลากรของบริษัททุกท่านด้วยใจเป็นกลาง ผ่านความชัดเจน และ ร่มเย็น ตรวจสอบและดูแลข้อเท็จจริงของบุคคลากร สามารถหาบุคคลากรใหม่ เมื่อขาดแคลยนโดยคำนึงถึงประสิทธิภาพใน สายงาน และ ผลงาน\' )', 1, 'successfully'),
+(39, '2017-01-15 13:50:20', '2017-01-15 06:50:20', 7777, 'job', 3, 1, 'UPDATE', 'UPDATE job SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=7777,job_parent_id=6,name=\'แผนกจัดซื้อ\',name_english=\' Purchasing Department\',description=\'สามารถสั่งซื้อสินค้ามาได้ตรงตามเวลา และมีประสิทธิภาพในการควบคุมสินค้า ที่สั่งซื้อมา\' WHERE id =3 AND ( id != id OR created != created OR modified != modified OR owner != 7777 OR job_parent_id != 6 OR name != \'แผนกจัดซื้อ\' OR name_english != \' Purchasing Department\' OR description != \'สามารถสั่งซื้อสินค้ามาได้ตรงตามเวลา และมีประสิทธิภาพในการควบคุมสินค้า ที่สั่งซื้อมา\' )', 1, 'successfully'),
+(40, '2017-01-15 13:50:33', '2017-01-15 06:50:33', 7777, 'job', 2, 1, 'UPDATE', 'UPDATE job SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,job_parent_id=6,name=\'แผนกขาย\',name_english=\'Sales Department\',description=\'เพิ่มยอดขาย สร้างรายได้ให้แก่บริษัท เอาใจใส่ลูกค้า และบริการ ในยามคับขัน \' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR job_parent_id != 6 OR name != \'แผนกขาย\' OR name_english != \'Sales Department\' OR description != \'เพิ่มยอดขาย สร้างรายได้ให้แก่บริษัท เอาใจใส่ลูกค้า และบริการ ในยามคับขัน \' )', 1, 'successfully'),
+(41, '2017-01-15 13:50:44', '2017-01-15 06:50:44', 7777, 'job', 4, 1, 'UPDATE', 'UPDATE job SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=7777,job_parent_id=6,name=\'แผนกคลังสินค้า\',name_english=\'Warehouse Department\',description=\'ดูแล รักษาสภาพโกดังเก็บของ และสินค้านั้นๆ มีการดูแลตรวจสภาพสินค้า และจำนวนสินค้า สามารถบ่งชี้ปัญหาของขาดและเกินสต็อค มีความรักและห่วงใยในการทำงาน\' WHERE id =4 AND ( id != id OR created != created OR modified != modified OR owner != 7777 OR job_parent_id != 6 OR name != \'แผนกคลังสินค้า\' OR name_english != \'Warehouse Department\' OR description != \'ดูแล รักษาสภาพโกดังเก็บของ และสินค้านั้นๆ มีการดูแลตรวจสภาพสินค้า และจำนวนสินค้า สามารถบ่งชี้ปัญหาของขาดและเกินสต็อค มีความรักและห่วงใยในการทำงาน\' )', 1, 'successfully'),
+(42, '2017-01-15 13:50:53', '2017-01-15 06:50:53', 7777, 'job', 5, 1, 'UPDATE', 'UPDATE job SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=7777,job_parent_id=6,name=\'แผนกการตลาด\',name_english=\'Marketing Department\',description=\'ออกสำรวจตลาด เพื่อ เพิ่มช่องทาง ในการขาย ขยายภาพลักษณ์ของบริษัท เข้าใจและรับรู้วสิ่งที่ผู้บริโภคนั้นต้องการ  ใส่ใจทุกรายละเอียดของลูกค้าในเชิงความรู้สึก\' WHERE id =5 AND ( id != id OR created != created OR modified != modified OR owner != 7777 OR job_parent_id != 6 OR name != \'แผนกการตลาด\' OR name_english != \'Marketing Department\' OR description != \'ออกสำรวจตลาด เพื่อ เพิ่มช่องทาง ในการขาย ขยายภาพลักษณ์ของบริษัท เข้าใจและรับรู้วสิ่งที่ผู้บริโภคนั้นต้องการ  ใส่ใจทุกรายละเอียดของลูกค้าในเชิงความรู้สึก\' )', 1, 'successfully'),
+(43, '2017-01-15 13:51:08', '2017-01-15 06:51:08', 7777, 'job', 7, 1, 'UPDATE', 'UPDATE job SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=7777,job_parent_id=6,name=\'แผนกจัดส่ง\',name_english=\'Shipping Department\',description=\'ส่งปลอดภัย ตรงเวลา และ แน่วแน่ หมั่นดูแลเอาใจใส่ยานพาหนะ และ พักผ่อนอย่างเพียงพอ\' WHERE id =7 AND ( id != id OR created != created OR modified != modified OR owner != 7777 OR job_parent_id != 6 OR name != \'แผนกจัดส่ง\' OR name_english != \'Shipping Department\' OR description != \'ส่งปลอดภัย ตรงเวลา และ แน่วแน่ หมั่นดูแลเอาใจใส่ยานพาหนะ และ พักผ่อนอย่างเพียงพอ\' )', 1, 'successfully'),
+(44, '2017-01-15 13:51:20', '2017-01-15 06:51:20', 7777, 'job', 8, 1, 'UPDATE', 'UPDATE job SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=7777,job_parent_id=6,name=\'แผนกบัญชีการเงิน\',name_english=\' Financial Accountant\',description=\'ตรวจสอบความเป็นมาของเงิน และบันทึก ได้อย่างมีประสิทธิภาพ สามารถทำรายงาน วิเคราะห์ เชิงลึก เพื่อเป็นแนวทางและข้อมูลให้แก่ผู้บริหารได้ รับผิดชอบและซื่อสัตย์\' WHERE id =8 AND ( id != id OR created != created OR modified != modified OR owner != 7777 OR job_parent_id != 6 OR name != \'แผนกบัญชีการเงิน\' OR name_english != \' Financial Accountant\' OR description != \'ตรวจสอบความเป็นมาของเงิน และบันทึก ได้อย่างมีประสิทธิภาพ สามารถทำรายงาน วิเคราะห์ เชิงลึก เพื่อเป็นแนวทางและข้อมูลให้แก่ผู้บริหารได้ รับผิดชอบและซื่อสัตย์\' )', 1, 'successfully'),
+(45, '2017-01-15 13:55:22', '2017-01-15 06:55:22', 7777, 'task', 6, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,3,4,1,10,843,7,\'ไทย\',\'ยื่นอนุมัติวงเงิน\',\'อนุมัติวงเงิน เมื่อมีความสมเหตุสมผล\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(46, '2017-01-15 13:55:55', '2017-01-15 06:55:55', 7777, 'task', 5, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=7777,task_parent_id=3,task_action_type_id=4,task_status_id=1,job_id=10,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'อนุมัติวงเงิน ใบสั่งซื้อ\',description=\'อนุมัติวงเงิน เมื่อมีความสมเหตุสมผล\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =5 AND ( id != id OR created != created OR modified != modified OR owner != 7777 OR task_parent_id != 3 OR task_action_type_id != 4 OR task_status_id != 1 OR job_id != 10 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'อนุมัติวงเงิน ใบสั่งซื้อ\' OR description != \'อนุมัติวงเงิน เมื่อมีความสมเหตุสมผล\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(47, '2017-01-15 13:56:12', '2017-01-15 06:56:12', 7777, 'task', 4, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=7777,task_parent_id=2,task_action_type_id=4,task_status_id=1,job_id=8,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'อนุมัติวงเงิน ใบสั่งซื้อแบบ อัตโนมัติ\',description=\'อนุมัติวงเงิน อัตโนมัติโดยมีระบบคอยควบคุมไม่ให้เกินวงเงิน\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =4 AND ( id != id OR created != created OR modified != modified OR owner != 7777 OR task_parent_id != 2 OR task_action_type_id != 4 OR task_status_id != 1 OR job_id != 8 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'อนุมัติวงเงิน ใบสั่งซื้อแบบ อัตโนมัติ\' OR description != \'อนุมัติวงเงิน อัตโนมัติโดยมีระบบคอยควบคุมไม่ให้เกินวงเงิน\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(48, '2017-01-15 13:56:48', '2017-01-15 06:56:48', 7777, 'task', 3, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=7777,task_parent_id=2,task_action_type_id=3,task_status_id=1,job_id=8,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'ยื่นอนุมัติวงเงิน ใบสั่งซื้อ\',description=\'ยื่นอนุมัติวงเงิน ใบสั่งซื้อ\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =3 AND ( id != id OR created != created OR modified != modified OR owner != 7777 OR task_parent_id != 2 OR task_action_type_id != 3 OR task_status_id != 1 OR job_id != 8 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'ยื่นอนุมัติวงเงิน ใบสั่งซื้อ\' OR description != \'ยื่นอนุมัติวงเงิน ใบสั่งซื้อ\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(49, '2017-01-15 13:59:36', '2017-01-15 06:59:36', 7777, 'task', 2, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=1,task_status_id=1,job_id=2,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'ิบันทึกใบPO\',description=\'ิบันทึกใบPO ผ่านทางระบบ bathline uno \',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 1 OR task_status_id != 1 OR job_id != 2 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'ิบันทึกใบPO\' OR description != \'ิบันทึกใบPO ผ่านทางระบบ bathline uno \' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(50, '2017-01-15 14:00:08', '2017-01-15 07:00:08', 7777, 'task', 2, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=1,task_status_id=1,job_id=2,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'บันทึกใบ PO\',description=\'ิบันทึกใบPO ผ่านทางระบบ bathline uno \',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 1 OR task_status_id != 1 OR job_id != 2 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'บันทึกใบ PO\' OR description != \'ิบันทึกใบPO ผ่านทางระบบ bathline uno \' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(51, '2017-01-15 14:02:48', '2017-01-15 07:02:48', 7777, 'task', 7, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,2,4,1,2,843,7,\'ไทย\',\'ตรวจสอบความถูกต้อง ใบสั่งซื้อ\',\'ตรวจสอบความถูกต้อง ใบสั่งซื้อ\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(52, '2017-01-15 14:03:41', '2017-01-15 07:03:41', 7777, 'task', 8, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,6,2,1,2,843,7,\'ไทย\',\'แก้ไขใบสั่งซื้อ\',\'แก้ไขใบสั่งซื้อ\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(53, '2017-01-15 14:05:04', '2017-01-15 07:05:04', 7777, 'task', 3, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=7777,task_parent_id=6,task_action_type_id=3,task_status_id=1,job_id=8,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'ยื่นอนุมัติวงเงิน ใบสั่งซื้อ\',description=\'ยื่นอนุมัติวงเงิน ใบสั่งซื้อ\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =3 AND ( id != id OR created != created OR modified != modified OR owner != 7777 OR task_parent_id != 6 OR task_action_type_id != 3 OR task_status_id != 1 OR job_id != 8 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'ยื่นอนุมัติวงเงิน ใบสั่งซื้อ\' OR description != \'ยื่นอนุมัติวงเงิน ใบสั่งซื้อ\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(54, '2017-01-15 14:05:21', '2017-01-15 07:05:21', 7777, 'task', 4, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=7777,task_parent_id=6,task_action_type_id=4,task_status_id=1,job_id=8,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'อนุมัติวงเงิน ใบสั่งซื้อแบบ อัตโนมัติ\',description=\'อนุมัติวงเงิน อัตโนมัติโดยมีระบบคอยควบคุมไม่ให้เกินวงเงิน\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =4 AND ( id != id OR created != created OR modified != modified OR owner != 7777 OR task_parent_id != 6 OR task_action_type_id != 4 OR task_status_id != 1 OR job_id != 8 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'อนุมัติวงเงิน ใบสั่งซื้อแบบ อัตโนมัติ\' OR description != \'อนุมัติวงเงิน อัตโนมัติโดยมีระบบคอยควบคุมไม่ให้เกินวงเงิน\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(55, '2017-01-15 14:11:49', '2017-01-15 07:11:49', 7777, 'task', 3, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=7777,task_parent_id=6,task_action_type_id=3,task_status_id=1,job_id=8,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'ยื่นขออนุมัติวงเงิน ใบสั่งซื้อ\',description=\'ยื่นอนุมัติวงเงิน ใบสั่งซื้อ\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =3 AND ( id != id OR created != created OR modified != modified OR owner != 7777 OR task_parent_id != 6 OR task_action_type_id != 3 OR task_status_id != 1 OR job_id != 8 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'ยื่นขออนุมัติวงเงิน ใบสั่งซื้อ\' OR description != \'ยื่นอนุมัติวงเงิน ใบสั่งซื้อ\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(56, '2017-01-15 14:42:26', '2017-01-15 07:42:26', 7777, 'task', 9, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,4,2,1,2,843,7,\'ไทย\',\'แบ่งส่ง\',\'แบ่งส่ง\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(57, '2017-01-15 14:48:43', '2017-01-15 07:48:43', 7777, 'task', 10, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,8,4,1,4,843,7,\'ไทย\',\'เช็คสินค้า กับ ใบสั่งซื้อ\',\'เช็คสินค้า กับ ใบสั่งซื้อ\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(58, '2017-01-15 14:59:50', '2017-01-15 07:59:50', 7777, 'task', 11, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,9,1,1,7,843,7,\'ไทย\',\'เริ่มการส่งสินค้า\',\'เริ่มการส่งสินค้า\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(59, '2017-01-15 15:00:40', '2017-01-15 08:00:40', 7777, 'task', 12, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,9,3,1,7,843,7,\'ไทย\',\'ส่งเสร็จสิ้น\',\'ส่งเสร็จสิ้น\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(60, '2017-01-15 15:02:24', '2017-01-15 08:02:24', 7777, 'task', 13, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,11,4,1,4,843,7,\'ไทย\',\'ตรวจสอบสินค้าชำรุด\',\'ตรวจสอบสินค้าชำรุด\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(61, '2017-01-15 15:04:11', '2017-01-15 08:04:11', 7777, 'task', 14, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,12,1,1,8,843,7,\'ไทย\',\'บันทึกเงินเข้า\',\'บันทึกเงินเข้า\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(62, '2017-01-15 15:05:00', '2017-01-15 08:05:00', 7777, 'task', 15, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,12,1,1,8,843,7,\'ไทย\',\'ลงรายละเอียดสินค้าชำรุด\',\'ลงรายละเอียดสินค้าชำรุด\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(63, '2017-01-15 15:16:02', '2017-01-15 08:16:02', 7777, 'job_log', 2, 1, 'INSERT', 'INSERT INTO job_log (id,created,modified,owner,job_id,employee_id,job_log_status_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,2,1,1)', 1, 'successfully');
+
 -- --------------------------------------------------------
 
 --
@@ -1705,41 +1903,29 @@ CREATE TABLE `task_status` (
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `view_permission`
+-- Dumping data for table `task_status`
 --
 
-CREATE TABLE `view_permission` (
-  `id` int(11) NOT NULL,
-  `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(11) NOT NULL,
-  `view_permission_type_id` int(4) NOT NULL,
-  `view_permission_parent_id` int(4) NOT NULL,
-  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `view_permission_type`
---
-
-CREATE TABLE `view_permission_type` (
-  `id` int(11) NOT NULL,
-  `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(4) NOT NULL,
-  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+INSERT INTO `task_status` (`id`, `created`, `modified`, `owner`, `name`, `description`) VALUES
+(1, '2017-01-15 11:13:34', '2017-01-15 04:15:08', 1, 'ACTIVATE', 'สถานะเปิด'),
+(2, '2017-01-15 11:14:55', '2017-01-15 04:14:55', 1, 'DEACTIVATE', 'สถานะปิด');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `action_permission`
+--
+ALTER TABLE `action_permission`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `action_permission_type`
+--
+ALTER TABLE `action_permission_type`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `agent`
@@ -1955,21 +2141,19 @@ ALTER TABLE `task_status`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `view_permission`
---
-ALTER TABLE `view_permission`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `view_permission_type`
---
-ALTER TABLE `view_permission_type`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `action_permission`
+--
+ALTER TABLE `action_permission`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `action_permission_type`
+--
+ALTER TABLE `action_permission_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `agent`
 --
@@ -2014,27 +2198,27 @@ ALTER TABLE `delivery_process_status`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `job`
 --
 ALTER TABLE `job`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `job_log`
 --
 ALTER TABLE `job_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `job_log_status`
 --
 ALTER TABLE `job_log_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `loginattempts`
 --
 ALTER TABLE `loginattempts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `note`
 --
@@ -2114,12 +2298,12 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `task_action_type`
 --
 ALTER TABLE `task_action_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `task_flow`
 --
@@ -2129,7 +2313,7 @@ ALTER TABLE `task_flow`
 -- AUTO_INCREMENT for table `task_log`
 --
 ALTER TABLE `task_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 --
 -- AUTO_INCREMENT for table `task_log_status`
 --
@@ -2139,17 +2323,7 @@ ALTER TABLE `task_log_status`
 -- AUTO_INCREMENT for table `task_status`
 --
 ALTER TABLE `task_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `view_permission`
---
-ALTER TABLE `view_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `view_permission_type`
---
-ALTER TABLE `view_permission_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

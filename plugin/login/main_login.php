@@ -20,7 +20,7 @@ if (isset($_SESSION['username'])) {
     <div class="container">
 
       <form class="form-signin" name="form1" method="post" action="checklogin.php">
-        <h2 class="form-signin-heading">BATHLINE</h2>
+        <h2 class="form-signin-heading">BATHLINE / <small>v.2 31cc4ea</small></h2>
         <input name="myusername" id="myusername" type="text" class="form-control" placeholder="ชื่อเข้าใช้งาน" autofocus>
         <input name="mypassword" id="mypassword" type="password" class="form-control" placeholder="รหัสผ่าน">
         <!-- The checkbox remember me is not implemented yet...
