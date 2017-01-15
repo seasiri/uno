@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 15, 2017 at 04:21 PM
+-- Generation Time: Jan 15, 2017 at 08:01 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -1316,9 +1316,10 @@ CREATE TABLE `job_log` (
 --
 
 INSERT INTO `job_log` (`id`, `created`, `modified`, `owner`, `job_id`, `employee_id`, `job_log_status_id`) VALUES
-(1, '2017-01-15 15:16:02', '2017-01-15 08:16:02', 1, 2, 1, 1),
+(1, '2017-01-10 15:16:02', '2017-01-15 08:16:02', 1, 2, 1, 1),
 (2, '2017-01-15 15:16:02', '2017-01-15 09:30:29', 1, 2, 1, 3),
-(3, '2017-01-15 15:16:02', '2017-01-15 09:35:15', 1, 3, 1, 1);
+(3, '2017-01-16 00:20:47', '2017-01-15 09:35:15', 1, 3, 1, 1),
+(5, '2017-01-15 15:16:02', '2017-01-15 17:31:52', 1, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1332,18 +1333,19 @@ CREATE TABLE `job_log_status` (
   `modified` timestamp NOT NULL,
   `owner` int(8) NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `boolean` int(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `job_log_status`
 --
 
-INSERT INTO `job_log_status` (`id`, `created`, `modified`, `owner`, `name`, `description`) VALUES
-(1, '2017-01-15 11:39:55', '2017-01-15 04:39:55', 1, 'HIRE', 'รับหน้าที่'),
-(2, '2017-01-15 11:40:40', '2017-01-15 04:40:40', 1, 'FIRE', 'ไล่ออก'),
-(3, '2017-01-15 11:40:49', '2017-01-15 04:43:00', 1, 'RESIGN', 'ลาออก'),
-(4, '2017-01-15 11:41:24', '2017-01-15 04:41:24', 1, 'DETENTION', 'พักงาน');
+INSERT INTO `job_log_status` (`id`, `created`, `modified`, `owner`, `name`, `description`, `boolean`) VALUES
+(1, '2017-01-15 11:39:55', '2017-01-15 04:39:55', 1, 'HIRE', 'รับหน้าที่', 0),
+(2, '2017-01-15 11:40:40', '2017-01-15 04:40:40', 1, 'FIRE', 'ไล่ออก', 0),
+(3, '2017-01-15 11:40:49', '2017-01-15 04:43:00', 1, 'RESIGN', 'ลาออก', 0),
+(4, '2017-01-15 11:41:24', '2017-01-15 04:41:24', 1, 'DETENTION', 'พักงาน', 0);
 
 -- --------------------------------------------------------
 
@@ -1431,7 +1433,8 @@ CREATE TABLE `order_detail_status` (
   `modified` timestamp NOT NULL,
   `owner` int(8) NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `boolean` int(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1477,7 +1480,8 @@ CREATE TABLE `order_process_status` (
   `owner` int(8) NOT NULL,
   `order_process_status_parent_id` int(11) NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `boolean` int(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1562,7 +1566,8 @@ CREATE TABLE `product_status` (
   `modified` timestamp NOT NULL,
   `owner` int(8) NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `boolean` int(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1877,7 +1882,8 @@ INSERT INTO `task_log` (`id`, `created`, `modified`, `owner`, `record_name`, `re
 (60, '2017-01-15 15:02:24', '2017-01-15 08:02:24', 7777, 'task', 13, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,11,4,1,4,843,7,\'ไทย\',\'ตรวจสอบสินค้าชำรุด\',\'ตรวจสอบสินค้าชำรุด\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
 (61, '2017-01-15 15:04:11', '2017-01-15 08:04:11', 7777, 'task', 14, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,12,1,1,8,843,7,\'ไทย\',\'บันทึกเงินเข้า\',\'บันทึกเงินเข้า\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
 (62, '2017-01-15 15:05:00', '2017-01-15 08:05:00', 7777, 'task', 15, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,12,1,1,8,843,7,\'ไทย\',\'ลงรายละเอียดสินค้าชำรุด\',\'ลงรายละเอียดสินค้าชำรุด\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
-(63, '2017-01-15 15:16:02', '2017-01-15 08:16:02', 7777, 'job_log', 2, 1, 'INSERT', 'INSERT INTO job_log (id,created,modified,owner,job_id,employee_id,job_log_status_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,2,1,1)', 1, 'successfully');
+(63, '2017-01-15 15:16:02', '2017-01-15 08:16:02', 7777, 'job_log', 2, 1, 'INSERT', 'INSERT INTO job_log (id,created,modified,owner,job_id,employee_id,job_log_status_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,2,1,1)', 1, 'successfully'),
+(64, '2017-01-16 00:20:47', '2017-01-15 17:20:47', 1, 'job_log', 5, 1, 'INSERT', 'INSERT INTO job_log (id,created,modified,owner,job_id,employee_id,job_log_status_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,7,1,1)', 1, 'successfully');
 
 -- --------------------------------------------------------
 
@@ -1906,16 +1912,17 @@ CREATE TABLE `task_status` (
   `modified` timestamp NOT NULL,
   `owner` int(8) NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `boolean` int(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `task_status`
 --
 
-INSERT INTO `task_status` (`id`, `created`, `modified`, `owner`, `name`, `description`) VALUES
-(1, '2017-01-15 11:13:34', '2017-01-15 04:15:08', 1, 'ACTIVATE', 'สถานะเปิด'),
-(2, '2017-01-15 11:14:55', '2017-01-15 04:14:55', 1, 'DEACTIVATE', 'สถานะปิด');
+INSERT INTO `task_status` (`id`, `created`, `modified`, `owner`, `name`, `description`, `boolean`) VALUES
+(1, '2017-01-15 11:13:34', '2017-01-15 04:15:08', 1, 'ACTIVATE', 'สถานะเปิด', 1),
+(2, '2017-01-15 11:14:55', '2017-01-15 04:14:55', 1, 'DEACTIVATE', 'สถานะปิด', 0);
 
 --
 -- Indexes for dumped tables
@@ -2214,7 +2221,7 @@ ALTER TABLE `job`
 -- AUTO_INCREMENT for table `job_log`
 --
 ALTER TABLE `job_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `job_log_status`
 --
@@ -2319,7 +2326,7 @@ ALTER TABLE `task_flow`
 -- AUTO_INCREMENT for table `task_log`
 --
 ALTER TABLE `task_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 --
 -- AUTO_INCREMENT for table `task_log_status`
 --
