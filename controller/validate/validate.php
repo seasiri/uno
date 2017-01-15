@@ -2,84 +2,24 @@
 
 class validate
 {
-    public function lookup_task_from_job($job_list){
+    public function lookup_working_job($base_id,$id){
         $db = new Db();
-        if ($job_list)
-        {
-            foreach ($job_list as $key => $value) {
-                $user_id=$key;
-                foreach ($job_list[$key] as $key2=> $value2) {
-                        $task = $db -> select("SELECT id, name, description,task_parent_id,task_action_type_id,task_status_id FROM task WHERE job_id = ".$job_list[$key][$key2]['job_id']."");
-                }
-            }
-                foreach ($task as $key => $value) {
-                   $temp= validate::check_status($task[$key]['task_status_id'],'task_status_id'); 
-                   if ($temp){
-                        $remix_task[$user_id][$key]=$value;  
-                    }                
-                }
-            if (isset($remix_task)){
-                return $remix_task;
-            }else{
-                return false;
-            }
-        }       
-    }
-    public function lookup_working_job($user_id){
-        $db = new Db();
-        $user = $db -> select("SELECT job_id, job_log_status_id FROM job_log WHERE employee_id = ".$user_id."");
-        $current_job=array();
+        $user = $db -> select("SELECT job_id, job_log_status_id FROM job_log WHERE employee_id = ".$user_id." ORDER BY id DESC");
         foreach ($user as $key => $value) {
-            $temp= validate::check_status($user[$key]['job_log_status_id'],'job_log_status_id'); 
-               if ($temp){
-                    $remix_job[$user_id][$key]=$value;  
-                } 
+           if (strpos($base_id, '_id')){
+            $base = rtrim($base_id,'_id');
+            }  
         }
-        if (isset($remix_job)){
-            return $remix_job;
-        }else{
-            return false;
-        }  
-    }
-    public function check_status($input,$base_id){
-        $db = new Db();
         if (strpos($base_id, '_id')){
             $base = rtrim($base_id,'_id');
-        }
-        $boolean = $db -> select("SELECT name FROM ".$base." WHERE boolean = 1");
-        foreach ($boolean as $key => $value) {
-            $yes[]=$boolean[$key]['name'];
-        }
-        $boolean = $db -> select("SELECT name FROM ".$base." WHERE boolean = 0");
-        foreach ($boolean as $key => $value) {
-            $no[]=$boolean[$key]['name'];
-        }
-        $status=validate::lookup_join_table($base_id,$input);
-        if (!isset($yes) || !isset($no))
+        }        
+        $result = $db -> select("SELECT * FROM ".$base." WHERE id = ".$id);
+        if ($result)
         {
-            return false;
-        }else
-        if (in_array($status[0]['name'],$yes)){
-            return $input;
-        }else
-        if (in_array($status[0]['name'],$no)){
-            return false;
-        }else{
-            return false;
+            return $result;
         }
-     }
-    public function lookup_join_table($base_id,$value){
-        $db = new Db();
-        if (strpos($base_id, '_id')){
-            $base = rtrim($base_id,'_id');
-            $result = $db -> select("SELECT * FROM ".$base." WHERE id = ".$value);
-            if ($result){
-                return $result;
-            }
-            else{
-                return false;
-            }
-        }else{
+        else
+        {
             return false;
         }
     }

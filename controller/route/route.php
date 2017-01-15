@@ -1,20 +1,22 @@
 <?php
 class route
 {
-    public function authorization($profile){
+    public function authorization($info){
+        if (isset($info)){
+            route::view($info['employee_id']);
+        }
+    }
+    public function view($user_id){
         $db = new Db(); 
         $validate = new validate();
-        if (isset($profile)){
-            route::task_permission($profile['employee_id']);        }
-    }
-    public function task_permission($user_id){
-        $db = new Db(); 
-        $validate = new validate();
-        $job = $validate -> lookup_working_job($user_id);
-        $task = $validate -> lookup_task_from_job($job);        
-    }
-    public function construct($user_id){
-        //task_type to construct page
+        //what user's job?
+        $user = $db -> select("SELECT job_id, job_log_status_id FROM job_log WHERE employee_id = ".$user_id." ORDER BY id DESC");
+        var_dump($user);
+        $job = $validate -> lookup('job_id',$user[0]['job_id']);
+        $job_log_status = $validate -> lookup('job_log_status_id',$user[0]['job_log_status_id']);
+        var_dump($job_log_status);
+        //if (isset($user['job_id']) && $job_log_status[0]['name']=="HIRE")
+        
     }
 }
 ?>
