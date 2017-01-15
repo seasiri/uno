@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 15, 2017 at 01:56 PM
+-- Generation Time: Jan 15, 2017 at 04:21 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -82,7 +82,10 @@ CREATE TABLE `agent` (
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `phone` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `region_id` int(8) NOT NULL
+  `region_id` int(8) NOT NULL,
+  `bank_account_1` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `bank_account_2` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `tax_identification` varchar(32) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1246,19 +1249,18 @@ CREATE TABLE `employee` (
   `address` text COLLATE utf8_unicode_ci NOT NULL,
   `amphur_id` int(8) NOT NULL,
   `province_id` int(8) NOT NULL,
-  `advance_task` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `advance_view` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `start_date` date NOT NULL,
   `join_date` date NOT NULL,
-  `national_id` varchar(32) COLLATE utf8_unicode_ci NOT NULL
+  `national_id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `bank_account` varchar(32) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`id`, `created`, `modified`, `owner`, `name`, `firstname_thai`, `lastname_thai`, `firstname_english`, `lastname_english`, `phone`, `email`, `salary`, `address`, `amphur_id`, `province_id`, `advance_task`, `advance_view`, `start_date`, `join_date`, `national_id`) VALUES
-(1, '2017-01-15 11:46:49', '2017-01-15 04:46:49', 1, 'ซี', 'สิรภพ', 'ศิริศิลป์', 'Siraphop', 'Sirisilp', '0802689444', 'seawaykung@gmail.com', 10000, '52 ปรางค์สามยอด', 843, 7, '', '', '2017-01-15', '2017-01-15', '1101402029290');
+INSERT INTO `employee` (`id`, `created`, `modified`, `owner`, `name`, `firstname_thai`, `lastname_thai`, `firstname_english`, `lastname_english`, `phone`, `email`, `salary`, `address`, `amphur_id`, `province_id`, `start_date`, `join_date`, `national_id`, `bank_account`) VALUES
+(1, '2017-01-15 11:46:49', '2017-01-15 04:46:49', 1, 'ซี', 'สิรภพ', 'ศิริศิลป์', 'Siraphop', 'Sirisilp', '0802689444', 'seawaykung@gmail.com', 10000, '52 ปรางค์สามยอด', 843, 7, '2017-01-15', '2017-01-15', '1101402029290', '');
 
 -- --------------------------------------------------------
 
@@ -1495,7 +1497,8 @@ CREATE TABLE `product` (
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `name_english` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `short_description` text COLLATE utf8_unicode_ci NOT NULL,
-  `long_description` text COLLATE utf8_unicode_ci NOT NULL
+  `long_description` text COLLATE utf8_unicode_ci NOT NULL,
+  `barcode` varchar(32) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1692,7 +1695,10 @@ CREATE TABLE `supplier` (
   `province` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   `country` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `phone` int(16) NOT NULL
+  `phone` int(16) NOT NULL,
+  `bank_account` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `bank_account_2` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `tax_identification` varchar(32) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
