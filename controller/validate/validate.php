@@ -2,22 +2,73 @@
 
 class validate
 {
-    public function lookup_task_from_job($job_list){
-        $db = new Db();
+    public function set_db_enviroment($db_list){
+        if($db_list)
+        {
+            $db = new Db();
+            $unneed_column = array
+            ("id",
+             "created", 
+             "modified",
+             "owner");
+            foreach ($db_list as $key => $value) {
+                foreach ($db_list[$key] as $key2 => $value2) {
+                    $result=validate::column_head($value2);
+                    $temp[$value2]=explode(',', $result);
+                    foreach ($temp[$value2] as $key3 => $value3) {
+                        if (!in_array($value3, $unneed_column)){
+                         $re_temp[$key][$value2][$value3]="";
+                        }
+                    } 
+                }                            
+             }              
+             return $re_temp;
+        }else{
+            return false;
+        }
+    }
+    public function lookup_prepare_db_name($task_list){
+        if ($task_list)
+        {
+            $db = new Db();        
+            //var_dump($task_list);
+            $db_name;
+            foreach ($task_list as $key => $value) {
+                foreach ($task_list[$key] as $key2 => $value2) {
+                    $result = $db -> select("SELECT db_reference_id FROM task_db_log WHERE task_id = ".$task_list[$key][$key2]['id']."");
+                    if ($result){
+                        foreach ($result as $key3 => $value3) {
+                            $temp=validate::lookup_join_table('db_reference_id',$result[$key3]['db_reference_id']);
+                            $db_name[$task_list[$key][$key2]['id']][]=$temp[0]['db_name'];
+                        }
+                    }
+                }
+            }
+            return $db_name;
+        }else
+        {
+            return false;
+        }       
+    }
+    public function lookup_task_from_job($job_list){        
         if ($job_list)
         {
+            $db = new Db();
+            //var_dump($job_list);
             foreach ($job_list as $key => $value) {
                 $user_id=$key;
                 foreach ($job_list[$key] as $key2=> $value2) {
                         $task = $db -> select("SELECT id, name, description,task_parent_id,task_action_type_id,task_status_id FROM task WHERE job_id = ".$job_list[$key][$key2]['job_id']."");
+                        foreach ($task as $key3 => $value3) {
+                               $temp= validate::check_status($task[$key3]['task_status_id'],'task_status_id'); 
+                               if ($temp){
+                                    $remix_task[$user_id][]=$value3;  
+                                }                
+                        }
                 }
             }
-                foreach ($task as $key => $value) {
-                   $temp= validate::check_status($task[$key]['task_status_id'],'task_status_id'); 
-                   if ($temp){
-                        $remix_task[$user_id][$key]=$value;  
-                    }                
-                }
+            
+            //var_dump($remix_task);    
             if (isset($remix_task)){
                 return $remix_task;
             }else{
@@ -32,8 +83,10 @@ class validate
         foreach ($user as $key => $value) {
             $temp= validate::check_status($user[$key]['job_log_status_id'],'job_log_status_id'); 
                if ($temp){
-                    $remix_job[$user_id][$key]=$value;  
-                } 
+                    $remix_job[$user_id][$user[$key]['job_id']]=$value;  
+                }else{
+                    unset($remix_job[$user_id][$user[$key]['job_id']]);
+                }
         }
         if (isset($remix_job)){
             return $remix_job;

@@ -354,7 +354,7 @@ class view{
                                 task_action_type_id,
                                 name,
                                 task_status_id,
-                                province_id                                                                                                                                               
+                                job_id                                                                                                                                               
                                 ";
                 view::grid_make($title,$show_list); 
                 break;

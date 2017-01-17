@@ -5,6 +5,10 @@
 	<?php require_once('/controller/db/db.php'); ?>	
 	<?php $route = new route(); ?>
 <?php
-	echo $route -> authorization($_SESSION);
+	$enviroment= $route -> authorization($_SESSION);
+	echo '<pre>';
+	print_r($enviroment);
+	echo '</pre>';
+
 
 ?>
