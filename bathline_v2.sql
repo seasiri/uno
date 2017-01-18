@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 15, 2017 at 08:01 PM
+-- Generation Time: Jan 18, 2017 at 08:12 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -86,6 +86,29 @@ CREATE TABLE `agent` (
   `bank_account_1` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `bank_account_2` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `tax_identification` varchar(32) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `agent`
+--
+
+INSERT INTO `agent` (`id`, `created`, `modified`, `owner`, `name`, `phone`, `description`, `region_id`, `bank_account_1`, `bank_account_2`, `tax_identification`) VALUES
+(1, '2017-01-19 00:57:56', '2017-01-18 17:57:56', 1, 'woodandceramic', '', '', 1, '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `agent_credit_log`
+--
+
+CREATE TABLE `agent_credit_log` (
+  `id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` timestamp NOT NULL,
+  `owner` int(8) NOT NULL,
+  `agent_id` int(8) NOT NULL,
+  `amount` decimal(10,0) NOT NULL,
+  `note` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1126,6 +1149,13 @@ CREATE TABLE `attachment` (
   `file_extension` varchar(8) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `attachment`
+--
+
+INSERT INTO `attachment` (`id`, `created`, `modified`, `owner`, `record_name`, `record_document`, `attachment_type`, `file_dir`, `file_extension`) VALUES
+(1, '2017-01-19 01:50:16', '2017-01-18 18:50:16', 1, 'order_list', 3, 1, 'C:/wamp64/www/public/upload/attachment/1701180650-630859375.jpg', 'jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -1137,7 +1167,6 @@ CREATE TABLE `attachment_type` (
   `created` datetime NOT NULL,
   `modified` timestamp NOT NULL,
   `owner` int(8) NOT NULL,
-  `attachment_type_parent_id` int(8) NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -1168,18 +1197,28 @@ INSERT INTO `authentication` (`id`, `username`, `password`, `email`, `verified`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `credit`
+-- Table structure for table `db_reference`
 --
 
-CREATE TABLE `credit` (
+CREATE TABLE `db_reference` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
   `modified` timestamp NOT NULL,
   `owner` int(8) NOT NULL,
-  `agent_id` int(8) NOT NULL,
-  `amount` decimal(10,0) NOT NULL,
-  `note` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `name` varchar(32) NOT NULL,
+  `db_name` varchar(32) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `db_reference`
+--
+
+INSERT INTO `db_reference` (`id`, `created`, `modified`, `owner`, `name`, `db_name`) VALUES
+(1, '2017-01-17 14:21:46', '2017-01-17 07:21:46', 1, 'agent', 'agent'),
+(2, '2017-01-17 14:23:17', '2017-01-17 07:23:17', 1, 'order detail', 'order_detail'),
+(3, '2017-01-17 14:23:33', '2017-01-17 07:23:33', 1, 'order detail status', 'order_detail_status'),
+(4, '2017-01-17 14:24:16', '2017-01-17 07:24:16', 1, 'order list', 'order_list'),
+(5, '2017-01-17 14:24:31', '2017-01-17 07:24:31', 1, 'order process status', 'order_process_status');
 
 -- --------------------------------------------------------
 
@@ -1318,8 +1357,9 @@ CREATE TABLE `job_log` (
 INSERT INTO `job_log` (`id`, `created`, `modified`, `owner`, `job_id`, `employee_id`, `job_log_status_id`) VALUES
 (1, '2017-01-10 15:16:02', '2017-01-15 08:16:02', 1, 2, 1, 1),
 (2, '2017-01-15 15:16:02', '2017-01-15 09:30:29', 1, 2, 1, 3),
-(3, '2017-01-16 00:20:47', '2017-01-15 09:35:15', 1, 3, 1, 1),
-(5, '2017-01-15 15:16:02', '2017-01-15 17:31:52', 1, 2, 1, 1);
+(3, '2017-01-16 00:20:47', '2017-01-15 09:35:15', 1, 4, 1, 1),
+(5, '2017-01-15 15:16:02', '2017-01-15 17:31:52', 1, 2, 1, 1),
+(7, '2017-01-15 15:16:02', '2017-01-17 10:00:20', 1, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1342,7 +1382,7 @@ CREATE TABLE `job_log_status` (
 --
 
 INSERT INTO `job_log_status` (`id`, `created`, `modified`, `owner`, `name`, `description`, `boolean`) VALUES
-(1, '2017-01-15 11:39:55', '2017-01-15 04:39:55', 1, 'HIRE', 'รับหน้าที่', 0),
+(1, '2017-01-15 11:39:55', '2017-01-15 04:39:55', 1, 'HIRE', 'รับหน้าที่', 1),
 (2, '2017-01-15 11:40:40', '2017-01-15 04:40:40', 1, 'FIRE', 'ไล่ออก', 0),
 (3, '2017-01-15 11:40:49', '2017-01-15 04:43:00', 1, 'RESIGN', 'ลาออก', 0),
 (4, '2017-01-15 11:41:24', '2017-01-15 04:41:24', 1, 'DETENTION', 'พักงาน', 0);
@@ -1368,7 +1408,7 @@ CREATE TABLE `loginattempts` (
 INSERT INTO `loginattempts` (`IP`, `Attempts`, `LastLogin`, `Username`, `ID`) VALUES
 ('127.0.0.1', 1, '2017-01-14 18:04:01', 'seasiri', 1),
 ('127.0.0.1', 3, '2017-01-15 03:33:46', 'sea', 2),
-('::1', 1, '2017-01-15 08:17:38', 'seasiri', 3);
+('::1', 1, '2017-01-18 20:11:28', 'seasiri', 3);
 
 -- --------------------------------------------------------
 
@@ -1421,6 +1461,13 @@ CREATE TABLE `order_detail` (
   `order_detail_status_id` int(8) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `order_detail`
+--
+
+INSERT INTO `order_detail` (`id`, `created`, `modified`, `owner`, `order_list_id`, `product_id`, `quantity`, `price`, `order_detail_status_id`) VALUES
+(1, '2017-01-19 01:54:34', '2017-01-18 18:54:34', 1, 1, 1, 12, '30.00', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -1437,6 +1484,13 @@ CREATE TABLE `order_detail_status` (
   `boolean` int(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `order_detail_status`
+--
+
+INSERT INTO `order_detail_status` (`id`, `created`, `modified`, `owner`, `name`, `description`, `boolean`) VALUES
+(1, '2017-01-19 01:02:40', '2017-01-18 18:02:40', 1, 'ADD', 'ADD', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -1451,6 +1505,16 @@ CREATE TABLE `order_list` (
   `agent_id` int(8) NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL COMMENT 'po_number'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `order_list`
+--
+
+INSERT INTO `order_list` (`id`, `created`, `modified`, `owner`, `agent_id`, `name`) VALUES
+(1, '2017-01-19 01:32:42', '2017-01-18 18:32:42', 1, 1, '24242'),
+(2, '2017-01-19 01:48:08', '2017-01-18 18:48:08', 1, 1, '1241'),
+(3, '2017-01-19 01:50:16', '2017-01-18 18:50:16', 1, 1, '2424'),
+(4, '2017-01-19 03:11:41', '2017-01-18 20:11:41', 1, 1, '2');
 
 -- --------------------------------------------------------
 
@@ -1478,7 +1542,6 @@ CREATE TABLE `order_process_status` (
   `created` datetime NOT NULL,
   `modified` timestamp NOT NULL,
   `owner` int(8) NOT NULL,
-  `order_process_status_parent_id` int(11) NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `boolean` int(1) NOT NULL
@@ -1504,6 +1567,13 @@ CREATE TABLE `product` (
   `long_description` text COLLATE utf8_unicode_ci NOT NULL,
   `barcode` varchar(32) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`id`, `created`, `modified`, `owner`, `supplier_id`, `product_catagories_id`, `product_status_id`, `name`, `name_english`, `short_description`, `long_description`, `barcode`) VALUES
+(1, '2017-01-19 01:01:58', '2017-01-18 18:01:58', 1, 1, 1, 1, 'B4023', 'B4023', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1554,6 +1624,13 @@ CREATE TABLE `product_catagories` (
   `name_english` varchar(64) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `product_catagories`
+--
+
+INSERT INTO `product_catagories` (`id`, `created`, `modified`, `owner`, `product_catagories_parent_id`, `name`, `name_english`) VALUES
+(1, '2017-01-19 01:00:35', '2017-01-18 18:00:35', 1, 1, 'root', 'root');
+
 -- --------------------------------------------------------
 
 --
@@ -1569,6 +1646,13 @@ CREATE TABLE `product_status` (
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `boolean` int(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `product_status`
+--
+
+INSERT INTO `product_status` (`id`, `created`, `modified`, `owner`, `name`, `description`, `boolean`) VALUES
+(1, '2017-01-19 01:01:32', '2017-01-18 18:01:32', 1, 'ACTIVE', 'ACTIVE', 1);
 
 -- --------------------------------------------------------
 
@@ -1683,6 +1767,13 @@ CREATE TABLE `region` (
   `region_parent_id` int(8) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `region`
+--
+
+INSERT INTO `region` (`id`, `created`, `modified`, `owner`, `name`, `description`, `region_parent_id`) VALUES
+(1, '2017-01-19 00:57:37', '2017-01-18 17:57:37', 1, 'central', 'central', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -1700,11 +1791,18 @@ CREATE TABLE `supplier` (
   `province` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   `country` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `phone` int(16) NOT NULL,
+  `phone` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `bank_account` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `bank_account_2` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `tax_identification` varchar(32) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `supplier`
+--
+
+INSERT INTO `supplier` (`id`, `created`, `modified`, `owner`, `name`, `description`, `city`, `province`, `country`, `email`, `phone`, `bank_account`, `bank_account_2`, `tax_identification`) VALUES
+(1, '2017-01-19 00:59:57', '2017-01-18 17:59:57', 1, 'Flossy', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1752,7 +1850,8 @@ INSERT INTO `task` (`id`, `created`, `modified`, `owner`, `task_parent_id`, `tas
 (11, '2017-01-15 15:00:40', '2017-01-15 08:00:40', 7777, 9, 3, 1, 7, 843, 7, 'ไทย', 'ส่งเสร็จสิ้น', 'ส่งเสร็จสิ้น', '2017-01-15', '2018-01-15', '', '', '', ''),
 (12, '2017-01-15 15:02:24', '2017-01-15 08:02:24', 7777, 11, 4, 1, 4, 843, 7, 'ไทย', 'ตรวจสอบสินค้าชำรุด', 'ตรวจสอบสินค้าชำรุด', '2017-01-15', '2018-01-15', '', '', '', ''),
 (13, '2017-01-15 15:04:11', '2017-01-15 08:04:11', 7777, 12, 1, 1, 8, 843, 7, 'ไทย', 'บันทึกเงินเข้า', 'บันทึกเงินเข้า', '2017-01-15', '2018-01-15', '', '', '', ''),
-(14, '2017-01-15 15:05:00', '2017-01-15 08:05:00', 7777, 12, 1, 1, 8, 843, 7, 'ไทย', 'ลงรายละเอียดสินค้าชำรุด', 'ลงรายละเอียดสินค้าชำรุด', '2017-01-15', '2018-01-15', '', '', '', '');
+(14, '2017-01-15 15:05:00', '2017-01-15 08:05:00', 7777, 12, 1, 1, 8, 843, 7, 'ไทย', 'ลงรายละเอียดสินค้าชำรุด', 'ลงรายละเอียดสินค้าชำรุด', '2017-01-15', '2018-01-15', '', '', '', ''),
+(15, '2017-01-19 01:52:08', '2017-01-18 18:52:08', 1, 2, 1, 1, 2, 843, 7, 'ไทย', 'บันทึกรายละเอียดสินค้า', 'บันทึกรายละเอียดสินค้า', '2017-01-15', '2018-01-15', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1778,6 +1877,33 @@ INSERT INTO `task_action_type` (`id`, `created`, `modified`, `owner`, `name`, `d
 (2, '2017-01-15 12:45:47', '2017-01-15 05:45:47', 1, 'EDIT', 'แก้ไขข้อมูล'),
 (3, '2017-01-15 13:12:23', '2017-01-15 06:12:50', 7777, 'PENDING_APPROVAL', 'ยื่นอนุมัติ'),
 (4, '2017-01-15 13:12:38', '2017-01-15 06:12:38', 7777, 'APPROVAL', 'อนุมัติ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `task_db_log`
+--
+
+CREATE TABLE `task_db_log` (
+  `id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` timestamp NOT NULL,
+  `owner` int(8) NOT NULL,
+  `task_id` int(4) NOT NULL,
+  `db_reference_id` int(4) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `task_db_log`
+--
+
+INSERT INTO `task_db_log` (`id`, `created`, `modified`, `owner`, `task_id`, `db_reference_id`) VALUES
+(1, '2017-01-17 14:28:27', '2017-01-18 19:39:43', 1, 6, 4),
+(8, '2017-01-19 02:09:58', '2017-01-18 19:48:22', 1, 7, 4),
+(6, '2017-01-19 01:52:25', '2017-01-18 18:52:25', 1, 15, 2),
+(7, '2017-01-19 01:56:20', '2017-01-18 19:39:56', 1, 2, 4),
+(5, '2017-01-17 16:20:34', '2017-01-17 09:20:34', 1, 12, 4),
+(9, '2017-01-19 02:42:20', '2017-01-18 19:42:20', 1, 13, 1);
 
 -- --------------------------------------------------------
 
@@ -1883,7 +2009,39 @@ INSERT INTO `task_log` (`id`, `created`, `modified`, `owner`, `record_name`, `re
 (61, '2017-01-15 15:04:11', '2017-01-15 08:04:11', 7777, 'task', 14, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,12,1,1,8,843,7,\'ไทย\',\'บันทึกเงินเข้า\',\'บันทึกเงินเข้า\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
 (62, '2017-01-15 15:05:00', '2017-01-15 08:05:00', 7777, 'task', 15, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,12,1,1,8,843,7,\'ไทย\',\'ลงรายละเอียดสินค้าชำรุด\',\'ลงรายละเอียดสินค้าชำรุด\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
 (63, '2017-01-15 15:16:02', '2017-01-15 08:16:02', 7777, 'job_log', 2, 1, 'INSERT', 'INSERT INTO job_log (id,created,modified,owner,job_id,employee_id,job_log_status_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,7777,2,1,1)', 1, 'successfully'),
-(64, '2017-01-16 00:20:47', '2017-01-15 17:20:47', 1, 'job_log', 5, 1, 'INSERT', 'INSERT INTO job_log (id,created,modified,owner,job_id,employee_id,job_log_status_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,7,1,1)', 1, 'successfully');
+(64, '2017-01-16 00:20:47', '2017-01-15 17:20:47', 1, 'job_log', 5, 1, 'INSERT', 'INSERT INTO job_log (id,created,modified,owner,job_id,employee_id,job_log_status_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,7,1,1)', 1, 'successfully'),
+(65, '2017-01-17 14:21:46', '2017-01-17 07:21:46', 1, 'db_reference', 2, 1, 'INSERT', 'INSERT INTO db_reference (id,created,modified,owner,name,db_name) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'agent\',\'agent\')', 1, 'successfully'),
+(66, '2017-01-17 14:23:17', '2017-01-17 07:23:17', 1, 'db_reference', 3, 1, 'INSERT', 'INSERT INTO db_reference (id,created,modified,owner,name,db_name) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'order detail\',\'order_detail\')', 1, 'successfully'),
+(67, '2017-01-17 14:23:33', '2017-01-17 07:23:33', 1, 'db_reference', 4, 1, 'INSERT', 'INSERT INTO db_reference (id,created,modified,owner,name,db_name) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'order detail status\',\'order_detail_status\')', 1, 'successfully'),
+(68, '2017-01-17 14:24:16', '2017-01-17 07:24:16', 1, 'db_reference', 5, 1, 'INSERT', 'INSERT INTO db_reference (id,created,modified,owner,name,db_name) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'order list\',\'order_list\')', 1, 'successfully'),
+(69, '2017-01-17 14:24:31', '2017-01-17 07:24:31', 1, 'db_reference', 6, 1, 'INSERT', 'INSERT INTO db_reference (id,created,modified,owner,name,db_name) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'order process status\',\'order_process_status\')', 1, 'successfully'),
+(70, '2017-01-17 14:28:27', '2017-01-17 07:28:27', 1, 'task_db_logg', 2, 1, 'INSERT', 'INSERT INTO task_db_logg (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,2,2)', 1, 'successfully'),
+(71, '2017-01-17 14:29:36', '2017-01-17 07:29:36', 1, 'task_db_logg', 3, 1, 'INSERT', 'INSERT INTO task_db_logg (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,2,3)', 1, 'successfully'),
+(72, '2017-01-17 14:30:07', '2017-01-17 07:30:07', 1, 'task_db_logg', 4, 1, 'INSERT', 'INSERT INTO task_db_logg (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,2,4)', 1, 'successfully'),
+(73, '2017-01-17 14:30:09', '2017-01-17 07:30:09', 1, 'task_db_logg', 5, 1, 'INSERT', 'INSERT INTO task_db_logg (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,2,5)', 1, 'successfully'),
+(74, '2017-01-17 16:20:34', '2017-01-17 09:20:34', 1, 'task_db_log', 6, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,12,4)', 1, 'successfully'),
+(75, '2017-01-19 00:57:37', '2017-01-18 17:57:37', 1, 'region', 2, 1, 'INSERT', 'INSERT INTO region (id,created,modified,owner,name,description,region_parent_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'central\',\'central\',1)', 1, 'successfully'),
+(76, '2017-01-19 00:57:56', '2017-01-18 17:57:56', 1, 'agent', 2, 1, 'INSERT', 'INSERT INTO agent (id,created,modified,owner,name,phone,description,region_id,bank_account_1,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'woodandceramic\',\'\',\'\',1,\'\',\'\',\'\')', 1, 'successfully'),
+(77, '2017-01-19 00:59:57', '2017-01-18 17:59:57', 1, 'supplier', 2, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'Flossy\',\'\',\'\',\'\',\'\',\'\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(78, '2017-01-19 01:00:35', '2017-01-18 18:00:35', 1, 'product_catagories', 2, 1, 'INSERT', 'INSERT INTO product_catagories (id,created,modified,owner,product_catagories_parent_id,name,name_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,\'root\',\'root\')', 1, 'successfully'),
+(79, '2017-01-19 01:01:32', '2017-01-18 18:01:32', 1, 'product_status', 2, 1, 'INSERT', 'INSERT INTO product_status (id,created,modified,owner,name,description,boolean) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'ACTIVE\',\'ACTIVE\',1)', 1, 'successfully'),
+(80, '2017-01-19 01:01:58', '2017-01-18 18:01:58', 1, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,supplier_id,product_catagories_id,product_status_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,1,\'B4023\',\'B4023\',\'\',\'\',\'\')', 1, 'successfully'),
+(81, '2017-01-19 01:02:40', '2017-01-18 18:02:40', 1, 'order_detail_status', 2, 1, 'INSERT', 'INSERT INTO order_detail_status (id,created,modified,owner,name,description,boolean) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'ACTIVE\',\'ACTIVE\',1)', 1, 'successfully'),
+(82, '2017-01-19 01:32:42', '2017-01-18 18:32:42', 1, 'order_list', 2, 1, 'INSERT', 'INSERT INTO order_list (id,created,modified,owner,agent_id,name) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,\'24242\')', 1, 'successfully'),
+(83, '2017-01-19 01:48:08', '2017-01-18 18:48:08', 1, 'order_list', 3, 1, 'INSERT', 'INSERT INTO order_list (id,created,modified,owner,agent_id,name) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,\'1241\')', 1, 'successfully'),
+(84, '2017-01-19 01:50:16', '2017-01-18 18:50:16', 1, 'attachment', 2, 1, 'INSERT', 'INSERT INTO attachment (id,created,modified,owner,record_name,record_document,attachment_type,file_dir,file_extension) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,\'1\',\'order_list\',3,1,\'C:/wamp64/www/public/upload/attachment/1701180650-630859375.jpg\',\'jpg\')', 1, 'successfully'),
+(85, '2017-01-19 01:50:16', '2017-01-18 18:50:16', 1, 'order_list', 4, 1, 'INSERT', 'INSERT INTO order_list (id,created,modified,owner,agent_id,name) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,\'2424\')', 1, 'successfully'),
+(86, '2017-01-19 01:52:08', '2017-01-18 18:52:08', 1, 'task', 16, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,2,1,1,2,843,7,\'ไทย\',\'บันทึกรายละเอียดสินค้า\',\'บันทึกรายละเอียดสินค้า\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(87, '2017-01-19 01:52:25', '2017-01-18 18:52:25', 1, 'task_db_log', 7, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,15,2)', 1, 'successfully'),
+(88, '2017-01-19 01:54:34', '2017-01-18 18:54:34', 1, 'order_detail', 2, 1, 'INSERT', 'INSERT INTO order_detail (id,created,modified,owner,order_list_id,product_id,quantity,price,order_detail_status_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,12,30,1)', 1, 'successfully'),
+(89, '2017-01-19 01:56:20', '2017-01-18 18:56:20', 1, 'task_db_log', 8, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,6,2)', 1, 'successfully'),
+(90, '2017-01-19 02:09:58', '2017-01-18 19:09:58', 1, 'task_db_log', 9, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,7,2)', 1, 'successfully'),
+(91, '2017-01-19 02:31:36', '2017-01-18 19:31:36', 1, 'task_db_log', 7, 1, 'UPDATE', 'UPDATE task_db_log SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_id=6,db_reference_id=4 WHERE id =7 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_id != 6 OR db_reference_id != 4 )', 1, 'successfully'),
+(92, '2017-01-19 02:39:43', '2017-01-18 19:39:43', 1, 'task_db_log', 1, 1, 'UPDATE', 'UPDATE task_db_log SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_id=6,db_reference_id=4 WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_id != 6 OR db_reference_id != 4 )', 1, 'successfully'),
+(93, '2017-01-19 02:39:56', '2017-01-18 19:39:56', 1, 'task_db_log', 7, 1, 'UPDATE', 'UPDATE task_db_log SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_id=2,db_reference_id=4 WHERE id =7 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_id != 2 OR db_reference_id != 4 )', 1, 'successfully'),
+(94, '2017-01-19 02:42:20', '2017-01-18 19:42:20', 1, 'task_db_log', 10, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,13,1)', 1, 'successfully'),
+(95, '2017-01-19 02:48:22', '2017-01-18 19:48:22', 1, 'task_db_log', 8, 1, 'UPDATE', 'UPDATE task_db_log SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_id=7,db_reference_id=4 WHERE id =8 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_id != 7 OR db_reference_id != 4 )', 1, 'successfully'),
+(96, '2017-01-19 03:11:41', '2017-01-18 20:11:41', 1, 'order_list', 5, 1, 'INSERT', 'INSERT INTO order_list (id,created,modified,owner,agent_id,name) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,\'2\')', 1, 'successfully');
 
 -- --------------------------------------------------------
 
@@ -1947,6 +2105,12 @@ ALTER TABLE `agent`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `agent_credit_log`
+--
+ALTER TABLE `agent_credit_log`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `amphur`
 --
 ALTER TABLE `amphur`
@@ -1974,9 +2138,9 @@ ALTER TABLE `authentication`
   ADD UNIQUE KEY `email_UNIQUE` (`email`);
 
 --
--- Indexes for table `credit`
+-- Indexes for table `db_reference`
 --
-ALTER TABLE `credit`
+ALTER TABLE `db_reference`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2130,6 +2294,12 @@ ALTER TABLE `task_action_type`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `task_db_log`
+--
+ALTER TABLE `task_db_log`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `task_flow`
 --
 ALTER TABLE `task_flow`
@@ -2171,6 +2341,11 @@ ALTER TABLE `action_permission_type`
 -- AUTO_INCREMENT for table `agent`
 --
 ALTER TABLE `agent`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `agent_credit_log`
+--
+ALTER TABLE `agent_credit_log`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `amphur`
@@ -2181,17 +2356,17 @@ ALTER TABLE `amphur`
 -- AUTO_INCREMENT for table `attachment`
 --
 ALTER TABLE `attachment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `attachment_type`
 --
 ALTER TABLE `attachment_type`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `credit`
+-- AUTO_INCREMENT for table `db_reference`
 --
-ALTER TABLE `credit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `db_reference`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `delivery`
 --
@@ -2221,7 +2396,7 @@ ALTER TABLE `job`
 -- AUTO_INCREMENT for table `job_log`
 --
 ALTER TABLE `job_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `job_log_status`
 --
@@ -2246,17 +2421,17 @@ ALTER TABLE `note_type`
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `order_detail_status`
 --
 ALTER TABLE `order_detail_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `order_list`
 --
 ALTER TABLE `order_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `order_log`
 --
@@ -2271,7 +2446,7 @@ ALTER TABLE `order_process_status`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `product_attribute`
 --
@@ -2286,12 +2461,12 @@ ALTER TABLE `product_attribute_value`
 -- AUTO_INCREMENT for table `product_catagories`
 --
 ALTER TABLE `product_catagories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `product_status`
 --
 ALTER TABLE `product_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `province`
 --
@@ -2301,22 +2476,27 @@ ALTER TABLE `province`
 -- AUTO_INCREMENT for table `region`
 --
 ALTER TABLE `region`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `task_action_type`
 --
 ALTER TABLE `task_action_type`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `task_db_log`
+--
+ALTER TABLE `task_db_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `task_flow`
 --
@@ -2326,7 +2506,7 @@ ALTER TABLE `task_flow`
 -- AUTO_INCREMENT for table `task_log`
 --
 ALTER TABLE `task_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 --
 -- AUTO_INCREMENT for table `task_log_status`
 --

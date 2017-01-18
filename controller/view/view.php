@@ -125,6 +125,9 @@ class view{
                 $i++;
             
         }
+        if ($i%3==2 ){
+            echo '</div>';
+        }
         echo '<div class="row"><div class="col-md-10"></div><div class="col-md-2">';
         echo      '<button type="submit" class="btn btn-default">Submit</button>';
         echo '</div></div>';
@@ -294,6 +297,133 @@ class view{
     }
     public function grid($title){                
         switch ($title) {
+            case 'task_db_log':
+                    $show_list= "id,
+                                task_id,
+                                db_reference_id                    
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'region':
+                    $show_list= "id,
+                                region_parent_id,
+                                name,
+                                description                     
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'note_type':
+                    $show_list= "id,
+                                name,
+                                description                     
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'note':
+                    $show_list= "id,
+                                title,
+                                employee_id_from,
+                                employee_id_to                      
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'delivery_process_status':
+                    $show_list= "id,
+                                name,
+                                description                      
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'delivery_log':
+                    $show_list= "id,
+                                delivery_id,
+                                delivery_process_status_id                      
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'delivery':
+                    $show_list= "id,
+                                delivery_number,
+                                driver,
+                                order_list                         
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'job_log':
+                    $show_list= "id,
+                                job_id,
+                                employee_id,
+                                job_log_status_id                         
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'db_reference':
+                    $show_list= "id,
+                                name,
+                                db_name                         
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'agent_credit_log':
+                    $show_list= "id,
+                                name,
+                                description                          
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'attachment_type':
+                    $show_list= "id,
+                                name,
+                                description                          
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'agent':
+                    $show_list= "id,
+                                name,
+                                region_id,
+                                phone                           
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'order_process_status':
+                    $show_list= "id,
+                                name,
+                                description                           
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'order_log':
+                    $show_list= "id,
+                                order_list_id,
+                                order_process_status_id                           
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'order_detail_status':
+                    $show_list= "id,
+                                name,
+                                description,
+                                boolean                            
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'order_detail':
+                    $show_list= "id,
+                                order_list_id,
+                                product_id,
+                                quantity,
+                                price                             
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'order_list':
+                    $show_list= "id,
+                                name,
+                                agent_id                             
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
             case 'action_permission_type':
                     $show_list= "id,
                                 name,
@@ -496,7 +626,17 @@ class view{
     }
     public function grid_make($title,$show_list){
         $db = new Db();
+        $validate = new validate();
         $rows = $db -> select("SELECT ".$show_list." FROM ".$title." "); 
+        //var_dump($rows);
+        foreach ($rows as $key => $value) {
+            foreach ($rows[$key] as $key2 => $value2) {
+                if (strpos($key2, 'id') && !strpos($key2, 'parent_id')){
+                   $temp = $validate -> lookup_join_table($key2,$value2);
+                   $rows[$key][$key2]=$temp[0]['name'];
+                }
+            }
+        }
         if ($rows){
             $total_column=count($show_list);  
             echo '<div class="row">'; 
@@ -520,7 +660,7 @@ class view{
                      
                 }      
                     
-                echo '<td><a href="?db='.$title.'&act=edit&doc='.$array['id'].'"> edit </a> / <a href="/?db='.$title.'&act=edit"> del </a></td>';
+                echo '<td><a href="?db='.$title.'&act=edit&doc='.$array['id'].'"> edit </a> / <a href="?db='.$title.'&act=edit"> del </a></td>';
                 echo '</tr>'; 
             }   
             echo '</tbody>'; 

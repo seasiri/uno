@@ -2,6 +2,16 @@
 
 class validate
 {
+    public function lookup_user_profile($user_id){
+        if($user_id)
+        {
+            $db = new Db();
+            $result = $db -> select("SELECT firstname_thai, lastname_thai, name, phone, email, start_date, national_id FROM employee WHERE id = ".$user_id."");
+            if ($result){
+                return $result;
+            }
+        }
+    }
     public function set_db_enviroment($db_list){
         if($db_list)
         {
@@ -62,7 +72,12 @@ class validate
                         foreach ($task as $key3 => $value3) {
                                $temp= validate::check_status($task[$key3]['task_status_id'],'task_status_id'); 
                                if ($temp){
-                                    $remix_task[$user_id][]=$value3;  
+                                    $job_info=validate::lookup_join_table('job_id',$job_list[$key][$key2]['job_id']);
+                                    $task_action_type=validate::lookup_join_table('task_action_type_id',$task[$key3]['task_action_type_id']);
+                                    $value3['job_name']=$job_info[0]['name'];
+                                    $value3['job_id']=$job_list[$key][$key2]['job_id'];
+                                    $value3['task_action_type']= $task_action_type[0]['name'];
+                                    $remix_task[$user_id][]=$value3; 
                                 }                
                         }
                 }
@@ -270,9 +285,6 @@ class validate
             //echo $sql['value'];
             return $sql;
     }
-    public function validate_variable_type($input){
-        
-    }
 
     public function insert($post){
     $db = new Db(); 
@@ -287,13 +299,14 @@ class validate
         foreach ($post as $key => $value) {
             if (!in_array($key, $disable_input_list)) 
             {
-                $query_head .=$key.",";                 
+                                
             }
         }   
         $rows = $db -> select("SHOW COLUMNS FROM ".$post['form_title']);
         //var_dump($rows);  
         foreach ($rows as $key => $value) 
-        {                   
+        {   
+            $query_head .=$value['Field'].",";                 
             if (strpos($value["Type"] , "timestamp") !== false) 
             {   
                 $query_value .=$post[$value['Field']].",";         
