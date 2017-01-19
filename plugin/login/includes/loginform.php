@@ -60,7 +60,7 @@ class LoginForm extends DbConn
             } else {
 
                 //Wrong username or password
-                $success = "<div class=\"alert alert-danger alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Wrong Username or Password</div>";
+                $success = "<div class=\"alert alert-danger alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>ข้อมูล ชื่อผู้ใช้งาน หรือ รหัสผ่านไม่ถูกต้อง</div>";
 
             }
         }

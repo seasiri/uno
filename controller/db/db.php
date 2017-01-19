@@ -13,7 +13,7 @@ class Db {
         // Try and connect to the database
         if(!isset(self::$connection)) {
             // Load configuration as an array. Use the actual location of your configuration file
-            $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/config.ini'); 
+            $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/private/config.ini'); 
             self::$connection = new mysqli('localhost',$config['username'],$config['password'],$config['dbname']);
 
         }
@@ -74,13 +74,13 @@ class Db {
             if (strpos($query, 'DELETE') !== false) {
                 
             }
+            return $result;
         } 
         else
         {
-            $this-> error($result);
+            return false;
         }
         
-        return $result;
     }
 
     /**

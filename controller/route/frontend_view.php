@@ -1,7 +1,7 @@
 <?php
 class frontend_view{
     public function template($info,$get){
-        if (isset($get))
+        if (!empty($get))
         {
             $frontend_view = new frontend_view();
             $view = new view();
@@ -45,7 +45,7 @@ class frontend_view{
                 $i=0;                               
                 foreach ($info['task'] as $key2 => $value2) {
                     if($i==0 && $info['task'][$key2]['job_id']==$info['job'][$key]['job_id']){
-                        echo "<a href=''>@<b>".$info['task'][$key2]['job_name']."</b></a><br>";
+                        echo "<a href='/'>@<b>".$info['task'][$key2]['job_name']."</b></a><br>";
                         $i++;
                     }
                     if ($info['task'][$key2]['job_id']==$info['job'][$key]['job_id'])
@@ -71,10 +71,14 @@ class frontend_view{
                 $doc[$key2] = $value2;
             }
         }        
-        $rows = $db -> select("SHOW COLUMNS FROM ".$title);
+        $rows = $db -> select("SHOW COLUMNS FROM ".$title." WHERE Field NOT IN ('id', 'created','modified','owner')");
         $i=0;
-        echo '<form action="/public/action/action.php"method="post" enctype="multipart/form-data">'; 
-        echo ' <input id="fileToUpload" name="fileToUpload" type="file" class="file" />';
+        echo '<form action="/public/action/frontend_submit.php"method="post" enctype="multipart/form-data">'; 
+        echo '<input id="fileToUpload" name="fileToUpload" type="file" class="file" /><br>';
+        echo '<input type="hidden" name="act" value="'.$_GET['act'].'">';
+        echo '<input type="hidden" name="doc" value="'.$_GET['doc'].'">';
+        echo '<input type="hidden" name="form_title" value="'.$title.'">';
+        echo '<input type="hidden" name="task" value="'.$_GET['task'].'">';
         foreach ($rows as $key => $value) 
         {                             
                 if ($i%3==0)
@@ -169,9 +173,10 @@ class frontend_view{
             $rows = $db -> select("SHOW COLUMNS FROM ".$title." WHERE Field NOT IN ('id', 'created','modified','owner');");
             $i=0;
             echo '<form action="/public/action/frontend_submit.php" method="post" enctype="multipart/form-data">'; 
-            echo '<input id="fileToUpload" name="fileToUpload" type="file" class="file" />';
+            echo '<input id="fileToUpload" name="fileToUpload" type="file" class="file" /><br>';
             echo '<input type="hidden" name="act" value="'.$_GET['act'].'">';
             echo '<input type="hidden" name="form_title" value="'.$title.'">';
+            echo '<input type="hidden" name="task" value="'.$_GET['task'].'">';
             
             foreach ($rows as $key => $value) 
             {                             

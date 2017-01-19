@@ -1,5 +1,6 @@
 <?php
 	var_dump($_FILES);
+	var_dump($_POST);
 	require_once($_SERVER['DOCUMENT_ROOT'].'/controller/view/view.php'); 
  	require_once($_SERVER['DOCUMENT_ROOT'].'/controller/validate/validate.php');
 	require_once($_SERVER['DOCUMENT_ROOT'].'/controller/db/db.php');	
@@ -13,6 +14,7 @@
 			{
 				$sql_element = $validate -> insert($_POST);	
 				$sql="INSERT INTO ".$_POST['form_title']." (".$sql_element['head'].") VALUES (".$sql_element['value'].")";
+				echo $sql;
 				$db -> query($sql);
 			}
 			break;

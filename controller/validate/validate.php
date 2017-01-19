@@ -176,6 +176,7 @@ class validate
     $post['id']="id";
     $post['created']="created";
     $post['modified']="CURRENT_TIMESTAMP";
+    $post['owner']=$_SESSION['employee_id'];
     $disable_input_list= array("form_title","act");
     $disable_append_quote= array("CURRENT_TIMESTAMP","DEFAULT");
         foreach ($post as $key => $value) {

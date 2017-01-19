@@ -297,6 +297,44 @@ class view{
     }
     public function grid($title){                
         switch ($title) {
+            case 'vehicle_log':
+                    $show_list= "id,
+                                vehicle_id,
+                                vehicle_status_id               
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'vehicle_status':
+                    $show_list= "id,
+                                name,
+                                description,
+                                boolean                  
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'vehicle_catagory':
+                    $show_list= "id,
+                                name,
+                                description,
+                                vehicle_catagory_parent_id                   
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'vehicle_brand':
+                    $show_list= "id,
+                                name,
+                                description                    
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'vehicle':
+                    $show_list= "id,
+                                license_number,
+                                vehicle_brand_id,
+                                vehicle_catagory_id                  
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
             case 'task_db_log':
                     $show_list= "id,
                                 task_id,
@@ -345,7 +383,7 @@ class view{
                     $show_list= "id,
                                 delivery_number,
                                 driver,
-                                order_list                         
+                                order_list_id                         
                                 ";
                 view::grid_make($title,$show_list); 
                 break;
@@ -366,8 +404,8 @@ class view{
                 break;
             case 'agent_credit_log':
                     $show_list= "id,
-                                name,
-                                description                          
+                                agent_id,
+                                amount                          
                                 ";
                 view::grid_make($title,$show_list); 
                 break;
@@ -652,17 +690,26 @@ class view{
                                 
             echo '</thead>';  
             echo '<tbody>';                    
-            
+            $result= explode("&",$_SERVER['QUERY_STRING']);
+            //var_dump($result);
+            foreach ($result as $key => $value) {
+               $temp=explode("=",$value);
+               $get[$temp[0]]=$temp[1];
+            }
             foreach ($rows as $key => $array) {   
                 echo "<tr>"; 
                 foreach ($array as $key => $value) {                            
                     echo '<td>'.$value.'</td>';
                      
-                }      
-                    
-                echo '<td><a href="?db='.$title.'&act=edit&doc='.$array['id'].'"> edit </a> / <a href="?db='.$title.'&act=edit"> del </a></td>';
+                }
+                if(isset($get['task'])){
+                    echo '<td><a href="?db='.$title.'&act=edit&doc='.$array['id'].'&task='.$get['task'].'"> edit </a> / <a href="?db='.$title.'&act=edit"> del </a></td>';
+                }else{
+                    echo '<td><a href="?db='.$title.'&act=edit&doc='.$array['id'].'"> edit </a> / <a href="?db='.$title.'&act=edit"> del </a></td>';
+
+                }
                 echo '</tr>'; 
-            }   
+            }
             echo '</tbody>'; 
             echo '</table>';
             echo '</div>';

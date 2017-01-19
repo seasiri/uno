@@ -5,7 +5,7 @@ $(document).ready(function () {
         var username = $("#myusername").val(), password = $("#mypassword").val();
 
         if ((username === "") || (password === "")) {
-            $("#message").html("<div class=\"alert alert-danger alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Please enter a username and a password</div>");
+            $("#message").html("<div class=\"alert alert-danger alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>กรอก ชื่อผู้ใช้งาน และ รหัสผ่านใหม่อีกครั้ง</div>");
         } else {
             $.ajax({
                 type: "POST",
