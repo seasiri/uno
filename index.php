@@ -48,7 +48,7 @@
 		<div class="col-md-2">
 			ใช้งานล่าสุด <br>
 			 <h4> <?php echo "<a href=''>คุณ ".$info['profile']['firstname_thai']." ".$info['profile']['lastname_thai']."</a>"; ?></h4>
-			 <a href="http://localhost/plugin/login/logout.php">ออกจากระบบ</a>
+			 <a href="/plugin/login/logout.php">ออกจากระบบ</a>
 		</div>		
 	</div>
 	<hr>
@@ -103,7 +103,7 @@
 			
 		</div>
 		<div class="col-md-2">
-			<a href="http://localhost/plugin/login/logout.php">ออกจากระบบ</a>
+			<a href="/plugin/login/logout.php">ออกจากระบบ</a>
 		</div>
 	</div>
 	<hr>
