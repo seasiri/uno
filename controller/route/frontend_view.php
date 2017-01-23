@@ -31,6 +31,9 @@ class frontend_view{
                             case 'pending_approval':
                                 # code...
                                 break;
+                            case 'insert_credential':
+                                $frontend_view -> insert_credential($key2);
+                                break;
                             default:
                                 # code...
                                 break;
@@ -205,6 +208,100 @@ class frontend_view{
                     }
                     if (strpos($value["Type"] , "int") !== false) 
                     { 
+                        $temp['column']=$value["Field"];
+                        $temp['session']=$title;
+                        $view -> int_handle($temp);
+
+                    }
+                    if (strpos($value["Type"] , "decimal") !== false) 
+                    { 
+                        $temp['column']=$value["Field"];
+                        $temp['session']=$title;
+                        $view -> int_handle($temp);
+
+                    }
+                    if (strpos($value["Type"] , "varchar") !== false) 
+                    {               
+                        echo '<div class="form-group">';
+                        echo '    <label>'.$value["Field"].'</label>';
+                        echo '    <input type="text" class="form-control input-sm" name="'.$value["Field"].'" placeholder="">';
+                        echo '</div>';              
+                    }
+                    if (strpos($value["Type"] , "text") !== false) 
+                    {               
+                        echo '<div class="form-group">';
+                        echo '    <label>'.$value["Field"].'</label>';
+                        echo '    <input type="text" class="form-control input-sm" name="'.$value["Field"].'" placeholder="">';
+                        echo '</div>';              
+                    }
+                    if (strpos($value["Type"] , "email") !== false) 
+                    {               
+                        echo '<div class="form-group">';
+                        echo '    <label>'.$value["Field"].'</label>';
+                        echo '    <input type="email" class="form-control input-sm" name="'.$value["Field"].'" placeholder="">';
+                        echo '</div>';              
+                    }
+                
+                    if ($i%3==2)
+                    {
+                        echo '</div>';
+                        echo '</div>';                  
+                    }               
+                    else                
+                    {
+                        echo '</div>';
+                    }
+                    $i++;                
+            }
+            if ($i%3==2 ){
+                echo '</div>';
+            }
+            echo '<div class="row"><div class="col-md-10"></div><div class="col-md-2">';
+            echo      '<button type="submit" class="btn btn-default">Submit</button>';
+            echo '</div></div>';
+        }
+        public function insert_credential($title){
+            $db = new Db();
+            $view = new view();
+            $rows = $db -> select("SHOW COLUMNS FROM ".$title." WHERE Field NOT IN ('id', 'created','modified','owner');");
+            $i=0;
+            echo '<form action="/public/action/frontend_submit.php" method="post" >'; 
+            echo '<input type="hidden" name="act" value="'.$_GET['act'].'">';
+            echo '<input type="hidden" name="form_title" value="'.$title.'">';
+            echo '<input type="hidden" name="task" value="'.$_GET['task'].'">';
+            
+            foreach ($rows as $key => $value) 
+            {       
+                $temp=array();                     
+                    if ($i%3==0)
+                    {
+                        echo '<div class="row">';
+                        echo '<div class="col-md-4">';
+                    }else
+                    {
+                        echo '<div class="col-md-4">';
+                    }   
+                    
+                    if (strpos($value["Type"] , "date") !== false) 
+                    {                               
+                        echo '<div class="form-group">';
+                        echo '    <label>'.$value["Field"].'</label>';
+                        echo '    <input type="date" class="form-control input-sm" name="'.$value["Field"].'" value="'.date("m-d-Y").'" placeholder="">';
+                        echo '</div>';              
+                    }
+                    if (strpos($value["Type"] , "timestamp") !== false) 
+                    {                               
+                        echo '<div class="form-group">';
+                        echo '    <label>'.$value["Field"].'</label>';
+                        echo '    <input type="date" class="form-control input-sm" name="'.$value["Field"].'" value="'.date("m-d-Y").'" placeholder="">';
+                        echo '</div>';              
+                    }
+                    if (strpos($value["Type"] , "int") !== false) 
+                    { 
+                        if ($value["Field"]=="agent_id"){
+                            $temp['user_id']=$_SESSION['employee_id'];
+                            $temp['refer_table']='retail_pc';
+                        }
                         $temp['column']=$value["Field"];
                         $temp['session']=$title;
                         $view -> int_handle($temp);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 19, 2017 at 10:05 PM
+-- Generation Time: Jan 23, 2017 at 09:16 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -83,10 +83,20 @@ CREATE TABLE `agent` (
   `phone` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `region_id` int(8) NOT NULL,
+  `agent_type_id` int(4) NOT NULL,
+  `province_id` int(4) NOT NULL,
   `bank_account_1` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `bank_account_2` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `tax_identification` varchar(32) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `agent`
+--
+
+INSERT INTO `agent` (`id`, `created`, `modified`, `owner`, `name`, `phone`, `description`, `region_id`, `agent_type_id`, `province_id`, `bank_account_1`, `bank_account_2`, `tax_identification`) VALUES
+(1, '2017-01-24 00:01:20', '2017-01-23 17:01:20', 1, 'วู็ดแอนด์เซรามิค', '', '', 4, 2, 7, '', '', ''),
+(2, '2017-01-24 00:16:43', '2017-01-23 17:16:43', 1, 'testt', '', '', 2, 2, 2, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -103,6 +113,29 @@ CREATE TABLE `agent_credit_log` (
   `amount` decimal(10,0) NOT NULL,
   `note` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `agent_type`
+--
+
+CREATE TABLE `agent_type` (
+  `id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` timestamp NOT NULL,
+  `owner` int(4) NOT NULL,
+  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `agent_type`
+--
+
+INSERT INTO `agent_type` (`id`, `created`, `modified`, `owner`, `name`, `description`) VALUES
+(1, '2017-01-23 23:28:14', '2017-01-23 16:28:14', 1, 'Moderntrade', 'Moderntrade'),
+(2, '2017-01-23 23:31:49', '2017-01-23 16:34:02', 1, 'ร้านค้า', 'ร้านค้า');
 
 -- --------------------------------------------------------
 
@@ -1179,7 +1212,10 @@ CREATE TABLE `authentication` (
 --
 
 INSERT INTO `authentication` (`id`, `username`, `password`, `email`, `verified`, `mod_timestamp`, `employee_id`, `national_id`) VALUES
-('304158793b89c5d93', 'seasiri', '$2y$10$KzftQTbk.c6JvJx14KtLgOf.2u8yv2BovDhzANUHwZqV.D/Na2QIq', 'seawaykung@gmail.com', 1, '2017-01-19 12:31:01', 1, '');
+('11873588626f68101a', 'Kittiwut', '$2y$10$3jOpfBeeG6RZB/ZtWsWwwe0M2S8TaoSr8yTKsZNQRn3QN7VeHXqJi', 'bathlinekittiwut@gmail.com', 1, '2017-01-23 16:45:14', 4, '3169900251036'),
+('227415881bf87d3424', 'มนญพัชญ์', '$2y$10$bfBGluMabuOTNb12UnvgM.75P4yUKSxtdzCUoCceN2LFtu8BcwG/y', 'tonnam.pj@gmail.com', 1, '2017-01-20 08:32:48', 3, '3101202994923'),
+('304158793b89c5d93', 'seasiri', '$2y$10$KzftQTbk.c6JvJx14KtLgOf.2u8yv2BovDhzANUHwZqV.D/Na2QIq', 'seawaykung@gmail.com', 1, '2017-01-20 08:29:46', 1, ''),
+('80175881985f22e56', 'aumpa', '$2y$10$ywx.BbGCBR2jUx868qxYmeE6TQuQY0TAXYajTXGQCASO7D7lhMbm.', 'aumpa2714@gmail.com', 1, '2017-01-20 05:29:35', 2, '3160300783616');
 
 -- --------------------------------------------------------
 
@@ -1192,9 +1228,9 @@ CREATE TABLE `db_reference` (
   `created` datetime NOT NULL,
   `modified` timestamp NOT NULL,
   `owner` int(8) NOT NULL,
-  `name` varchar(32) NOT NULL,
-  `db_name` varchar(32) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `db_name` varchar(32) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `db_reference`
@@ -1212,7 +1248,9 @@ INSERT INTO `db_reference` (`id`, `created`, `modified`, `owner`, `name`, `db_na
 (9, '2017-01-19 19:58:37', '2017-01-19 12:58:37', 1, 'job', 'job'),
 (10, '2017-01-19 20:12:17', '2017-01-19 13:12:17', 1, 'supplier', 'supplier'),
 (11, '2017-01-20 03:56:39', '2017-01-19 20:56:39', 1, 'product', 'product'),
-(12, '2017-01-20 04:00:33', '2017-01-19 21:00:33', 1, 'product_catagories', 'product_catagories');
+(12, '2017-01-20 04:00:33', '2017-01-23 15:49:50', 1, 'retail_pc', 'retail_pc'),
+(13, '2017-01-23 22:58:35', '2017-01-23 15:58:35', 1, 'product_catagories', 'product_catagories'),
+(14, '2017-01-23 23:02:03', '2017-01-23 16:02:03', 1, 'retail_stock_report', 'retail_stock_report');
 
 -- --------------------------------------------------------
 
@@ -1293,7 +1331,26 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`id`, `created`, `modified`, `owner`, `name`, `firstname_thai`, `lastname_thai`, `firstname_english`, `lastname_english`, `phone`, `email`, `address`, `amphur_id`, `province_id`, `start_date`, `join_date`, `national_id`, `bank_account`) VALUES
-(1, '2017-01-15 11:46:49', '2017-01-19 18:38:59', 1, 'ซี', 'สิรภพ', 'ศิริศิลป์', 'Siraphop', 'Sirisilp', '0802689444', 'seawaykung@gmail.com', '52 ปรางค์สามยอด', 843, 7, '2017-01-15', '2017-01-15', '1101402029290', '');
+(1, '2017-01-15 11:46:49', '2017-01-19 18:38:59', 1, 'ซี', 'สิรภพ', 'ศิริศิลป์', 'Siraphop', 'Sirisilp', '0802689444', 'seawaykung@gmail.com', '52 ปรางค์สามยอด', 843, 7, '2017-01-15', '2017-01-15', '1101402029290', ''),
+(2, '2017-01-20 12:28:21', '2017-01-20 05:28:21', 1, 'อำ', 'อำภา', 'ตรีพืช', 'Aumpa', '', '', '', '', 843, 7, '1970-01-01', '1970-01-01', '', ''),
+(3, '2017-01-20 15:31:45', '2017-01-20 08:31:45', 1, 'เพชร', 'ชื่อต้น', 'นามสกุล', '', '', '', '', '', 843, 7, '1970-01-01', '1970-01-01', '', ''),
+(4, '2017-01-23 22:55:37', '2017-01-23 15:56:40', 1, 'น็อต', 'กิตติวุฒิ', 'ศิริศิลป์', 'Kittiwut', 'Sirisilp', '', '', '', 843, 7, '2017-01-15', '2018-01-15', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_suffix`
+--
+
+CREATE TABLE `employee_suffix` (
+  `id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` timestamp NOT NULL,
+  `owner` int(4) NOT NULL,
+  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `name_english` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1317,7 +1374,7 @@ CREATE TABLE `job` (
 --
 
 INSERT INTO `job` (`id`, `created`, `modified`, `owner`, `job_parent_id`, `name`, `name_english`, `description`) VALUES
-(1, '2017-01-15 11:35:32', '2017-01-15 04:35:32', 1, 1, 'root', 'root', 'root'),
+(1, '2017-01-15 11:35:32', '2017-01-22 18:55:31', 1, 1, 'บาธไลน์', 'Bathline', 'Bathline'),
 (3, '2017-01-15 13:20:37', '2017-01-15 06:50:20', 7777, 6, 'แผนกจัดซื้อ', ' Purchasing Department', 'สามารถสั่งซื้อสินค้ามาได้ตรงตามเวลา และมีประสิทธิภาพในการควบคุมสินค้า ที่สั่งซื้อมา'),
 (2, '2017-01-15 11:35:32', '2017-01-15 06:50:33', 1, 6, 'แผนกขาย', 'Sales Department', 'เพิ่มยอดขาย สร้างรายได้ให้แก่บริษัท เอาใจใส่ลูกค้า และบริการ ในยามคับขัน '),
 (4, '2017-01-15 13:24:30', '2017-01-15 06:50:44', 7777, 6, 'แผนกคลังสินค้า', 'Warehouse Department', 'ดูแล รักษาสภาพโกดังเก็บของ และสินค้านั้นๆ มีการดูแลตรวจสภาพสินค้า และจำนวนสินค้า สามารถบ่งชี้ปัญหาของขาดและเกินสต็อค มีความรักและห่วงใยในการทำงาน'),
@@ -1325,8 +1382,10 @@ INSERT INTO `job` (`id`, `created`, `modified`, `owner`, `job_parent_id`, `name`
 (6, '2017-01-15 13:35:17', '2017-01-19 19:36:46', 1, 10, 'แผนกบุคคล', '็Human Resource Manager', 'สามารถเป็นตัวเชื่อมให้กับ บุคคลากรของบริษัททุกท่านด้วยใจเป็นกลาง ผ่านความชัดเจน และ ร่มเย็น ตรวจสอบและดูแลข้อเท็จจริงของบุคคลากร สามารถหาบุคคลากรใหม่ เมื่อขาดแคลยนโดยคำนึงถึงประสิทธิภาพใน สายงาน และ ผลงาน'),
 (7, '2017-01-15 13:37:38', '2017-01-15 06:51:08', 7777, 6, 'แผนกจัดส่ง', 'Shipping Department', 'ส่งปลอดภัย ตรงเวลา และ แน่วแน่ หมั่นดูแลเอาใจใส่ยานพาหนะ และ พักผ่อนอย่างเพียงพอ'),
 (8, '2017-01-15 13:41:12', '2017-01-15 06:51:20', 7777, 6, 'แผนกบัญชีการเงิน', ' Financial Accountant', 'ตรวจสอบความเป็นมาของเงิน และบันทึก ได้อย่างมีประสิทธิภาพ สามารถทำรายงาน วิเคราะห์ เชิงลึก เพื่อเป็นแนวทางและข้อมูลให้แก่ผู้บริหารได้ รับผิดชอบและซื่อสัตย์'),
-(9, '2017-01-15 13:46:35', '2017-01-15 06:46:35', 7777, 1, 'ประธานกรรมการบริหาร ', 'Chief Executive Officer', ''),
-(10, '2017-01-15 13:49:46', '2017-01-15 06:49:46', 7777, 9, ' ประธานเจ้าหน้าที่บริหาร', 'Chief Executive Officer', '');
+(9, '2017-01-15 13:46:35', '2017-01-22 18:54:18', 1, 1, 'ประธานบริษัทฯ', 'President', ''),
+(10, '2017-01-15 13:49:46', '2017-01-22 18:54:33', 1, 9, 'ประธานกรรมการบริหาร', 'Chief Executive Officer', ''),
+(11, '2017-01-23 01:26:14', '2017-01-22 18:26:14', 1, 2, 'พนักงานแนะนำสินค้า', 'Product Consultant', ''),
+(12, '2017-01-23 22:49:19', '2017-01-23 15:51:34', 1, 2, 'ผู้อำนวยการฝ่ายพัฒนาช่องทางการจัดจำหน่าย', 'Director of Distributor Development', 'ผู้อำนวยการฝ่ายพัฒนาช่องทางการจัดจำหน่าย');
 
 -- --------------------------------------------------------
 
@@ -1351,7 +1410,12 @@ CREATE TABLE `job_log` (
 INSERT INTO `job_log` (`id`, `created`, `modified`, `owner`, `job_id`, `employee_id`, `job_log_status_id`) VALUES
 (1, '2017-01-20 02:36:04', '2017-01-19 19:36:04', 1, 6, 1, 1),
 (2, '2017-01-20 03:55:45', '2017-01-19 20:55:45', 1, 3, 1, 1),
-(3, '2017-01-20 03:55:49', '2017-01-19 20:55:49', 1, 2, 1, 1);
+(3, '2017-01-20 03:55:49', '2017-01-19 20:55:49', 1, 2, 1, 1),
+(4, '2017-01-20 12:28:46', '2017-01-20 05:28:46', 1, 3, 2, 1),
+(5, '2017-01-23 20:08:02', '2017-01-23 13:08:02', 1, 6, 3, 1),
+(6, '2017-01-23 22:56:30', '2017-01-23 15:56:30', 1, 12, 4, 1),
+(7, '2017-01-23 23:05:28', '2017-01-23 16:05:28', 1, 12, 1, 1),
+(8, '2017-01-23 23:57:06', '2017-01-23 16:57:06', 1, 11, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1399,7 +1463,15 @@ CREATE TABLE `loginattempts` (
 
 INSERT INTO `loginattempts` (`IP`, `Attempts`, `LastLogin`, `Username`, `ID`) VALUES
 ('::1', 1, '2017-01-19 22:03:02', 'seasiri', 1),
-('171.96.210.86', 1, '2017-01-19 21:22:08', 'seasiri', 2);
+('171.96.210.86', 1, '2017-01-21 13:50:21', 'seasiri', 2),
+('110.171.92.101', 1, '2017-01-20 08:32:08', 'aumpa', 3),
+('161.200.188.207', 1, '2017-01-20 05:27:12', 'seasiri', 4),
+('161.200.188.74', 1, '2017-01-20 08:10:39', 'seasiri', 5),
+('110.171.92.101', 1, '2017-01-20 08:33:20', 'มนญพัชญ์', 6),
+('110.171.92.101', 2, '2017-01-20 09:07:24', '', 7),
+('223.24.81.81', 1, '2017-01-21 18:48:22', 'seasiri', 8),
+('171.96.210.86', 3, '2017-01-22 10:37:22', ' seasiri', 9),
+('223.24.111.26', 2, '2017-01-23 15:52:13', 'kittiwut', 10);
 
 -- --------------------------------------------------------
 
@@ -1564,7 +1636,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `created`, `modified`, `owner`, `supplier_id`, `product_catagories_id`, `product_status_id`, `name`, `name_english`, `short_description`, `long_description`, `barcode`) VALUES
-(1, '2017-01-19 01:01:58', '2017-01-18 18:01:58', 1, 1, 1, 1, 'B4023', 'B4023', '', '', '');
+(1, '2017-01-19 01:01:58', '2017-01-23 13:11:03', 1, 1, 5, 1, 'B4023', 'B4023', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1577,9 +1649,48 @@ CREATE TABLE `product_attribute` (
   `created` datetime NOT NULL,
   `modified` timestamp NOT NULL,
   `owner` int(8) NOT NULL,
+  `product_attribute_parent_id` int(4) NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL
+  `name_english` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `product_catagories_id` int(32) NOT NULL,
+  `unit_thai` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `unit_english` varchar(32) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `product_attribute`
+--
+
+INSERT INTO `product_attribute` (`id`, `created`, `modified`, `owner`, `product_attribute_parent_id`, `name`, `name_english`, `description`, `product_catagories_id`, `unit_thai`, `unit_english`) VALUES
+(1, '2017-01-23 20:18:00', '2017-01-23 14:37:46', 1, 1, 'root', 'root', 'root', 1, '', ''),
+(2, '2017-01-23 21:02:26', '2017-01-23 14:03:27', 1, 0, 'ระบบนํ้า', 'ระบบนํ้า', 'ระบบนํ้า', 5, '', ''),
+(3, '2017-01-23 21:38:19', '2017-01-23 14:38:19', 1, 1, 'ประเภท', 'ประเภท', 'ประเภท', 5, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_attribute_option`
+--
+
+CREATE TABLE `product_attribute_option` (
+  `id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` timestamp NOT NULL,
+  `owner` int(8) NOT NULL,
+  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `name_english` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `product_attribute_id` int(4) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `product_attribute_option`
+--
+
+INSERT INTO `product_attribute_option` (`id`, `created`, `modified`, `owner`, `name`, `name_english`, `product_attribute_id`) VALUES
+(1, '2017-01-23 20:59:09', '2017-01-23 14:38:29', 1, 'วันพีช', 'One Piece', 3),
+(2, '2017-01-23 21:00:03', '2017-01-23 14:38:35', 1, 'ทูพีช', 'Two Pieces', 3),
+(3, '2017-01-23 21:00:06', '2017-01-23 14:03:49', 1, 'ทอเนโด', 'Tornado', 2);
 
 -- --------------------------------------------------------
 
@@ -1591,13 +1702,18 @@ CREATE TABLE `product_attribute_value` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
   `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
-  `product_id` int(8) NOT NULL,
-  `product_attribute_id` int(8) NOT NULL,
-  `value` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `unit_thai` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
-  `unit_english` varchar(16) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `owner` int(4) NOT NULL,
+  `product_id` int(4) NOT NULL,
+  `product_attribute_id` int(4) NOT NULL,
+  `product_attribute_option_id` int(4) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_attribute_value`
+--
+
+INSERT INTO `product_attribute_value` (`id`, `created`, `modified`, `owner`, `product_id`, `product_attribute_id`, `product_attribute_option_id`) VALUES
+(1, '2017-01-23 21:29:29', '2017-01-23 14:29:29', 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1621,7 +1737,16 @@ CREATE TABLE `product_catagories` (
 --
 
 INSERT INTO `product_catagories` (`id`, `created`, `modified`, `owner`, `product_catagories_parent_id`, `name`, `name_english`, `description`) VALUES
-(1, '2017-01-19 01:00:35', '2017-01-18 18:00:35', 1, 1, 'root', 'root', '');
+(1, '2017-01-19 01:00:35', '2017-01-18 18:00:35', 1, 1, 'root', 'root', ''),
+(2, '2017-01-23 19:46:16', '2017-01-23 12:48:22', 1, 1, 'สินค้าบาธไลน์', 'Bathline Products', 'root'),
+(3, '2017-01-23 19:47:42', '2017-01-23 12:48:06', 1, 2, 'ห้องนํ้า', 'Bathroom', 'ห้องนํ้า'),
+(4, '2017-01-23 19:48:50', '2017-01-23 13:00:31', 1, 3, 'ก็อกนํ้า', 'Faucet', 'ก็อกนํ้า'),
+(5, '2017-01-23 19:50:14', '2017-01-23 12:59:25', 1, 3, 'โถส้วม', 'Toilet', 'โถส้วม'),
+(6, '2017-01-23 19:51:36', '2017-01-23 12:59:44', 1, 3, 'โถปัสสาวะ', 'Urinals', 'โถปัสสาวะ'),
+(7, '2017-01-23 19:51:56', '2017-01-23 13:05:21', 1, 3, 'อ่างล้างมือ', 'ฺBasin', 'อ่างล้างมือ'),
+(8, '2017-01-23 20:00:50', '2017-01-23 13:00:50', 1, 3, 'กระจก', 'Mirror', 'กระจก'),
+(9, '2017-01-23 20:03:22', '2017-01-23 13:03:22', 1, 3, 'ตู้อาบนํ้า', 'Shower', 'ตู้อาบนํ้า'),
+(10, '2017-01-23 20:04:00', '2017-01-23 13:04:00', 1, 3, 'อ่างอาบนํ้า', 'Bathtub', 'อ่างอาบนํ้าอ่างอาบนํ้า');
 
 -- --------------------------------------------------------
 
@@ -1766,7 +1891,70 @@ CREATE TABLE `region` (
 --
 
 INSERT INTO `region` (`id`, `created`, `modified`, `owner`, `name`, `description`, `region_parent_id`) VALUES
-(1, '2017-01-19 00:57:37', '2017-01-19 19:52:52', 1, 'root', 'root', 1);
+(1, '2017-01-19 00:57:37', '2017-01-23 16:47:53', 1, 'root', 'root', 1),
+(2, '2017-01-23 23:47:59', '2017-01-23 16:47:59', 1, 'ภาคตะวันออกเฉียงเหนือ', 'ภาคตะวันออกเฉียงเหนือ', 1),
+(3, '2017-01-23 23:48:11', '2017-01-23 16:48:11', 1, 'ภาคเหนือ', 'ภาคเหนือ', 1),
+(4, '2017-01-23 23:48:16', '2017-01-23 16:48:16', 1, 'ภาคกลาง', 'ภาคกลาง', 1),
+(5, '2017-01-23 23:48:31', '2017-01-23 16:48:31', 1, 'ภาคตะวันออก', 'ภาคตะวันออก', 1),
+(6, '2017-01-23 23:48:37', '2017-01-23 16:48:37', 1, 'ภาคใต้', 'ภาคใต้', 1),
+(7, '2017-01-23 23:48:46', '2017-01-23 16:51:13', 1, 'พระราชาณาจักรกัมพูชา', 'พระราชาณาจักรกัมพูชา', 1),
+(8, '2017-01-23 23:48:59', '2017-01-23 16:48:59', 1, 'ภาคตะวันตก', 'ภาคตะวันตก', 1),
+(9, '2017-01-23 23:51:45', '2017-01-23 16:51:45', 1, 'สาธารณรัฐแห่งสหภาพพม่า', 'สาธารณรัฐแห่งสหภาพพม่า', 1),
+(10, '2017-01-23 23:51:57', '2017-01-23 16:51:57', 1, 'สาธารณรัฐประชาธิปไตยประชาชนลาว', 'สาธารณรัฐประชาธิปไตยประชาชนลาว', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `retail_pc`
+--
+
+CREATE TABLE `retail_pc` (
+  `id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` timestamp NOT NULL,
+  `owner` int(8) NOT NULL,
+  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `employee_id` int(4) NOT NULL,
+  `agent_id` int(4) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `retail_pc`
+--
+
+INSERT INTO `retail_pc` (`id`, `created`, `modified`, `owner`, `name`, `employee_id`, `agent_id`) VALUES
+(1, '2017-01-24 00:02:47', '2017-01-23 18:30:10', 1, '', 1, 1),
+(2, '2017-01-24 00:16:50', '2017-01-23 17:29:05', 1, '', 1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `retail_stock_report`
+--
+
+CREATE TABLE `retail_stock_report` (
+  `id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` timestamp NOT NULL,
+  `owner` int(8) NOT NULL,
+  `agent_id` int(4) NOT NULL,
+  `product_id` int(4) NOT NULL,
+  `quantity_remain` int(16) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `retail_stock_report`
+--
+
+INSERT INTO `retail_stock_report` (`id`, `created`, `modified`, `owner`, `agent_id`, `product_id`, `quantity_remain`) VALUES
+(1, '2017-01-24 01:17:49', '2017-01-23 18:17:49', 1, 1, 1, 2),
+(2, '2017-01-24 01:30:21', '2017-01-23 18:30:21', 1, 1, 1, 2),
+(3, '2017-01-24 01:30:51', '2017-01-23 18:30:51', 1, 20, 1, 2),
+(4, '2017-01-24 01:42:37', '2017-01-23 18:42:37', 1, 1, 1, 2),
+(5, '2017-01-24 01:50:53', '2017-01-23 18:50:53', 1, 1, 1, 2),
+(6, '2017-01-24 01:51:37', '2017-01-23 18:51:37', 1, 1, 1, 2),
+(7, '2017-01-24 01:51:50', '2017-01-23 18:51:50', 1, 1, 1, 2),
+(8, '2017-01-24 01:53:46', '2017-01-23 18:53:46', 1, 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -1790,6 +1978,14 @@ CREATE TABLE `supplier` (
   `bank_account_2` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `tax_identification` varchar(32) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `supplier`
+--
+
+INSERT INTO `supplier` (`id`, `created`, `modified`, `owner`, `name`, `description`, `city`, `province`, `country`, `email`, `phone`, `bank_account`, `bank_account_2`, `tax_identification`) VALUES
+(1, '2017-01-20 15:08:51', '2017-01-21 18:49:13', 1, 'SHANTOU JIXIANG TRADING CO.,LTD.', 'EMON1=MANGO, EMON2=FENNIE', 'ROOM 201 NO.32', 'CHANGPING ROAD', 'CHINA', '', '0086-768-6933518', '', '', ''),
+(2, '2017-01-20 15:08:51', '2017-01-22 08:18:06', 1, 'SHANTOU JIXIANG TRADING CO.,LTD.', 'EMONu', 'ROOM 201 NO', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1852,7 +2048,10 @@ INSERT INTO `task` (`id`, `created`, `modified`, `owner`, `task_parent_id`, `tas
 (26, '2017-01-20 03:55:13', '2017-01-19 20:55:13', 1, 1, 1, 1, 3, 843, 7, 'ไทย', 'เพิ่ม สินค้า', 'เพิ่ม สินค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
 (27, '2017-01-20 03:55:18', '2017-01-19 20:55:18', 1, 1, 1, 1, 3, 843, 7, 'ไทย', 'แก้ไข สินค้า', 'เพิ่ม สินค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
 (28, '2017-01-20 04:03:29', '2017-01-19 21:03:29', 1, 1, 1, 1, 3, 843, 7, 'ไทย', 'เพิ่ม หมวดหมู่สินค้า', 'เพิ่ม หมวดหมู่สินค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
-(29, '2017-01-20 04:03:39', '2017-01-19 21:03:39', 1, 1, 2, 1, 3, 843, 7, 'ไทย', 'แก้ไข หมวดหมู่สินค้า', 'แก้ไข หมวดหมู่สินค้า', '2017-01-15', '2018-01-15', '', '', '', '');
+(29, '2017-01-20 04:03:39', '2017-01-19 21:03:39', 1, 1, 2, 1, 3, 843, 7, 'ไทย', 'แก้ไข หมวดหมู่สินค้า', 'แก้ไข หมวดหมู่สินค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
+(30, '2017-01-23 19:43:08', '2017-01-23 17:05:21', 1, 1, 5, 1, 11, 1, 1, 'ไทย', 'รายงาน สต็อค สินค้าคงเหลือ ประจำวัน', 'โดยให้กรอกข้อมูล รายงานการขายสินค้า BATHLINE ที่อยู่ในร้าน ทุกๆ วัน', '2017-01-15', '2018-01-15', '', '', '', ''),
+(31, '2017-01-23 22:39:46', '2017-01-23 16:04:15', 1, 1, 1, 1, 12, 1, 1, 'ไทย', 'ระบุ ร้านค้า กับ พนักงาน PC', 'ระบุร้านค้า กับ พนักงาน PC', '2017-01-15', '2018-01-15', '', '', '', ''),
+(32, '2017-01-23 23:03:46', '2017-01-23 16:03:46', 1, 1, 2, 1, 12, 843, 7, 'ไทย', 'แก้ไข ร้านค้า กับ พนักงาน PC', 'แก้ไข ร้านค้า กับ พนักงาน PC', '2017-01-15', '2018-01-15', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1877,7 +2076,8 @@ INSERT INTO `task_action_type` (`id`, `created`, `modified`, `owner`, `name`, `d
 (1, '2017-01-15 11:12:21', '2017-01-15 04:12:21', 1, 'INSERT', 'ป้อนข้อมูล'),
 (2, '2017-01-15 12:45:47', '2017-01-15 05:45:47', 1, 'EDIT', 'แก้ไขข้อมูล'),
 (3, '2017-01-15 13:12:23', '2017-01-15 06:12:50', 7777, 'PENDING_APPROVAL', 'ยื่นอนุมัติ'),
-(4, '2017-01-15 13:12:38', '2017-01-15 06:12:38', 7777, 'APPROVAL', 'อนุมัติ');
+(4, '2017-01-15 13:12:38', '2017-01-15 06:12:38', 7777, 'APPROVAL', 'อนุมัติ'),
+(5, '2017-01-24 00:05:07', '2017-01-23 17:05:07', 1, 'INSERT_CREDENTIAL', 'INSERT_CREDENTIAL');
 
 -- --------------------------------------------------------
 
@@ -1917,8 +2117,11 @@ INSERT INTO `task_db_log` (`id`, `created`, `modified`, `owner`, `task_id`, `db_
 (19, '2017-01-20 02:35:49', '2017-01-19 19:35:49', 1, 25, 9),
 (20, '2017-01-20 03:56:52', '2017-01-19 20:56:52', 1, 26, 11),
 (21, '2017-01-20 03:56:55', '2017-01-19 20:56:55', 1, 27, 11),
-(22, '2017-01-20 04:05:01', '2017-01-19 21:05:01', 1, 28, 12),
-(23, '2017-01-20 04:05:05', '2017-01-19 21:05:05', 1, 29, 12);
+(22, '2017-01-20 04:05:01', '2017-01-23 15:58:45', 1, 28, 13),
+(23, '2017-01-20 04:05:05', '2017-01-23 15:58:50', 1, 29, 13),
+(24, '2017-01-23 22:59:32', '2017-01-23 15:59:32', 1, 31, 12),
+(25, '2017-01-23 23:02:31', '2017-01-23 16:02:31', 1, 30, 14),
+(26, '2017-01-23 23:05:13', '2017-01-23 16:05:13', 1, 32, 12);
 
 -- --------------------------------------------------------
 
@@ -2163,7 +2366,152 @@ INSERT INTO `task_log` (`id`, `created`, `modified`, `owner`, `record_name`, `re
 (199, '2017-01-20 04:03:29', '2017-01-19 21:03:29', 1, 'task', 29, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,1,3,843,7,\'ไทย\',\'เพิ่ม หมวดหมู่สินค้า\',\'เพิ่ม หมวดหมู่สินค้า\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
 (200, '2017-01-20 04:03:39', '2017-01-19 21:03:39', 1, 'task', 30, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,2,1,3,843,7,\'ไทย\',\'แก้ไข หมวดหมู่สินค้า\',\'แก้ไข หมวดหมู่สินค้า\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
 (201, '2017-01-20 04:05:01', '2017-01-19 21:05:01', 1, 'task_db_log', 23, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,28,12)', 1, 'successfully'),
-(202, '2017-01-20 04:05:05', '2017-01-19 21:05:05', 1, 'task_db_log', 24, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,29,12)', 1, 'successfully');
+(202, '2017-01-20 04:05:05', '2017-01-19 21:05:05', 1, 'task_db_log', 24, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,29,12)', 1, 'successfully'),
+(203, '2017-01-20 12:28:21', '2017-01-20 05:28:21', 1, 'employee', 3, 1, 'INSERT', 'INSERT INTO employee (id,created,modified,owner,name,firstname_thai,lastname_thai,firstname_english,lastname_english,phone,email,address,amphur_id,province_id,start_date,join_date,national_id,bank_account) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'อำ\',\'อำภา\',\'ตรีพืช\',\'Aumpa\',\'\',\'\',\'\',\'\',843,7,\'1970-01-01\',\'1970-01-01\',\'\',\'\')', 1, 'successfully'),
+(204, '2017-01-20 12:28:46', '2017-01-20 05:28:46', 1, 'job_log', 5, 1, 'INSERT', 'INSERT INTO job_log (id,created,modified,owner,job_id,employee_id,job_log_status_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,2,1)', 1, 'successfully'),
+(205, '2017-01-20 15:08:51', '2017-01-20 08:08:51', 2, 'supplier', 2, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'SHANTOU JIXIANG TRADING CO.,LTD.\',\'EMON\',\'ROOM 201 NO\',\'\',\'\',\'\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(206, '2017-01-20 15:08:51', '2017-01-20 08:08:51', 2, 'supplier', 3, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'SHANTOU JIXIANG TRADING CO.,LTD.\',\'EMON\',\'ROOM 201 NO\',\'\',\'\',\'\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(207, '2017-01-20 15:17:04', '2017-01-20 08:17:04', 1, 'province', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'wood\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'wood\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully');
+INSERT INTO `task_log` (`id`, `created`, `modified`, `owner`, `record_name`, `record_document`, `task_id`, `task_action_type`, `query`, `task_log_status_id`, `task_msg`) VALUES
+(208, '2017-01-20 15:17:04', '2017-01-20 08:17:04', 1, 'supplier', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'wood\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'wood\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(209, '2017-01-20 15:17:12', '2017-01-20 08:17:12', 1, 'province', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(210, '2017-01-20 15:17:12', '2017-01-20 08:17:12', 1, 'supplier', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(211, '2017-01-20 15:18:35', '2017-01-20 08:18:35', 1, 'province', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'Ghangzhou\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'Ghangzhou\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(212, '2017-01-20 15:18:35', '2017-01-20 08:18:35', 1, 'supplier', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'Ghangzhou\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'Ghangzhou\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(213, '2017-01-20 15:18:42', '2017-01-20 08:18:42', 1, 'province', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(214, '2017-01-20 15:18:42', '2017-01-20 08:18:42', 1, 'supplier', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(215, '2017-01-20 15:19:19', '2017-01-20 08:19:19', 1, 'province', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'Ghangzhou\',country=\'China\',email=\'asdasd@asd.com\',phone=\'123124\',bank_account=\'asjdk\',bank_account_2=\'asdkj\',tax_identification=\'asd\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'Ghangzhou\' OR country != \'China\' OR email != \'asdasd@asd.com\' OR phone != \'123124\' OR bank_account != \'asjdk\' OR bank_account_2 != \'asdkj\' OR tax_identification != \'asd\' )', 1, 'successfully'),
+(216, '2017-01-20 15:19:19', '2017-01-20 08:19:19', 1, 'supplier', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'Ghangzhou\',country=\'China\',email=\'asdasd@asd.com\',phone=\'123124\',bank_account=\'asjdk\',bank_account_2=\'asdkj\',tax_identification=\'asd\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'Ghangzhou\' OR country != \'China\' OR email != \'asdasd@asd.com\' OR phone != \'123124\' OR bank_account != \'asjdk\' OR bank_account_2 != \'asdkj\' OR tax_identification != \'asd\' )', 1, 'successfully'),
+(217, '2017-01-20 15:22:04', '2017-01-20 08:22:04', 1, 'province', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(218, '2017-01-20 15:22:04', '2017-01-20 08:22:04', 1, 'supplier', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(219, '2017-01-20 15:27:25', '2017-01-20 08:27:25', 1, 'province', 1, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'Changping\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'Changping\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(220, '2017-01-20 15:27:25', '2017-01-20 08:27:25', 1, 'supplier', 1, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'Changping\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'Changping\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(221, '2017-01-20 15:27:47', '2017-01-20 08:27:47', 1, 'province', 1, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(222, '2017-01-20 15:27:47', '2017-01-20 08:27:47', 1, 'supplier', 1, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(223, '2017-01-20 15:29:24', '2017-01-20 08:29:24', 2, 'province', 1, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'Chang\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'Chang\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(224, '2017-01-20 15:29:24', '2017-01-20 08:29:24', 2, 'supplier', 1, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'Chang\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'Chang\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(225, '2017-01-20 15:31:45', '2017-01-20 08:31:45', 1, 'employee', 4, 1, 'INSERT', 'INSERT INTO employee (id,created,modified,owner,name,firstname_thai,lastname_thai,firstname_english,lastname_english,phone,email,address,amphur_id,province_id,start_date,join_date,national_id,bank_account) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'เพชร\',\'ชื่อต้น\',\'นามสกุล\',\'\',\'\',\'\',\'\',\'\',843,7,\'1970-01-01\',\'1970-01-01\',\'\',\'\')', 1, 'successfully'),
+(226, '2017-01-20 15:56:33', '2017-01-20 08:56:33', 2, 'province', 1, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'Chang\',country=\'\',email=\'\',phone=\'123456\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'Chang\' OR country != \'\' OR email != \'\' OR phone != \'123456\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(227, '2017-01-20 15:56:33', '2017-01-20 08:56:33', 2, 'supplier', 1, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'Chang\',country=\'\',email=\'\',phone=\'123456\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'Chang\' OR country != \'\' OR email != \'\' OR phone != \'123456\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(228, '2017-01-20 16:12:15', '2017-01-20 09:12:15', 2, 'province', 1, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON1=MANGO, EMON2=FENNIE\',city=\'ROOM 201 NO.32\',province=\'CHANGPING ROAD\',country=\'CHINA\',email=\'\',phone=\'0086-768-6933518\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON1=MANGO, EMON2=FENNIE\' OR city != \'ROOM 201 NO.32\' OR province != \'CHANGPING ROAD\' OR country != \'CHINA\' OR email != \'\' OR phone != \'0086-768-6933518\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(229, '2017-01-20 16:12:15', '2017-01-20 09:12:15', 2, 'supplier', 1, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON1=MANGO, EMON2=FENNIE\',city=\'ROOM 201 NO.32\',province=\'CHANGPING ROAD\',country=\'CHINA\',email=\'\',phone=\'0086-768-6933518\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON1=MANGO, EMON2=FENNIE\' OR city != \'ROOM 201 NO.32\' OR province != \'CHANGPING ROAD\' OR country != \'CHINA\' OR email != \'\' OR phone != \'0086-768-6933518\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(230, '2017-01-22 01:48:54', '2017-01-21 18:48:54', 1, 'province', 1, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON1=MANGO, EMON2=FENNIE\',city=\'ROOM 201 NO.32\',province=\'CHANGPING ROAD\',country=\'CHINA\',email=\'\',phone=\'0086-768-6933518\',bank_account=\'D\',bank_account_2=\'\',tax_identification=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON1=MANGO, EMON2=FENNIE\' OR city != \'ROOM 201 NO.32\' OR province != \'CHANGPING ROAD\' OR country != \'CHINA\' OR email != \'\' OR phone != \'0086-768-6933518\' OR bank_account != \'D\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(231, '2017-01-22 01:48:54', '2017-01-21 18:48:54', 1, 'supplier', 1, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON1=MANGO, EMON2=FENNIE\',city=\'ROOM 201 NO.32\',province=\'CHANGPING ROAD\',country=\'CHINA\',email=\'\',phone=\'0086-768-6933518\',bank_account=\'D\',bank_account_2=\'\',tax_identification=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON1=MANGO, EMON2=FENNIE\' OR city != \'ROOM 201 NO.32\' OR province != \'CHANGPING ROAD\' OR country != \'CHINA\' OR email != \'\' OR phone != \'0086-768-6933518\' OR bank_account != \'D\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(232, '2017-01-22 01:49:13', '2017-01-21 18:49:13', 1, 'province', 1, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON1=MANGO, EMON2=FENNIE\',city=\'ROOM 201 NO.32\',province=\'CHANGPING ROAD\',country=\'CHINA\',email=\'\',phone=\'0086-768-6933518\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON1=MANGO, EMON2=FENNIE\' OR city != \'ROOM 201 NO.32\' OR province != \'CHANGPING ROAD\' OR country != \'CHINA\' OR email != \'\' OR phone != \'0086-768-6933518\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(233, '2017-01-22 01:49:13', '2017-01-21 18:49:13', 1, 'supplier', 1, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON1=MANGO, EMON2=FENNIE\',city=\'ROOM 201 NO.32\',province=\'CHANGPING ROAD\',country=\'CHINA\',email=\'\',phone=\'0086-768-6933518\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON1=MANGO, EMON2=FENNIE\' OR city != \'ROOM 201 NO.32\' OR province != \'CHANGPING ROAD\' OR country != \'CHINA\' OR email != \'\' OR phone != \'0086-768-6933518\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(234, '2017-01-22 14:07:51', '2017-01-22 07:07:51', 1, 'province', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMONS\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMONS\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(235, '2017-01-22 14:07:51', '2017-01-22 07:07:51', 1, 'supplier', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMONS\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMONS\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(236, '2017-01-22 14:08:15', '2017-01-22 07:08:15', 1, 'province', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(237, '2017-01-22 14:08:15', '2017-01-22 07:08:15', 1, 'supplier', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(238, '2017-01-22 15:18:06', '2017-01-22 08:18:06', 1, 'province', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMONu\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMONu\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(239, '2017-01-22 15:18:06', '2017-01-22 08:18:06', 1, 'supplier', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMONu\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMONu\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(240, '2017-01-23 01:26:14', '2017-01-22 18:26:14', 1, 'job', 12, 1, 'INSERT', 'INSERT INTO job (id,created,modified,owner,job_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,2,\'พนักงานแนะนำสินค้า\',\'Product Consultant\',\'\')', 1, 'successfully'),
+(241, '2017-01-23 01:54:14', '2017-01-22 18:54:14', 1, 'job', 9, 1, 'UPDATE', 'UPDATE job SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,job_parent_id=1,name=\'ประธานบริษัทฯ\',name_english=\'Presidentt\',description=\'\' WHERE id =9 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR job_parent_id != 1 OR name != \'ประธานบริษัทฯ\' OR name_english != \'Presidentt\' OR description != \'\' )', 1, 'successfully'),
+(242, '2017-01-23 01:54:18', '2017-01-22 18:54:18', 1, 'job', 9, 1, 'UPDATE', 'UPDATE job SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,job_parent_id=1,name=\'ประธานบริษัทฯ\',name_english=\'President\',description=\'\' WHERE id =9 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR job_parent_id != 1 OR name != \'ประธานบริษัทฯ\' OR name_english != \'President\' OR description != \'\' )', 1, 'successfully'),
+(243, '2017-01-23 01:54:33', '2017-01-22 18:54:33', 1, 'job', 10, 1, 'UPDATE', 'UPDATE job SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,job_parent_id=9,name=\'ประธานกรรมการบริหาร\',name_english=\'Chief Executive Officer\',description=\'\' WHERE id =10 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR job_parent_id != 9 OR name != \'ประธานกรรมการบริหาร\' OR name_english != \'Chief Executive Officer\' OR description != \'\' )', 1, 'successfully'),
+(244, '2017-01-23 01:55:31', '2017-01-22 18:55:31', 1, 'job', 1, 1, 'UPDATE', 'UPDATE job SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,job_parent_id=1,name=\'บาธไลน์\',name_english=\'Bathline\',description=\'Bathline\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR job_parent_id != 1 OR name != \'บาธไลน์\' OR name_english != \'Bathline\' OR description != \'Bathline\' )', 1, 'successfully'),
+(245, '2017-01-23 19:43:08', '2017-01-23 12:43:08', 1, 'task', 31, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,1,11,1,1,\'ไทย\',\'รายงานความเคลื่อนไหว ร้านค้า\',\'รายงานความเคลื่อนไหว ร้านค้า\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(246, '2017-01-23 19:46:16', '2017-01-23 12:46:16', 1, 'product_catagories', 3, 1, 'INSERT', 'INSERT INTO product_catagories (id,created,modified,owner,product_catagories_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,\'Bathline Products\',\'Bathline Products\',\'root\')', 1, 'successfully'),
+(247, '2017-01-23 19:47:42', '2017-01-23 12:47:42', 1, 'product_catagories', 4, 1, 'INSERT', 'INSERT INTO product_catagories (id,created,modified,owner,product_catagories_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,2,\'ห้องนํ้า\',\'ห้องนํ้า\',\'ห้องนํ้า\')', 1, 'successfully'),
+(248, '2017-01-23 19:48:06', '2017-01-23 12:48:06', 1, 'product_catagories', 3, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=2,name=\'ห้องนํ้า\',name_english=\'Bathroom\',description=\'ห้องนํ้า\' WHERE id =3 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 2 OR name != \'ห้องนํ้า\' OR name_english != \'Bathroom\' OR description != \'ห้องนํ้า\' )', 1, 'successfully'),
+(249, '2017-01-23 19:48:22', '2017-01-23 12:48:22', 1, 'product_catagories', 2, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=1,name=\'สินค้าบาธไลน์\',name_english=\'Bathline Products\',description=\'root\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 1 OR name != \'สินค้าบาธไลน์\' OR name_english != \'Bathline Products\' OR description != \'root\' )', 1, 'successfully'),
+(250, '2017-01-23 19:48:50', '2017-01-23 12:48:50', 1, 'product_catagories', 5, 1, 'INSERT', 'INSERT INTO product_catagories (id,created,modified,owner,product_catagories_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,\'สุขภัณฑ์\',\'Ceramic\',\'สุขภัณฑ์\')', 1, 'successfully'),
+(251, '2017-01-23 19:50:14', '2017-01-23 12:50:14', 1, 'product_catagories', 6, 1, 'INSERT', 'INSERT INTO product_catagories (id,created,modified,owner,product_catagories_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,4,\'โถส้วม\',\'Toilet\',\'โถส้วม\')', 1, 'successfully'),
+(252, '2017-01-23 19:51:36', '2017-01-23 12:51:36', 1, 'product_catagories', 7, 1, 'INSERT', 'INSERT INTO product_catagories (id,created,modified,owner,product_catagories_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,\'วันพีช\',\'One Piece\',\'โถส้วม วันพีช\')', 1, 'successfully'),
+(253, '2017-01-23 19:51:56', '2017-01-23 12:51:56', 1, 'product_catagories', 8, 1, 'INSERT', 'INSERT INTO product_catagories (id,created,modified,owner,product_catagories_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,\'ทูพีช\',\'Two Piece\',\'โถส้วม ทูพีช\')', 1, 'successfully'),
+(254, '2017-01-23 19:54:15', '2017-01-23 12:54:15', 1, 'product_catagories', 6, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=4,name=\'วันพีช\',name_english=\'One Piece\',description=\'โถส้วม วันพีช\' WHERE id =6 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 4 OR name != \'วันพีช\' OR name_english != \'One Piece\' OR description != \'โถส้วม วันพีช\' )', 1, 'successfully'),
+(255, '2017-01-23 19:57:13', '2017-01-23 12:57:13', 1, 'product_catagories', 6, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=4,name=\'โถปัสสาวะ\',name_english=\'Urinals\',description=\'โถปัสสาวะ\' WHERE id =6 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 4 OR name != \'โถปัสสาวะ\' OR name_english != \'Urinals\' OR description != \'โถปัสสาวะ\' )', 1, 'successfully'),
+(256, '2017-01-23 19:58:43', '2017-01-23 12:58:43', 1, 'product_catagories', 7, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=3,name=\'อ่างล้างหน้า\',name_english=\'Sink\',description=\'อ่างล้างหน้า\' WHERE id =7 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 3 OR name != \'อ่างล้างหน้า\' OR name_english != \'Sink\' OR description != \'อ่างล้างหน้า\' )', 1, 'successfully'),
+(257, '2017-01-23 19:58:54', '2017-01-23 12:58:54', 1, 'product_catagories', 7, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=3,name=\'อ่างล้างมือ\',name_english=\'Sink\',description=\'อ่างล้างมือ\' WHERE id =7 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 3 OR name != \'อ่างล้างมือ\' OR name_english != \'Sink\' OR description != \'อ่างล้างมือ\' )', 1, 'successfully'),
+(258, '2017-01-23 19:59:25', '2017-01-23 12:59:25', 1, 'product_catagories', 5, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=3,name=\'โถส้วม\',name_english=\'Toilet\',description=\'โถส้วม\' WHERE id =5 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 3 OR name != \'โถส้วม\' OR name_english != \'Toilet\' OR description != \'โถส้วม\' )', 1, 'successfully'),
+(259, '2017-01-23 19:59:44', '2017-01-23 12:59:44', 1, 'product_catagories', 6, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=3,name=\'โถปัสสาวะ\',name_english=\'Urinals\',description=\'โถปัสสาวะ\' WHERE id =6 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 3 OR name != \'โถปัสสาวะ\' OR name_english != \'Urinals\' OR description != \'โถปัสสาวะ\' )', 1, 'successfully'),
+(260, '2017-01-23 20:00:31', '2017-01-23 13:00:31', 1, 'product_catagories', 4, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=3,name=\'ก็อกนํ้า\',name_english=\'Faucet\',description=\'ก็อกนํ้า\' WHERE id =4 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 3 OR name != \'ก็อกนํ้า\' OR name_english != \'Faucet\' OR description != \'ก็อกนํ้า\' )', 1, 'successfully'),
+(261, '2017-01-23 20:00:50', '2017-01-23 13:00:50', 1, 'product_catagories', 9, 1, 'INSERT', 'INSERT INTO product_catagories (id,created,modified,owner,product_catagories_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,\'กระจก\',\'Mirror\',\'กระจก\')', 1, 'successfully'),
+(262, '2017-01-23 20:03:22', '2017-01-23 13:03:22', 1, 'product_catagories', 10, 1, 'INSERT', 'INSERT INTO product_catagories (id,created,modified,owner,product_catagories_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,\'ตู้อาบนํ้า\',\'Shower\',\'ตู้อาบนํ้า\')', 1, 'successfully'),
+(263, '2017-01-23 20:04:00', '2017-01-23 13:04:00', 1, 'product_catagories', 11, 1, 'INSERT', 'INSERT INTO product_catagories (id,created,modified,owner,product_catagories_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,\'อ่างอาบนํ้า\',\'Bathtub\',\'อ่างอาบนํ้าอ่างอาบนํ้า\')', 1, 'successfully'),
+(264, '2017-01-23 20:05:21', '2017-01-23 13:05:21', 1, 'product_catagories', 7, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=3,name=\'อ่างล้างมือ\',name_english=\'ฺBasin\',description=\'อ่างล้างมือ\' WHERE id =7 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 3 OR name != \'อ่างล้างมือ\' OR name_english != \'ฺBasin\' OR description != \'อ่างล้างมือ\' )', 1, 'successfully'),
+(265, '2017-01-23 20:08:02', '2017-01-23 13:08:02', 1, 'job_log', 6, 1, 'INSERT', 'INSERT INTO job_log (id,created,modified,owner,job_id,employee_id,job_log_status_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,6,3,1)', 1, 'successfully'),
+(266, '2017-01-23 20:11:03', '2017-01-23 13:11:03', 1, 'product', 1, 1, 'UPDATE', 'UPDATE product SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,supplier_id=1,product_catagories_id=5,product_status_id=1,name=\'B4023\',name_english=\'B4023\',short_description=\'\',long_description=\'\',barcode=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR supplier_id != 1 OR product_catagories_id != 5 OR product_status_id != 1 OR name != \'B4023\' OR name_english != \'B4023\' OR short_description != \'\' OR long_description != \'\' OR barcode != \'\' )', 1, 'successfully'),
+(267, '2017-01-23 20:18:00', '2017-01-23 13:18:00', 1, 'product_attribute', 2, 1, 'INSERT', 'INSERT INTO product_attribute (id,created,modified,owner,name,name_english,description,product_catagories_id,unit_thai,unit_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'วันพีช\',\'One Piece\',\'ชิ้นเดี่ยว\',5,\'ประเภท\',\'ประเภท\')', 1, 'successfully'),
+(268, '2017-01-23 20:32:24', '2017-01-23 13:32:24', 1, 'task', 30, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=1,task_status_id=1,job_id=11,amphur_id=1,province_id=1,country_id=\'ไทย\',name=\'รายงานความเคลื่อนไหว สต็อค\',description=\'รายงานความเคลื่อนไหว ร้านค้า\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =30 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 1 OR task_status_id != 1 OR job_id != 11 OR amphur_id != 1 OR province_id != 1 OR country_id != \'ไทย\' OR name != \'รายงานความเคลื่อนไหว สต็อค\' OR description != \'รายงานความเคลื่อนไหว ร้านค้า\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(269, '2017-01-23 20:32:30', '2017-01-23 13:32:30', 1, 'task', 30, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=1,task_status_id=1,job_id=11,amphur_id=1,province_id=1,country_id=\'ไทย\',name=\'รายงานความเคลื่อนไหว สต็อคสินค้า\',description=\'รายงานความเคลื่อนไหว ร้านค้า\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =30 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 1 OR task_status_id != 1 OR job_id != 11 OR amphur_id != 1 OR province_id != 1 OR country_id != \'ไทย\' OR name != \'รายงานความเคลื่อนไหว สต็อคสินค้า\' OR description != \'รายงานความเคลื่อนไหว ร้านค้า\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(270, '2017-01-23 20:33:47', '2017-01-23 13:33:47', 1, 'product_attribute', 1, 1, 'UPDATE', 'UPDATE product_attribute SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'ลักษณะ\',name_english=\'Shape\',description=\'Shape\',product_catagories_id=5,unit_thai=\'ประเภท\',unit_english=\'ประเภท\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'ลักษณะ\' OR name_english != \'Shape\' OR description != \'Shape\' OR product_catagories_id != 5 OR unit_thai != \'ประเภท\' OR unit_english != \'ประเภท\' )', 1, 'successfully'),
+(271, '2017-01-23 20:48:55', '2017-01-23 13:48:55', 1, 'product_attribute_value', 2, 1, 'INSERT', 'INSERT INTO product_attribute_value (id,created,modified,owner,name,name_english,description,product_attribute_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'\',\'\',\'\',1)', 1, 'successfully'),
+(272, '2017-01-23 20:50:18', '2017-01-23 13:50:18', 1, 'product_attribute', 1, 1, 'UPDATE', 'UPDATE product_attribute SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'ลักษณะห\',name_english=\'Shape\',description=\'Shape\',product_catagories_id=5,unit_thai=\'ประเภท\',unit_english=\'ประเภท\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'ลักษณะห\' OR name_english != \'Shape\' OR description != \'Shape\' OR product_catagories_id != 5 OR unit_thai != \'ประเภท\' OR unit_english != \'ประเภท\' )', 1, 'successfully'),
+(273, '2017-01-23 20:50:23', '2017-01-23 13:50:23', 1, 'product_attribute', 1, 1, 'UPDATE', 'UPDATE product_attribute SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'ลักษณะ\',name_english=\'Shape\',description=\'Shape\',product_catagories_id=5,unit_thai=\'ประเภท\',unit_english=\'ประเภท\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'ลักษณะ\' OR name_english != \'Shape\' OR description != \'Shape\' OR product_catagories_id != 5 OR unit_thai != \'ประเภท\' OR unit_english != \'ประเภท\' )', 1, 'successfully'),
+(274, '2017-01-23 20:59:09', '2017-01-23 13:59:09', 1, 'product_attribute_option', 2, 1, 'INSERT', 'INSERT INTO product_attribute_option (id,created,modified,owner,name_thai,name_english,product_attribute_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'วันพีช\',\'One Piece\',1)', 1, 'successfully'),
+(275, '2017-01-23 21:00:03', '2017-01-23 14:00:03', 1, 'product_attribute_option', 3, 1, 'INSERT', 'INSERT INTO product_attribute_option (id,created,modified,owner,name_thai,name_english,product_attribute_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'ทูพีช\',\'Two Piece\',1)', 1, 'successfully'),
+(276, '2017-01-23 21:00:06', '2017-01-23 14:00:06', 1, 'product_attribute_option', 4, 1, 'INSERT', 'INSERT INTO product_attribute_option (id,created,modified,owner,name_thai,name_english,product_attribute_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'ทูพีช\',\'Two Pieces\',1)', 1, 'successfully'),
+(277, '2017-01-23 21:00:12', '2017-01-23 14:00:12', 1, 'product_attribute_option', 2, 1, 'UPDATE', 'UPDATE product_attribute_option SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name_thai=\'ทูพีช\',name_english=\'Two Pieces\',product_attribute_id=1 WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name_thai != \'ทูพีช\' OR name_english != \'Two Pieces\' OR product_attribute_id != 1 )', 1, 'successfully'),
+(278, '2017-01-23 21:01:59', '2017-01-23 14:01:59', 1, 'product_attribute', 1, 1, 'UPDATE', 'UPDATE product_attribute SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'ประเภท\',name_english=\'ประเภท\',description=\'ประเภท\',product_catagories_id=5,unit_thai=\'แบบ\',unit_english=\'แบบ\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'ประเภท\' OR name_english != \'ประเภท\' OR description != \'ประเภท\' OR product_catagories_id != 5 OR unit_thai != \'แบบ\' OR unit_english != \'แบบ\' )', 1, 'successfully'),
+(279, '2017-01-23 21:02:26', '2017-01-23 14:02:26', 1, 'product_attribute', 3, 1, 'INSERT', 'INSERT INTO product_attribute (id,created,modified,owner,name,name_english,description,product_catagories_id,unit_thai,unit_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'ระบบนํ้า\',\'ระบบนํ้า\',\'ระบบนํ้า\',5,\'แบบ\',\'แบบ\')', 1, 'successfully'),
+(280, '2017-01-23 21:03:22', '2017-01-23 14:03:22', 1, 'product_attribute', 1, 1, 'UPDATE', 'UPDATE product_attribute SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'ประเภท\',name_english=\'ประเภท\',description=\'ประเภท\',product_catagories_id=5,unit_thai=\'\',unit_english=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'ประเภท\' OR name_english != \'ประเภท\' OR description != \'ประเภท\' OR product_catagories_id != 5 OR unit_thai != \'\' OR unit_english != \'\' )', 1, 'successfully'),
+(281, '2017-01-23 21:03:27', '2017-01-23 14:03:27', 1, 'product_attribute', 2, 1, 'UPDATE', 'UPDATE product_attribute SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'ระบบนํ้า\',name_english=\'ระบบนํ้า\',description=\'ระบบนํ้า\',product_catagories_id=5,unit_thai=\'\',unit_english=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'ระบบนํ้า\' OR name_english != \'ระบบนํ้า\' OR description != \'ระบบนํ้า\' OR product_catagories_id != 5 OR unit_thai != \'\' OR unit_english != \'\' )', 1, 'successfully'),
+(282, '2017-01-23 21:03:49', '2017-01-23 14:03:49', 1, 'product_attribute_option', 3, 1, 'UPDATE', 'UPDATE product_attribute_option SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name_thai=\'ทอเนโด\',name_english=\'Tornado\',product_attribute_id=2 WHERE id =3 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name_thai != \'ทอเนโด\' OR name_english != \'Tornado\' OR product_attribute_id != 2 )', 1, 'successfully'),
+(283, '2017-01-23 21:29:29', '2017-01-23 14:29:29', 1, 'product_attribute_value', 2, 1, 'INSERT', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,1)', 1, 'successfully'),
+(284, '2017-01-23 21:37:46', '2017-01-23 14:37:46', 1, 'product_attribute', 1, 1, 'UPDATE', 'UPDATE product_attribute SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_attribute_parent_id=1,name=\'root\',name_english=\'root\',description=\'root\',product_catagories_id=1,unit_thai=\'\',unit_english=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_attribute_parent_id != 1 OR name != \'root\' OR name_english != \'root\' OR description != \'root\' OR product_catagories_id != 1 OR unit_thai != \'\' OR unit_english != \'\' )', 1, 'successfully'),
+(285, '2017-01-23 21:38:19', '2017-01-23 14:38:19', 1, 'product_attribute', 4, 1, 'INSERT', 'INSERT INTO product_attribute (id,created,modified,owner,product_attribute_parent_id,name,name_english,description,product_catagories_id,unit_thai,unit_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,\'ประเภท\',\'ประเภท\',\'ประเภท\',5,\'\',\'\')', 1, 'successfully'),
+(286, '2017-01-23 21:38:29', '2017-01-23 14:38:29', 1, 'product_attribute_option', 1, 1, 'UPDATE', 'UPDATE product_attribute_option SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'วันพีช\',name_english=\'One Piece\',product_attribute_id=3 WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'วันพีช\' OR name_english != \'One Piece\' OR product_attribute_id != 3 )', 1, 'successfully'),
+(287, '2017-01-23 21:38:35', '2017-01-23 14:38:35', 1, 'product_attribute_option', 2, 1, 'UPDATE', 'UPDATE product_attribute_option SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'ทูพีช\',name_english=\'Two Pieces\',product_attribute_id=3 WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'ทูพีช\' OR name_english != \'Two Pieces\' OR product_attribute_id != 3 )', 1, 'successfully'),
+(288, '2017-01-23 22:24:04', '2017-01-23 15:24:04', 1, 'task', 30, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=1,task_status_id=1,job_id=11,amphur_id=1,province_id=1,country_id=\'ไทย\',name=\'รายงาน Stock สินค้าคงเหลือ ประจำวัน\',description=\'โดยให้กรอกข้อมูล รายงานการขายสินค้า BATHLINE ที่อยู่ในร้าน ทุกๆ วัน\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =30 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 1 OR task_status_id != 1 OR job_id != 11 OR amphur_id != 1 OR province_id != 1 OR country_id != \'ไทย\' OR name != \'รายงาน Stock สินค้าคงเหลือ ประจำวัน\' OR description != \'โดยให้กรอกข้อมูล รายงานการขายสินค้า BATHLINE ที่อยู่ในร้าน ทุกๆ วัน\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(289, '2017-01-23 22:39:46', '2017-01-23 15:39:46', 1, 'task', 32, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,1,2,1,1,\'ไทย\',\'ระบุร้านค้า กับ พนักงาน PC\',\'ระบุร้านค้า กับ พนักงาน PC\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(290, '2017-01-23 22:49:19', '2017-01-23 15:49:19', 1, 'job', 13, 1, 'INSERT', 'INSERT INTO job (id,created,modified,owner,job_parent_id,name,name_english,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,2,\'ผู้อำนวยการฝ่ายพัฒนาช่องทางการจัดจำหน่าย\',\'\',\'ผู้อำนวยการฝ่ายพัฒนาช่องทางการจัดจำหน่าย\')', 1, 'successfully'),
+(291, '2017-01-23 22:49:50', '2017-01-23 15:49:50', 1, 'db_reference', 12, 1, 'UPDATE', 'UPDATE db_reference SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'retail_pc\',db_name=\'retail_pc\' WHERE id =12 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'retail_pc\' OR db_name != \'retail_pc\' )', 1, 'successfully'),
+(292, '2017-01-23 22:51:34', '2017-01-23 15:51:34', 1, 'job', 12, 1, 'UPDATE', 'UPDATE job SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,job_parent_id=2,name=\'ผู้อำนวยการฝ่ายพัฒนาช่องทางการจัดจำหน่าย\',name_english=\'Director of Distributor Development\',description=\'ผู้อำนวยการฝ่ายพัฒนาช่องทางการจัดจำหน่าย\' WHERE id =12 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR job_parent_id != 2 OR name != \'ผู้อำนวยการฝ่ายพัฒนาช่องทางการจัดจำหน่าย\' OR name_english != \'Director of Distributor Development\' OR description != \'ผู้อำนวยการฝ่ายพัฒนาช่องทางการจัดจำหน่าย\' )', 1, 'successfully');
+INSERT INTO `task_log` (`id`, `created`, `modified`, `owner`, `record_name`, `record_document`, `task_id`, `task_action_type`, `query`, `task_log_status_id`, `task_msg`) VALUES
+(293, '2017-01-23 22:52:38', '2017-01-23 15:52:38', 1, 'task', 31, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=1,task_status_id=1,job_id=12,amphur_id=1,province_id=1,country_id=\'ไทย\',name=\'ระบุร้านค้า กับ พนักงาน PC\',description=\'ระบุร้านค้า กับ พนักงาน PC\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =31 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 1 OR task_status_id != 1 OR job_id != 12 OR amphur_id != 1 OR province_id != 1 OR country_id != \'ไทย\' OR name != \'ระบุร้านค้า กับ พนักงาน PC\' OR description != \'ระบุร้านค้า กับ พนักงาน PC\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(294, '2017-01-23 22:55:37', '2017-01-23 15:55:37', 1, 'employee', 5, 1, 'INSERT', 'INSERT INTO employee (id,created,modified,owner,name,firstname_thai,lastname_thai,firstname_english,lastname_english,phone,email,address,amphur_id,province_id,start_date,join_date,national_id,bank_account) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'พี่น็อต\',\'กิตติวุฒิ\',\'ศิริศิลป์\',\'Kittiwut\',\'Sirisilp\',\'\',\'\',\'\',843,7,\'2017-01-15\',\'2018-01-15\',\'\',\'\')', 1, 'successfully'),
+(295, '2017-01-23 22:56:30', '2017-01-23 15:56:30', 1, 'job_log', 7, 1, 'INSERT', 'INSERT INTO job_log (id,created,modified,owner,job_id,employee_id,job_log_status_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,12,4,1)', 1, 'successfully'),
+(296, '2017-01-23 22:56:40', '2017-01-23 15:56:40', 1, 'employee', 4, 1, 'UPDATE', 'UPDATE employee SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'น็อต\',firstname_thai=\'กิตติวุฒิ\',lastname_thai=\'ศิริศิลป์\',firstname_english=\'Kittiwut\',lastname_english=\'Sirisilp\',phone=\'\',email=\'\',address=\'\',amphur_id=843,province_id=7,start_date=\'2017-01-15\',join_date=\'2018-01-15\',national_id=\'\',bank_account=\'\' WHERE id =4 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'น็อต\' OR firstname_thai != \'กิตติวุฒิ\' OR lastname_thai != \'ศิริศิลป์\' OR firstname_english != \'Kittiwut\' OR lastname_english != \'Sirisilp\' OR phone != \'\' OR email != \'\' OR address != \'\' OR amphur_id != 843 OR province_id != 7 OR start_date != \'2017-01-15\' OR join_date != \'2018-01-15\' OR national_id != \'\' OR bank_account != \'\' )', 1, 'successfully'),
+(297, '2017-01-23 22:58:35', '2017-01-23 15:58:35', 1, 'db_reference', 14, 1, 'INSERT', 'INSERT INTO db_reference (id,created,modified,owner,name,db_name) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'product_catagories\',\'product_catagories\')', 1, 'successfully'),
+(298, '2017-01-23 22:58:45', '2017-01-23 15:58:45', 1, 'task_db_log', 22, 1, 'UPDATE', 'UPDATE task_db_log SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_id=28,db_reference_id=13 WHERE id =22 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_id != 28 OR db_reference_id != 13 )', 1, 'successfully'),
+(299, '2017-01-23 22:58:50', '2017-01-23 15:58:50', 1, 'task_db_log', 23, 1, 'UPDATE', 'UPDATE task_db_log SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_id=29,db_reference_id=13 WHERE id =23 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_id != 29 OR db_reference_id != 13 )', 1, 'successfully'),
+(300, '2017-01-23 22:59:32', '2017-01-23 15:59:32', 1, 'task_db_log', 25, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,31,12)', 1, 'successfully'),
+(301, '2017-01-23 23:02:03', '2017-01-23 16:02:03', 1, 'db_reference', 15, 1, 'INSERT', 'INSERT INTO db_reference (id,created,modified,owner,name,db_name) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'retail_stock_report\',\'retail_stock_report\')', 1, 'successfully'),
+(302, '2017-01-23 23:02:31', '2017-01-23 16:02:31', 1, 'task_db_log', 26, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,30,14)', 1, 'successfully'),
+(303, '2017-01-23 23:03:46', '2017-01-23 16:03:46', 1, 'task', 33, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,2,1,12,843,7,\'ไทย\',\'แก้ไข ร้านค้า กับ พนักงาน PC\',\'แก้ไข ร้านค้า กับ พนักงาน PC\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(304, '2017-01-23 23:04:15', '2017-01-23 16:04:15', 1, 'task', 31, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=1,task_status_id=1,job_id=12,amphur_id=1,province_id=1,country_id=\'ไทย\',name=\'ระบุ ร้านค้า กับ พนักงาน PC\',description=\'ระบุร้านค้า กับ พนักงาน PC\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =31 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 1 OR task_status_id != 1 OR job_id != 12 OR amphur_id != 1 OR province_id != 1 OR country_id != \'ไทย\' OR name != \'ระบุ ร้านค้า กับ พนักงาน PC\' OR description != \'ระบุร้านค้า กับ พนักงาน PC\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(305, '2017-01-23 23:04:43', '2017-01-23 16:04:43', 1, 'task', 30, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=1,task_status_id=1,job_id=11,amphur_id=1,province_id=1,country_id=\'ไทย\',name=\'รายงาน สต็อค สินค้าคงเหลือ ประจำวัน\',description=\'โดยให้กรอกข้อมูล รายงานการขายสินค้า BATHLINE ที่อยู่ในร้าน ทุกๆ วัน\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =30 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 1 OR task_status_id != 1 OR job_id != 11 OR amphur_id != 1 OR province_id != 1 OR country_id != \'ไทย\' OR name != \'รายงาน สต็อค สินค้าคงเหลือ ประจำวัน\' OR description != \'โดยให้กรอกข้อมูล รายงานการขายสินค้า BATHLINE ที่อยู่ในร้าน ทุกๆ วัน\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(306, '2017-01-23 23:05:13', '2017-01-23 16:05:13', 1, 'task_db_log', 27, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,32,12)', 1, 'successfully'),
+(307, '2017-01-23 23:05:28', '2017-01-23 16:05:28', 1, 'job_log', 8, 1, 'INSERT', 'INSERT INTO job_log (id,created,modified,owner,job_id,employee_id,job_log_status_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,12,1,1)', 1, 'successfully'),
+(308, '2017-01-23 23:28:14', '2017-01-23 16:28:14', 1, 'agent_type', 2, 1, 'INSERT', 'INSERT INTO agent_type (id,created,modified,owner,name,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'Moderntrade\',\'Moderntrade\')', 1, 'successfully'),
+(309, '2017-01-23 23:31:49', '2017-01-23 16:31:49', 1, 'agent_type', 3, 1, 'INSERT', 'INSERT INTO agent_type (id,created,modified,owner,name,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'as\',\'Sad\')', 1, 'successfully'),
+(310, '2017-01-23 23:34:02', '2017-01-23 16:34:02', 1, 'agent_type', 2, 1, 'UPDATE', 'UPDATE agent_type SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'ร้านค้า\',description=\'ร้านค้า\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'ร้านค้า\' OR description != \'ร้านค้า\' )', 1, 'successfully'),
+(311, '2017-01-23 23:47:22', '2017-01-23 16:47:22', 1, 'region', 1, 1, 'UPDATE', 'UPDATE region SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'ภาคเหนือ\',description=\'North\',region_parent_id=1 WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'ภาคเหนือ\' OR description != \'North\' OR region_parent_id != 1 )', 1, 'successfully'),
+(312, '2017-01-23 23:47:53', '2017-01-23 16:47:53', 1, 'region', 1, 1, 'UPDATE', 'UPDATE region SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'root\',description=\'root\',region_parent_id=1 WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'root\' OR description != \'root\' OR region_parent_id != 1 )', 1, 'successfully'),
+(313, '2017-01-23 23:47:59', '2017-01-23 16:47:59', 1, 'region', 3, 1, 'INSERT', 'INSERT INTO region (id,created,modified,owner,name,description,region_parent_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'ภาคตะวันออกเฉียงเหนือ\',\'ภาคตะวันออกเฉียงเหนือ\',1)', 1, 'successfully'),
+(314, '2017-01-23 23:48:11', '2017-01-23 16:48:11', 1, 'region', 4, 1, 'INSERT', 'INSERT INTO region (id,created,modified,owner,name,description,region_parent_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'ภาคเหนือ\',\'ภาคเหนือ\',1)', 1, 'successfully'),
+(315, '2017-01-23 23:48:16', '2017-01-23 16:48:16', 1, 'region', 5, 1, 'INSERT', 'INSERT INTO region (id,created,modified,owner,name,description,region_parent_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'ภาคกลาง\',\'ภาคกลาง\',1)', 1, 'successfully'),
+(316, '2017-01-23 23:48:31', '2017-01-23 16:48:31', 1, 'region', 6, 1, 'INSERT', 'INSERT INTO region (id,created,modified,owner,name,description,region_parent_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'ภาคตะวันออก\',\'ภาคตะวันออก\',1)', 1, 'successfully'),
+(317, '2017-01-23 23:48:37', '2017-01-23 16:48:37', 1, 'region', 7, 1, 'INSERT', 'INSERT INTO region (id,created,modified,owner,name,description,region_parent_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'ภาคใต้\',\'ภาคใต้\',1)', 1, 'successfully'),
+(318, '2017-01-23 23:48:46', '2017-01-23 16:48:46', 1, 'region', 8, 1, 'INSERT', 'INSERT INTO region (id,created,modified,owner,name,description,region_parent_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'ภาคตะวันออกเฉียงเหนือ\',\'ภาคตะวันออกเฉียงเหนือ\',1)', 1, 'successfully'),
+(319, '2017-01-23 23:48:59', '2017-01-23 16:48:59', 1, 'region', 9, 1, 'INSERT', 'INSERT INTO region (id,created,modified,owner,name,description,region_parent_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'ภาคตะวันตก\',\'ภาคตะวันตก\',1)', 1, 'successfully'),
+(320, '2017-01-23 23:50:23', '2017-01-23 16:50:23', 1, 'region', 7, 1, 'UPDATE', 'UPDATE region SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'สาธารณรัฐประชาธิปไตยประชาชนลาว\',description=\'สาธารณรัฐประชาธิปไตยประชาชนลาว\',region_parent_id=1 WHERE id =7 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'สาธารณรัฐประชาธิปไตยประชาชนลาว\' OR description != \'สาธารณรัฐประชาธิปไตยประชาชนลาว\' OR region_parent_id != 1 )', 1, 'successfully'),
+(321, '2017-01-23 23:50:54', '2017-01-23 16:50:54', 1, 'region', 7, 1, 'UPDATE', 'UPDATE region SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'สาธารณรัฐแห่งสหภาพพม่า\',description=\'สาธารณรัฐแห่งสหภาพพม่า\',region_parent_id=1 WHERE id =7 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'สาธารณรัฐแห่งสหภาพพม่า\' OR description != \'สาธารณรัฐแห่งสหภาพพม่า\' OR region_parent_id != 1 )', 1, 'successfully'),
+(322, '2017-01-23 23:51:13', '2017-01-23 16:51:13', 1, 'region', 7, 1, 'UPDATE', 'UPDATE region SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'พระราชาณาจักรกัมพูชา\',description=\'พระราชาณาจักรกัมพูชา\',region_parent_id=1 WHERE id =7 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'พระราชาณาจักรกัมพูชา\' OR description != \'พระราชาณาจักรกัมพูชา\' OR region_parent_id != 1 )', 1, 'successfully'),
+(323, '2017-01-23 23:51:45', '2017-01-23 16:51:45', 1, 'region', 10, 1, 'INSERT', 'INSERT INTO region (id,created,modified,owner,name,description,region_parent_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'สาธารณรัฐแห่งสหภาพพม่า\',\'สาธารณรัฐแห่งสหภาพพม่า\',1)', 1, 'successfully'),
+(324, '2017-01-23 23:51:57', '2017-01-23 16:51:57', 1, 'region', 11, 1, 'INSERT', 'INSERT INTO region (id,created,modified,owner,name,description,region_parent_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'สาธารณรัฐประชาธิปไตยประชาชนลาว\',\'สาธารณรัฐประชาธิปไตยประชาชนลาว\',1)', 1, 'successfully'),
+(325, '2017-01-23 23:57:06', '2017-01-23 16:57:06', 1, 'job_log', 9, 1, 'INSERT', 'INSERT INTO job_log (id,created,modified,owner,job_id,employee_id,job_log_status_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,11,1,1)', 1, 'successfully'),
+(326, '2017-01-24 00:01:20', '2017-01-23 17:01:20', 1, 'agent', 2, 1, 'INSERT', 'INSERT INTO agent (id,created,modified,owner,name,phone,description,region_id,agent_type_id,province_id,bank_account_1,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'วู็ดแอนด์เซรามิค\',\'\',\'\',4,2,7,\'\',\'\',\'\')', 1, 'successfully'),
+(327, '2017-01-24 00:02:47', '2017-01-23 17:02:47', 1, 'retail_pc', 2, 1, 'INSERT', 'INSERT INTO retail_pc (id,created,modified,owner,employee_id,agent_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1)', 1, 'successfully'),
+(328, '2017-01-24 00:05:07', '2017-01-23 17:05:07', 1, 'task_action_type', 6, 1, 'INSERT', 'INSERT INTO task_action_type (id,created,modified,owner,name,description) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'INSERT_CREDENTIAL\',\'INSERT_CREDENTIAL\')', 1, 'successfully'),
+(329, '2017-01-24 00:05:21', '2017-01-23 17:05:21', 1, 'task', 30, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=5,task_status_id=1,job_id=11,amphur_id=1,province_id=1,country_id=\'ไทย\',name=\'รายงาน สต็อค สินค้าคงเหลือ ประจำวัน\',description=\'โดยให้กรอกข้อมูล รายงานการขายสินค้า BATHLINE ที่อยู่ในร้าน ทุกๆ วัน\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =30 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 5 OR task_status_id != 1 OR job_id != 11 OR amphur_id != 1 OR province_id != 1 OR country_id != \'ไทย\' OR name != \'รายงาน สต็อค สินค้าคงเหลือ ประจำวัน\' OR description != \'โดยให้กรอกข้อมูล รายงานการขายสินค้า BATHLINE ที่อยู่ในร้าน ทุกๆ วัน\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(330, '2017-01-24 00:15:51', '2017-01-23 17:15:51', 1, 'retail_pc', 1, 1, 'UPDATE', 'UPDATE retail_pc SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,employee_id=3,agent_id=1 WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR employee_id != 3 OR agent_id != 1 )', 1, 'successfully'),
+(331, '2017-01-24 00:16:43', '2017-01-23 17:16:43', 1, 'agent', 3, 1, 'INSERT', 'INSERT INTO agent (id,created,modified,owner,name,phone,description,region_id,agent_type_id,province_id,bank_account_1,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'testt\',\'\',\'\',2,2,2,\'\',\'\',\'\')', 1, 'successfully'),
+(332, '2017-01-24 00:16:50', '2017-01-23 17:16:50', 1, 'retail_pc', 3, 1, 'INSERT', 'INSERT INTO retail_pc (id,created,modified,owner,employee_id,agent_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,2)', 1, 'successfully'),
+(333, '2017-01-24 00:27:58', '2017-01-23 17:27:58', 1, 'retail_pc', 2, 1, 'UPDATE', 'UPDATE retail_pc SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'\',employee_id=3,agent_id=2 WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'\' OR employee_id != 3 OR agent_id != 2 )', 1, 'successfully'),
+(334, '2017-01-24 00:29:05', '2017-01-23 17:29:05', 1, 'retail_pc', 2, 1, 'UPDATE', 'UPDATE retail_pc SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'\',employee_id=1,agent_id=2 WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'\' OR employee_id != 1 OR agent_id != 2 )', 1, 'successfully'),
+(335, '2017-01-24 01:14:19', '2017-01-23 18:14:19', 1, 'retail_pc', 1, 1, 'UPDATE', 'UPDATE retail_pc SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'\',employee_id=1,agent_id=1 WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'\' OR employee_id != 1 OR agent_id != 1 )', 1, 'successfully'),
+(336, '2017-01-24 01:17:49', '2017-01-23 18:17:49', 1, 'retail_stock_report', 2, 1, 'INSERT', 'INSERT INTO retail_stock_report (id,created,modified,owner,retail_pc_id,product_id,quantity_remain) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,2)', 1, 'successfully'),
+(337, '2017-01-24 01:25:55', '2017-01-23 18:25:55', 1, 'retail_pc', 1, 1, 'UPDATE', 'UPDATE retail_pc SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'\',employee_id=2,agent_id=1 WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'\' OR employee_id != 2 OR agent_id != 1 )', 1, 'successfully'),
+(338, '2017-01-24 01:30:10', '2017-01-23 18:30:10', 1, 'retail_pc', 1, 1, 'UPDATE', 'UPDATE retail_pc SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'\',employee_id=1,agent_id=1 WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'\' OR employee_id != 1 OR agent_id != 1 )', 1, 'successfully'),
+(339, '2017-01-24 01:30:21', '2017-01-23 18:30:21', 1, 'retail_stock_report', 3, 1, 'INSERT', 'INSERT INTO retail_stock_report (id,created,modified,owner,agent_id,product_id,quantity_remain) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,2)', 1, 'successfully'),
+(340, '2017-01-24 01:30:51', '2017-01-23 18:30:51', 1, 'retail_stock_report', 4, 1, 'INSERT', 'INSERT INTO retail_stock_report (id,created,modified,owner,agent_id,product_id,quantity_remain) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,20,1,2)', 1, 'successfully'),
+(341, '2017-01-24 01:42:37', '2017-01-23 18:42:37', 1, 'retail_stock_report', 5, 1, 'INSERT', 'INSERT INTO retail_stock_report (id,created,modified,owner,agent_id,product_id,quantity_remain) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,2)', 1, 'successfully'),
+(342, '2017-01-24 01:50:53', '2017-01-23 18:50:53', 1, 'retail_stock_report', 6, 1, 'INSERT', 'INSERT INTO retail_stock_report (id,created,modified,owner,agent_id,product_id,quantity_remain) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,2)', 1, 'successfully'),
+(343, '2017-01-24 01:51:37', '2017-01-23 18:51:37', 1, 'retail_stock_report', 7, 1, 'INSERT', 'INSERT INTO retail_stock_report (id,created,modified,owner,agent_id,product_id,quantity_remain) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,2)', 1, 'successfully'),
+(344, '2017-01-24 01:51:50', '2017-01-23 18:51:50', 1, 'retail_stock_report', 8, 1, 'INSERT', 'INSERT INTO retail_stock_report (id,created,modified,owner,agent_id,product_id,quantity_remain) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,2)', 1, 'successfully'),
+(345, '2017-01-24 01:53:46', '2017-01-23 18:53:46', 1, 'retail_stock_report', 9, 1, 'INSERT', 'INSERT INTO retail_stock_report (id,created,modified,owner,agent_id,product_id,quantity_remain) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,2)', 1, 'successfully');
 
 -- --------------------------------------------------------
 
@@ -2215,11 +2563,11 @@ CREATE TABLE `vehicle` (
   `created` datetime NOT NULL,
   `modified` timestamp NOT NULL,
   `owner` int(8) NOT NULL,
-  `name` varchar(32) NOT NULL,
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `vehicle_brand_id` int(4) NOT NULL,
   `vehicle_catagory_id` int(4) NOT NULL,
   `purchased_year` date NOT NULL,
-  `license_number` varchar(32) NOT NULL
+  `license_number` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -2233,8 +2581,8 @@ CREATE TABLE `vehicle_brand` (
   `created` datetime NOT NULL,
   `modified` timestamp NOT NULL,
   `owner` int(8) NOT NULL,
-  `name` varchar(32) NOT NULL,
-  `description` text NOT NULL
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -2268,8 +2616,8 @@ CREATE TABLE `vehicle_catagory` (
   `created` datetime NOT NULL,
   `modified` timestamp NOT NULL,
   `owner` int(4) NOT NULL,
-  `name` varchar(32) NOT NULL,
-  `description` text NOT NULL,
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `vehicle_catagory_parent_id` int(4) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -2315,8 +2663,8 @@ CREATE TABLE `vehicle_status` (
   `created` datetime NOT NULL,
   `modified` timestamp NOT NULL,
   `owner` int(4) NOT NULL,
-  `name` varchar(32) NOT NULL,
-  `description` text NOT NULL,
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `boolean` int(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -2357,6 +2705,12 @@ ALTER TABLE `agent`
 -- Indexes for table `agent_credit_log`
 --
 ALTER TABLE `agent_credit_log`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `agent_type`
+--
+ALTER TABLE `agent_type`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2414,6 +2768,12 @@ ALTER TABLE `delivery_process_status`
 -- Indexes for table `employee`
 --
 ALTER TABLE `employee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `employee_suffix`
+--
+ALTER TABLE `employee_suffix`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2495,6 +2855,12 @@ ALTER TABLE `product_attribute`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `product_attribute_option`
+--
+ALTER TABLE `product_attribute_option`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `product_attribute_value`
 --
 ALTER TABLE `product_attribute_value`
@@ -2522,6 +2888,18 @@ ALTER TABLE `province`
 -- Indexes for table `region`
 --
 ALTER TABLE `region`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `retail_pc`
+--
+ALTER TABLE `retail_pc`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `retail_stock_report`
+--
+ALTER TABLE `retail_stock_report`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2620,12 +2998,17 @@ ALTER TABLE `action_permission_type`
 -- AUTO_INCREMENT for table `agent`
 --
 ALTER TABLE `agent`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `agent_credit_log`
 --
 ALTER TABLE `agent_credit_log`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `agent_type`
+--
+ALTER TABLE `agent_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `amphur`
 --
@@ -2645,7 +3028,7 @@ ALTER TABLE `attachment_type`
 -- AUTO_INCREMENT for table `db_reference`
 --
 ALTER TABLE `db_reference`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `delivery`
 --
@@ -2665,17 +3048,22 @@ ALTER TABLE `delivery_process_status`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `employee_suffix`
+--
+ALTER TABLE `employee_suffix`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `job`
 --
 ALTER TABLE `job`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `job_log`
 --
 ALTER TABLE `job_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `job_log_status`
 --
@@ -2685,7 +3073,7 @@ ALTER TABLE `job_log_status`
 -- AUTO_INCREMENT for table `loginattempts`
 --
 ALTER TABLE `loginattempts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `note`
 --
@@ -2730,17 +3118,22 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `product_attribute`
 --
 ALTER TABLE `product_attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `product_attribute_option`
+--
+ALTER TABLE `product_attribute_option`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `product_attribute_value`
 --
 ALTER TABLE `product_attribute_value`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `product_catagories`
 --
 ALTER TABLE `product_catagories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `product_status`
 --
@@ -2755,27 +3148,37 @@ ALTER TABLE `province`
 -- AUTO_INCREMENT for table `region`
 --
 ALTER TABLE `region`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `retail_pc`
+--
+ALTER TABLE `retail_pc`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `retail_stock_report`
+--
+ALTER TABLE `retail_stock_report`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `task_action_type`
 --
 ALTER TABLE `task_action_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `task_db_log`
 --
 ALTER TABLE `task_db_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `task_flow`
 --
@@ -2785,7 +3188,7 @@ ALTER TABLE `task_flow`
 -- AUTO_INCREMENT for table `task_log`
 --
 ALTER TABLE `task_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=346;
 --
 -- AUTO_INCREMENT for table `task_log_status`
 --

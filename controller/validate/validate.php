@@ -12,6 +12,22 @@ class validate
             }
         }
     }
+    public function lookup_if_rows_exist($id,$table){
+        if(isset($id)&&isset($table))
+        {
+            $db = new Db();
+            $result = $db -> select("SELECT count(id) FROM ".$table." WHERE id = ".$id."");
+            
+            if ($result){
+                if ($result[0]['count(id)']==0){
+                    return 1;
+                }else if ($result[0]['count(id)'] > 0){
+                    return 0;
+                }
+                
+            }
+        }
+    }
     public function set_db_enviroment($db_list){
         if($db_list)
         {

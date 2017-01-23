@@ -409,6 +409,13 @@ class view{
                                 ";
                 view::grid_make($title,$show_list); 
                 break;
+            case 'agent_type':
+                    $show_list= "id,
+                                name,
+                                description                          
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
             case 'attachment_type':
                     $show_list= "id,
                                 name,
@@ -553,7 +560,16 @@ class view{
                     $show_list= "id,
                                 product_catagories_parent_id,
                                 name,
-                                name_english                                                                                                                                                   
+                                name_english                                                                                                                                                    
+                                ";
+                view::grid_make($title,$show_list); 
+                break; 
+            case 'product_attribute':
+                    $show_list= "id,
+                                name,
+                                description,
+                                product_catagories_id,
+                                unit_thai                     
                                 ";
                 view::grid_make($title,$show_list); 
                 break; 
@@ -561,15 +577,17 @@ class view{
                     $show_list= "id,
                                 product_id,
                                 product_attribute_id,
-                                value,
-                                unit_thai                                                                                                                                                   
+                                product_attribute_option_id
+                                                                                                                                                                                   
                                 ";
                 view::grid_make($title,$show_list); 
                 break; 
-            case 'product_attribute':
+            case 'product_attribute_option':
                     $show_list= "id,
                                 name,
-                                description                                                                                                                                                    
+                                name_english,
+                                product_attribute_id
+                                                                                                                                                                                   
                                 ";
                 view::grid_make($title,$show_list); 
                 break; 
@@ -582,6 +600,22 @@ class view{
                                 ";
                 view::grid_make($title,$show_list); 
                 break; 
+            case 'retail_stock_report':
+                    $show_list= "id,
+                                created,
+                                agent_id,
+                                product_id,
+                                quantity_remain                                                                                                                    
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
+            case 'retail_pc':
+                    $show_list= "id,
+                                employee_id,
+                                agent_id                                                                                                                    
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
             case 'note_type':
                     $show_list= "id,
                                 note_type_parent_id,
@@ -649,6 +683,13 @@ class view{
                                 ";
                 view::grid_make($title,$show_list); 
                 break; 
+            case 'employee_initial':
+                    $show_list= "id,
+                                name,
+                                description
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
             case 'amphur':
                     $show_list= "id,
                                 name,
@@ -750,6 +791,7 @@ class view{
         }
     }
     public function int_handle($table){
+
         $db = new Db();
         $temp="";
         $table['relate']="";
@@ -770,11 +812,20 @@ class view{
         // if no row then create one option
         $result = $db -> select("SELECT count(id) FROM ".$table['relate']);
         $table['count']=$result[0]['count(id)']; 
-
         switch ($temp) {
             case '_id':
-                $sql= "SELECT ".$table['relate'].".id,".$table['relate'].".id,".$table['relate'].".name FROM ".$table['relate']." ";
-                $result = $db -> select($sql);  
+                if (array_key_exists("user_id",$table)&&array_key_exists("refer_table",$table)){
+                    //for two time credenttial according to employeee 
+                    //PC report pass userid and table to look next
+                    $sql= "SELECT ".$table['refer_table'].".id as id, ".$table['relate'].".name as name FROM ".$table['refer_table']." 
+                            INNER JOIN ".$table['relate']." on ".$table['relate'].".id = ".$table['refer_table'].".".$table['column']."
+                            WHERE ".$table['refer_table'].".employee_id=".$table['user_id']."";
+                    $result = $db -> select($sql);
+                }else{
+                    $sql= "SELECT ".$table['relate'].".id,".$table['relate'].".name FROM ".$table['relate'].""; 
+                }
+                              
+                $result = $db -> select($sql); 
                 view::dropdown($result,$table);
                 break;
             case '_parent_id':
