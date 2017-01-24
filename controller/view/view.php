@@ -533,6 +533,15 @@ class view{
                                 ";
                 view::grid_make($title,$show_list); 
                 break;
+            case 'trader':
+                    $show_list= "id,
+                                name,
+                                country,
+                                email,
+                                phone                                                                                                                                                 
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
             case 'supplier':
                     $show_list= "id,
                                 name,
@@ -541,7 +550,14 @@ class view{
                                 phone                                                                                                                                                 
                                 ";
                 view::grid_make($title,$show_list); 
-                break; 
+                break;
+            case 'supplier_link_trader':
+                    $show_list= "id,
+                                supplier_id,
+                                trader_id                
+                                ";
+                view::grid_make($title,$show_list); 
+                break;  
             case 'province':
                     $show_list= "id,
                                 name,
@@ -713,6 +729,11 @@ class view{
                 if (strpos($key2, 'id') && !strpos($key2, 'parent_id')){
                    $temp = $validate -> lookup_join_table($key2,$value2);
                    $rows[$key][$key2]=$temp[0]['name'];
+                }else{
+                    if (strpos($key2, 'parent_id')){
+                        $temp = $validate -> lookup_join_table($key2,$value2);
+                       $rows[$key][$key2]=$temp[0]['name'];
+                    }
                 }
             }
         }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2017 at 09:16 PM
+-- Generation Time: Jan 24, 2017 at 09:54 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -17,56 +17,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bathline_v2`
+-- Database: `bathline_uno`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `action_permission`
---
-
-CREATE TABLE `action_permission` (
-  `id` int(11) NOT NULL,
-  `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(11) NOT NULL,
-  `action_permission_type_id` int(4) NOT NULL,
-  `action_permission_parent_id` int(4) NOT NULL,
-  `task_id` int(4) NOT NULL,
-  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `action_permission`
---
-
-INSERT INTO `action_permission` (`id`, `created`, `modified`, `owner`, `action_permission_type_id`, `action_permission_parent_id`, `task_id`, `name`, `description`) VALUES
-(1, '2017-01-15 11:26:29', '2017-01-15 04:26:29', 1, 1, 1, 1, 'เพิ่ม', 'เพิ่มใบPO ');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `action_permission_type`
---
-
-CREATE TABLE `action_permission_type` (
-  `id` int(11) NOT NULL,
-  `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(4) NOT NULL,
-  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `action_permission_type`
---
-
-INSERT INTO `action_permission_type` (`id`, `created`, `modified`, `owner`, `name`, `description`) VALUES
-(1, '2017-01-15 11:03:49', '2017-01-15 04:03:49', 1, 'INSERT', 'ป้อนข้อมูล'),
-(2, '2017-01-15 11:04:07', '2017-01-15 04:04:07', 1, 'EDIT', 'แก้ไขข้อมูล');
 
 -- --------------------------------------------------------
 
@@ -77,8 +29,8 @@ INSERT INTO `action_permission_type` (`id`, `created`, `modified`, `owner`, `nam
 CREATE TABLE `agent` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `phone` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
@@ -88,7 +40,7 @@ CREATE TABLE `agent` (
   `bank_account_1` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `bank_account_2` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `tax_identification` varchar(32) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `agent`
@@ -107,12 +59,12 @@ INSERT INTO `agent` (`id`, `created`, `modified`, `owner`, `name`, `phone`, `des
 CREATE TABLE `agent_credit_log` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `agent_id` int(8) NOT NULL,
   `amount` decimal(10,0) NOT NULL,
   `note` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -123,11 +75,11 @@ CREATE TABLE `agent_credit_log` (
 CREATE TABLE `agent_type` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(4) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `agent_type`
@@ -144,13 +96,13 @@ INSERT INTO `agent_type` (`id`, `created`, `modified`, `owner`, `name`, `descrip
 --
 
 CREATE TABLE `amphur` (
-  `id` int(5) NOT NULL,
+  `id` int(5) UNSIGNED NOT NULL,
   `code` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `name_english` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `geo_id` int(5) NOT NULL DEFAULT '0',
-  `province_id` int(5) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `geo_id` int(5) UNSIGNED NOT NULL DEFAULT '0',
+  `province_id` int(5) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `amphur`
@@ -1164,16 +1116,16 @@ INSERT INTO `amphur` (`id`, `code`, `name`, `name_english`, `geo_id`, `province_
 --
 
 CREATE TABLE `attachment` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `record_name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `record_document` int(8) NOT NULL,
-  `attachment_type` int(4) NOT NULL,
+  `record_document` int(8) UNSIGNED NOT NULL,
+  `attachment_type_id` int(3) NOT NULL,
   `file_dir` text COLLATE utf8_unicode_ci NOT NULL,
   `file_extension` varchar(8) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1184,11 +1136,11 @@ CREATE TABLE `attachment` (
 CREATE TABLE `attachment_type` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1197,15 +1149,15 @@ CREATE TABLE `attachment_type` (
 --
 
 CREATE TABLE `authentication` (
-  `id` char(23) NOT NULL,
-  `username` varchar(65) NOT NULL DEFAULT '',
-  `password` varchar(65) NOT NULL DEFAULT '',
-  `email` varchar(65) NOT NULL,
-  `verified` tinyint(1) NOT NULL DEFAULT '0',
+  `id` char(23) CHARACTER SET utf8 NOT NULL,
+  `username` varchar(65) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `password` varchar(65) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `email` varchar(65) CHARACTER SET utf8 NOT NULL,
+  `verified` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `mod_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `employee_id` int(8) NOT NULL,
-  `national_id` varchar(16) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `national_id` varchar(16) CHARACTER SET utf8 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `authentication`
@@ -1226,11 +1178,11 @@ INSERT INTO `authentication` (`id`, `username`, `password`, `email`, `verified`,
 CREATE TABLE `db_reference` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `db_name` varchar(32) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `db_reference`
@@ -1250,7 +1202,9 @@ INSERT INTO `db_reference` (`id`, `created`, `modified`, `owner`, `name`, `db_na
 (11, '2017-01-20 03:56:39', '2017-01-19 20:56:39', 1, 'product', 'product'),
 (12, '2017-01-20 04:00:33', '2017-01-23 15:49:50', 1, 'retail_pc', 'retail_pc'),
 (13, '2017-01-23 22:58:35', '2017-01-23 15:58:35', 1, 'product_catagories', 'product_catagories'),
-(14, '2017-01-23 23:02:03', '2017-01-23 16:02:03', 1, 'retail_stock_report', 'retail_stock_report');
+(14, '2017-01-23 23:02:03', '2017-01-23 16:02:03', 1, 'retail_stock_report', 'retail_stock_report'),
+(15, '2017-01-24 11:30:50', '2017-01-24 04:30:50', 1, 'supplier_link_trader', 'supplier_link_trader'),
+(16, '2017-01-24 11:30:57', '2017-01-24 04:30:57', 1, 'trader', 'trader');
 
 -- --------------------------------------------------------
 
@@ -1261,12 +1215,12 @@ INSERT INTO `db_reference` (`id`, `created`, `modified`, `owner`, `name`, `db_na
 CREATE TABLE `delivery` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
-  `delivery_number` int(16) NOT NULL,
-  `driver` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
+  `delivery_number` int(16) UNSIGNED NOT NULL,
+  `employee_id` int(8) NOT NULL,
   `order_list_id` int(8) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1275,14 +1229,14 @@ CREATE TABLE `delivery` (
 --
 
 CREATE TABLE `delivery_log` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `delivery_id` int(8) NOT NULL,
   `delivery_process_status_id` int(8) NOT NULL,
   `vehicle_id` int(4) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1293,11 +1247,11 @@ CREATE TABLE `delivery_log` (
 CREATE TABLE `delivery_process_status` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1308,8 +1262,8 @@ CREATE TABLE `delivery_process_status` (
 CREATE TABLE `employee` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `firstname_thai` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `lastname_thai` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
@@ -1318,23 +1272,24 @@ CREATE TABLE `employee` (
   `phone` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `address` text COLLATE utf8_unicode_ci NOT NULL,
-  `amphur_id` int(8) NOT NULL,
-  `province_id` int(8) NOT NULL,
-  `start_date` date NOT NULL,
-  `join_date` date NOT NULL,
+  `post_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `start_date` date DEFAULT NULL,
+  `join_date` date DEFAULT NULL,
   `national_id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `bank_account` varchar(32) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `bank_account` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `province_id` int(8) UNSIGNED NOT NULL,
+  `amphur_id` int(8) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`id`, `created`, `modified`, `owner`, `name`, `firstname_thai`, `lastname_thai`, `firstname_english`, `lastname_english`, `phone`, `email`, `address`, `amphur_id`, `province_id`, `start_date`, `join_date`, `national_id`, `bank_account`) VALUES
-(1, '2017-01-15 11:46:49', '2017-01-19 18:38:59', 1, 'ซี', 'สิรภพ', 'ศิริศิลป์', 'Siraphop', 'Sirisilp', '0802689444', 'seawaykung@gmail.com', '52 ปรางค์สามยอด', 843, 7, '2017-01-15', '2017-01-15', '1101402029290', ''),
-(2, '2017-01-20 12:28:21', '2017-01-20 05:28:21', 1, 'อำ', 'อำภา', 'ตรีพืช', 'Aumpa', '', '', '', '', 843, 7, '1970-01-01', '1970-01-01', '', ''),
-(3, '2017-01-20 15:31:45', '2017-01-20 08:31:45', 1, 'เพชร', 'ชื่อต้น', 'นามสกุล', '', '', '', '', '', 843, 7, '1970-01-01', '1970-01-01', '', ''),
-(4, '2017-01-23 22:55:37', '2017-01-23 15:56:40', 1, 'น็อต', 'กิตติวุฒิ', 'ศิริศิลป์', 'Kittiwut', 'Sirisilp', '', '', '', 843, 7, '2017-01-15', '2018-01-15', '', '');
+INSERT INTO `employee` (`id`, `created`, `modified`, `owner`, `name`, `firstname_thai`, `lastname_thai`, `firstname_english`, `lastname_english`, `phone`, `email`, `address`, `post_code`, `start_date`, `join_date`, `national_id`, `bank_account`, `province_id`, `amphur_id`) VALUES
+(1, '2017-01-15 11:46:49', '2017-01-24 04:05:13', 1, 'ซี', 'สิรภพ', 'ศิริศิลป์', 'Siraphop', 'Sirisilp', '0802689444', 'seawaykung@gmail.com', '52 ปรางค์สามยอด', '', '2017-01-15', '2017-01-15', '1101402029290', '', 7, 843),
+(2, '2017-01-20 12:28:21', '2017-01-20 05:28:21', 1, 'อำ', 'อำภา', 'ตรีพืช', 'Aumpa', '', '', '', '', '', '2017-01-20', '2017-01-01', '', '', 7, 843),
+(3, '2017-01-20 15:31:45', '2017-01-20 08:31:45', 1, 'เพชร', 'ชื่อต้น', 'นามสกุล', '', '', '', '', '', '', '2017-01-20', '2017-01-01', '', '', 7, 843),
+(4, '2017-01-23 22:55:37', '2017-01-23 15:56:40', 1, 'น็อต', 'กิตติวุฒิ', 'ศิริศิลป์', 'Kittiwut', 'Sirisilp', '', '', '', '', '2017-01-15', '2017-01-15', '', '', 7, 843);
 
 -- --------------------------------------------------------
 
@@ -1345,12 +1300,12 @@ INSERT INTO `employee` (`id`, `created`, `modified`, `owner`, `name`, `firstname
 CREATE TABLE `employee_suffix` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(4) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `name_english` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1361,31 +1316,31 @@ CREATE TABLE `employee_suffix` (
 CREATE TABLE `job` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
-  `job_parent_id` int(4) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `name_english` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `job_parent_id` int(4) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `job`
 --
 
-INSERT INTO `job` (`id`, `created`, `modified`, `owner`, `job_parent_id`, `name`, `name_english`, `description`) VALUES
-(1, '2017-01-15 11:35:32', '2017-01-22 18:55:31', 1, 1, 'บาธไลน์', 'Bathline', 'Bathline'),
-(3, '2017-01-15 13:20:37', '2017-01-15 06:50:20', 7777, 6, 'แผนกจัดซื้อ', ' Purchasing Department', 'สามารถสั่งซื้อสินค้ามาได้ตรงตามเวลา และมีประสิทธิภาพในการควบคุมสินค้า ที่สั่งซื้อมา'),
-(2, '2017-01-15 11:35:32', '2017-01-15 06:50:33', 1, 6, 'แผนกขาย', 'Sales Department', 'เพิ่มยอดขาย สร้างรายได้ให้แก่บริษัท เอาใจใส่ลูกค้า และบริการ ในยามคับขัน '),
-(4, '2017-01-15 13:24:30', '2017-01-15 06:50:44', 7777, 6, 'แผนกคลังสินค้า', 'Warehouse Department', 'ดูแล รักษาสภาพโกดังเก็บของ และสินค้านั้นๆ มีการดูแลตรวจสภาพสินค้า และจำนวนสินค้า สามารถบ่งชี้ปัญหาของขาดและเกินสต็อค มีความรักและห่วงใยในการทำงาน'),
-(5, '2017-01-15 13:29:36', '2017-01-15 06:50:53', 7777, 6, 'แผนกการตลาด', 'Marketing Department', 'ออกสำรวจตลาด เพื่อ เพิ่มช่องทาง ในการขาย ขยายภาพลักษณ์ของบริษัท เข้าใจและรับรู้วสิ่งที่ผู้บริโภคนั้นต้องการ  ใส่ใจทุกรายละเอียดของลูกค้าในเชิงความรู้สึก'),
-(6, '2017-01-15 13:35:17', '2017-01-19 19:36:46', 1, 10, 'แผนกบุคคล', '็Human Resource Manager', 'สามารถเป็นตัวเชื่อมให้กับ บุคคลากรของบริษัททุกท่านด้วยใจเป็นกลาง ผ่านความชัดเจน และ ร่มเย็น ตรวจสอบและดูแลข้อเท็จจริงของบุคคลากร สามารถหาบุคคลากรใหม่ เมื่อขาดแคลยนโดยคำนึงถึงประสิทธิภาพใน สายงาน และ ผลงาน'),
-(7, '2017-01-15 13:37:38', '2017-01-15 06:51:08', 7777, 6, 'แผนกจัดส่ง', 'Shipping Department', 'ส่งปลอดภัย ตรงเวลา และ แน่วแน่ หมั่นดูแลเอาใจใส่ยานพาหนะ และ พักผ่อนอย่างเพียงพอ'),
-(8, '2017-01-15 13:41:12', '2017-01-15 06:51:20', 7777, 6, 'แผนกบัญชีการเงิน', ' Financial Accountant', 'ตรวจสอบความเป็นมาของเงิน และบันทึก ได้อย่างมีประสิทธิภาพ สามารถทำรายงาน วิเคราะห์ เชิงลึก เพื่อเป็นแนวทางและข้อมูลให้แก่ผู้บริหารได้ รับผิดชอบและซื่อสัตย์'),
-(9, '2017-01-15 13:46:35', '2017-01-22 18:54:18', 1, 1, 'ประธานบริษัทฯ', 'President', ''),
-(10, '2017-01-15 13:49:46', '2017-01-22 18:54:33', 1, 9, 'ประธานกรรมการบริหาร', 'Chief Executive Officer', ''),
-(11, '2017-01-23 01:26:14', '2017-01-22 18:26:14', 1, 2, 'พนักงานแนะนำสินค้า', 'Product Consultant', ''),
-(12, '2017-01-23 22:49:19', '2017-01-23 15:51:34', 1, 2, 'ผู้อำนวยการฝ่ายพัฒนาช่องทางการจัดจำหน่าย', 'Director of Distributor Development', 'ผู้อำนวยการฝ่ายพัฒนาช่องทางการจัดจำหน่าย');
+INSERT INTO `job` (`id`, `created`, `modified`, `owner`, `name`, `name_english`, `description`, `job_parent_id`) VALUES
+(1, '2017-01-15 11:35:32', '2017-01-22 18:55:31', 1, 'บาธไลน์', 'Bathline', 'Bathline', 1),
+(2, '2017-01-15 11:35:32', '2017-01-15 06:50:33', 1, 'แผนกขาย', 'Sales Department', 'เพิ่มยอดขาย สร้างรายได้ให้แก่บริษัท เอาใจใส่ลูกค้า และบริการ ในยามคับขัน ', 6),
+(3, '2017-01-15 13:20:37', '2017-01-24 20:23:10', 7777, 'แผนกจัดซื้อ', ' Purchasing Department', 'สามารถสั่งซื้อสินค้ามาได้ตรงตามเวลา และมีประสิทธิภาพในการควบคุมสินค้า ที่สั่งซื้อมา', 6),
+(4, '2017-01-15 13:24:30', '2017-01-15 06:50:44', 7777, 'แผนกคลังสินค้า', 'Warehouse Department', 'ดูแล รักษาสภาพโกดังเก็บของ และสินค้านั้นๆ มีการดูแลตรวจสภาพสินค้า และจำนวนสินค้า สามารถบ่งชี้ปัญหาของขาดและเกินสต็อค มีความรักและห่วงใยในการทำงาน', 6),
+(5, '2017-01-15 13:29:36', '2017-01-15 06:50:53', 7777, 'แผนกการตลาด', 'Marketing Department', 'ออกสำรวจตลาด เพื่อ เพิ่มช่องทาง ในการขาย ขยายภาพลักษณ์ของบริษัท เข้าใจและรับรู้วสิ่งที่ผู้บริโภคนั้นต้องการ  ใส่ใจทุกรายละเอียดของลูกค้าในเชิงความรู้สึก', 6),
+(6, '2017-01-15 13:35:17', '2017-01-19 19:36:46', 1, 'แผนกบุคคล', '็Human Resource Manager', 'สามารถเป็นตัวเชื่อมให้กับ บุคคลากรของบริษัททุกท่านด้วยใจเป็นกลาง ผ่านความชัดเจน และ ร่มเย็น ตรวจสอบและดูแลข้อเท็จจริงของบุคคลากร สามารถหาบุคคลากรใหม่ เมื่อขาดแคลยนโดยคำนึงถึงประสิทธิภาพใน สายงาน และ ผลงาน', 10),
+(7, '2017-01-15 13:37:38', '2017-01-15 06:51:08', 7777, 'แผนกจัดส่ง', 'Shipping Department', 'ส่งปลอดภัย ตรงเวลา และ แน่วแน่ หมั่นดูแลเอาใจใส่ยานพาหนะ และ พักผ่อนอย่างเพียงพอ', 6),
+(8, '2017-01-15 13:41:12', '2017-01-15 06:51:20', 7777, 'แผนกบัญชีการเงิน', ' Financial Accountant', 'ตรวจสอบความเป็นมาของเงิน และบันทึก ได้อย่างมีประสิทธิภาพ สามารถทำรายงาน วิเคราะห์ เชิงลึก เพื่อเป็นแนวทางและข้อมูลให้แก่ผู้บริหารได้ รับผิดชอบและซื่อสัตย์', 6),
+(9, '2017-01-15 13:46:35', '2017-01-22 18:54:18', 1, 'ประธานบริษัทฯ', 'President', '', 1),
+(10, '2017-01-15 13:49:46', '2017-01-22 18:54:33', 1, 'ประธานกรรมการบริหาร', 'Chief Executive Officer', '', 9),
+(11, '2017-01-23 01:26:14', '2017-01-22 18:26:14', 1, 'พนักงานแนะนำสินค้า', 'Product Consultant', '', 2),
+(12, '2017-01-23 22:49:19', '2017-01-23 15:51:34', 1, 'ผู้อำนวยการฝ่ายพัฒนาช่องทางการจัดจำหน่าย', 'Director of Distributor Development', 'ผู้อำนวยการฝ่ายพัฒนาช่องทางการจัดจำหน่าย', 2);
 
 -- --------------------------------------------------------
 
@@ -1394,14 +1349,14 @@ INSERT INTO `job` (`id`, `created`, `modified`, `owner`, `job_parent_id`, `name`
 --
 
 CREATE TABLE `job_log` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
-  `job_id` int(8) NOT NULL,
-  `employee_id` int(8) NOT NULL,
-  `job_log_status_id` int(8) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
+  `job_id` int(4) NOT NULL,
+  `employee_id` int(4) NOT NULL,
+  `job_log_status_id` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `job_log`
@@ -1426,12 +1381,12 @@ INSERT INTO `job_log` (`id`, `created`, `modified`, `owner`, `job_id`, `employee
 CREATE TABLE `job_log_status` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `boolean` int(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `boolean` int(1) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `job_log_status`
@@ -1450,12 +1405,12 @@ INSERT INTO `job_log_status` (`id`, `created`, `modified`, `owner`, `name`, `des
 --
 
 CREATE TABLE `loginattempts` (
-  `IP` varchar(20) NOT NULL,
+  `IP` varchar(20) CHARACTER SET utf8 NOT NULL,
   `Attempts` int(11) NOT NULL,
   `LastLogin` datetime NOT NULL,
-  `Username` varchar(65) DEFAULT NULL,
-  `ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `Username` varchar(65) CHARACTER SET utf8 DEFAULT NULL,
+  `ID` int(11) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `loginattempts`
@@ -1464,14 +1419,16 @@ CREATE TABLE `loginattempts` (
 INSERT INTO `loginattempts` (`IP`, `Attempts`, `LastLogin`, `Username`, `ID`) VALUES
 ('::1', 1, '2017-01-19 22:03:02', 'seasiri', 1),
 ('171.96.210.86', 1, '2017-01-21 13:50:21', 'seasiri', 2),
-('110.171.92.101', 1, '2017-01-20 08:32:08', 'aumpa', 3),
+('110.171.92.101', 1, '2017-01-24 02:53:51', 'aumpa', 3),
 ('161.200.188.207', 1, '2017-01-20 05:27:12', 'seasiri', 4),
 ('161.200.188.74', 1, '2017-01-20 08:10:39', 'seasiri', 5),
 ('110.171.92.101', 1, '2017-01-20 08:33:20', 'มนญพัชญ์', 6),
 ('110.171.92.101', 2, '2017-01-20 09:07:24', '', 7),
 ('223.24.81.81', 1, '2017-01-21 18:48:22', 'seasiri', 8),
 ('171.96.210.86', 3, '2017-01-22 10:37:22', ' seasiri', 9),
-('223.24.111.26', 2, '2017-01-23 15:52:13', 'kittiwut', 10);
+('223.24.111.26', 2, '2017-01-23 15:52:13', 'kittiwut', 10),
+('27.55.15.171', 1, '2017-01-24 05:21:37', 'seasiri', 11),
+('161.200.188.226', 1, '2017-01-24 06:21:13', 'seasiri', 12);
 
 -- --------------------------------------------------------
 
@@ -1482,13 +1439,13 @@ INSERT INTO `loginattempts` (`IP`, `Attempts`, `LastLogin`, `Username`, `ID`) VA
 CREATE TABLE `note` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `title` text COLLATE utf8_unicode_ci NOT NULL,
   `body` text COLLATE utf8_unicode_ci NOT NULL,
-  `employee_id_from` int(8) NOT NULL,
-  `employee_id_to` int(8) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `from` int(4) NOT NULL,
+  `to` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1499,12 +1456,12 @@ CREATE TABLE `note` (
 CREATE TABLE `note_type` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
-  `note_type_parent_id` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
+  `note_type_parent_id` int(4) NOT NULL DEFAULT '1',
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1513,23 +1470,23 @@ CREATE TABLE `note_type` (
 --
 
 CREATE TABLE `order_detail` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED ZEROFILL NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(11) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `order_list_id` int(8) NOT NULL,
+  `order_detail_status_id` int(8) NOT NULL,
   `product_id` int(8) NOT NULL,
-  `quantity` int(16) NOT NULL,
-  `price` decimal(13,2) DEFAULT NULL,
-  `order_detail_status_id` int(8) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `quantity` int(8) UNSIGNED NOT NULL,
+  `price` decimal(13,2) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `order_detail`
 --
 
-INSERT INTO `order_detail` (`id`, `created`, `modified`, `owner`, `order_list_id`, `product_id`, `quantity`, `price`, `order_detail_status_id`) VALUES
-(1, '2017-01-19 01:54:34', '2017-01-18 18:54:34', 1, 1, 1, 12, '30.00', 1);
+INSERT INTO `order_detail` (`id`, `created`, `modified`, `owner`, `order_list_id`, `order_detail_status_id`, `product_id`, `quantity`, `price`) VALUES
+(00000000001, '2017-01-19 01:54:34', '2017-01-18 18:54:34', 1, 1, 1, 1, 12, '30.00');
 
 -- --------------------------------------------------------
 
@@ -1540,12 +1497,12 @@ INSERT INTO `order_detail` (`id`, `created`, `modified`, `owner`, `order_list_id
 CREATE TABLE `order_detail_status` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `boolean` int(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `boolean` int(1) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `order_detail_status`
@@ -1563,11 +1520,11 @@ INSERT INTO `order_detail_status` (`id`, `created`, `modified`, `owner`, `name`,
 CREATE TABLE `order_list` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
-  `agent_id` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
+  `agent_id` int(8) UNSIGNED NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL COMMENT 'po_number'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `order_list`
@@ -1586,13 +1543,13 @@ INSERT INTO `order_list` (`id`, `created`, `modified`, `owner`, `agent_id`, `nam
 --
 
 CREATE TABLE `order_log` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `order_list_id` int(8) NOT NULL,
   `order_process_status_id` int(8) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1603,12 +1560,12 @@ CREATE TABLE `order_log` (
 CREATE TABLE `order_process_status` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `boolean` int(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `boolean` int(1) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1619,24 +1576,24 @@ CREATE TABLE `order_process_status` (
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
-  `supplier_id` int(8) NOT NULL,
-  `product_catagories_id` int(8) NOT NULL,
-  `product_status_id` int(8) NOT NULL,
-  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `name_english` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
+  `product_catagories_id` int(4) NOT NULL,
+  `product_status_id` int(4) NOT NULL,
+  `supplier_id` int(4) NOT NULL,
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `name_english` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `short_description` text COLLATE utf8_unicode_ci NOT NULL,
   `long_description` text COLLATE utf8_unicode_ci NOT NULL,
   `barcode` varchar(32) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `created`, `modified`, `owner`, `supplier_id`, `product_catagories_id`, `product_status_id`, `name`, `name_english`, `short_description`, `long_description`, `barcode`) VALUES
-(1, '2017-01-19 01:01:58', '2017-01-23 13:11:03', 1, 1, 5, 1, 'B4023', 'B4023', '', '', '');
+INSERT INTO `product` (`id`, `created`, `modified`, `owner`, `product_catagories_id`, `product_status_id`, `supplier_id`, `name`, `name_english`, `short_description`, `long_description`, `barcode`) VALUES
+(1, '2017-01-19 01:01:58', '2017-01-23 13:11:03', 1, 5, 1, 1, 'B4023', 'B4023', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1647,25 +1604,25 @@ INSERT INTO `product` (`id`, `created`, `modified`, `owner`, `supplier_id`, `pro
 CREATE TABLE `product_attribute` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
-  `product_attribute_parent_id` int(4) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
+  `product_attribute_parent_id` int(4) NOT NULL DEFAULT '1',
+  `product_catagories_id` int(32) NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `name_english` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `product_catagories_id` int(32) NOT NULL,
   `unit_thai` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `unit_english` varchar(32) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `product_attribute`
 --
 
-INSERT INTO `product_attribute` (`id`, `created`, `modified`, `owner`, `product_attribute_parent_id`, `name`, `name_english`, `description`, `product_catagories_id`, `unit_thai`, `unit_english`) VALUES
-(1, '2017-01-23 20:18:00', '2017-01-23 14:37:46', 1, 1, 'root', 'root', 'root', 1, '', ''),
-(2, '2017-01-23 21:02:26', '2017-01-23 14:03:27', 1, 0, 'ระบบนํ้า', 'ระบบนํ้า', 'ระบบนํ้า', 5, '', ''),
-(3, '2017-01-23 21:38:19', '2017-01-23 14:38:19', 1, 1, 'ประเภท', 'ประเภท', 'ประเภท', 5, '', '');
+INSERT INTO `product_attribute` (`id`, `created`, `modified`, `owner`, `product_attribute_parent_id`, `product_catagories_id`, `name`, `name_english`, `description`, `unit_thai`, `unit_english`) VALUES
+(1, '2017-01-23 20:18:00', '2017-01-23 14:37:46', 1, 1, 1, 'root', 'root', 'root', '', ''),
+(2, '2017-01-23 21:02:26', '2017-01-23 14:03:27', 1, 1, 5, 'ระบบนํ้า', 'ระบบนํ้า', 'ระบบนํ้า', '', ''),
+(3, '2017-01-23 21:38:19', '2017-01-23 14:38:19', 1, 1, 5, 'ประเภท', 'ประเภท', 'ประเภท', '', '');
 
 -- --------------------------------------------------------
 
@@ -1676,21 +1633,21 @@ INSERT INTO `product_attribute` (`id`, `created`, `modified`, `owner`, `product_
 CREATE TABLE `product_attribute_option` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
+  `product_attribute_id` int(4) NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `name_english` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `product_attribute_id` int(4) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `name_english` varchar(32) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `product_attribute_option`
 --
 
-INSERT INTO `product_attribute_option` (`id`, `created`, `modified`, `owner`, `name`, `name_english`, `product_attribute_id`) VALUES
-(1, '2017-01-23 20:59:09', '2017-01-23 14:38:29', 1, 'วันพีช', 'One Piece', 3),
-(2, '2017-01-23 21:00:03', '2017-01-23 14:38:35', 1, 'ทูพีช', 'Two Pieces', 3),
-(3, '2017-01-23 21:00:06', '2017-01-23 14:03:49', 1, 'ทอเนโด', 'Tornado', 2);
+INSERT INTO `product_attribute_option` (`id`, `created`, `modified`, `owner`, `product_attribute_id`, `name`, `name_english`) VALUES
+(1, '2017-01-23 20:59:09', '2017-01-23 14:38:29', 1, 3, 'วันพีช', 'One Piece'),
+(2, '2017-01-23 21:00:03', '2017-01-23 14:38:35', 1, 3, 'ทูพีช', 'Two Pieces'),
+(3, '2017-01-23 21:00:06', '2017-01-23 14:03:49', 1, 2, 'ทอเนโด', 'Tornado');
 
 -- --------------------------------------------------------
 
@@ -1701,12 +1658,12 @@ INSERT INTO `product_attribute_option` (`id`, `created`, `modified`, `owner`, `n
 CREATE TABLE `product_attribute_value` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(4) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `product_id` int(4) NOT NULL,
   `product_attribute_id` int(4) NOT NULL,
   `product_attribute_option_id` int(4) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `product_attribute_value`
@@ -1724,13 +1681,13 @@ INSERT INTO `product_attribute_value` (`id`, `created`, `modified`, `owner`, `pr
 CREATE TABLE `product_catagories` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
-  `product_catagories_parent_id` int(11) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
+  `product_catagories_parent_id` int(4) NOT NULL DEFAULT '1',
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `name_english` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `product_catagories`
@@ -1757,12 +1714,12 @@ INSERT INTO `product_catagories` (`id`, `created`, `modified`, `owner`, `product
 CREATE TABLE `product_status` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `boolean` int(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `boolean` int(1) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `product_status`
@@ -1780,12 +1737,12 @@ INSERT INTO `product_status` (`id`, `created`, `modified`, `owner`, `name`, `des
 --
 
 CREATE TABLE `province` (
-  `id` int(5) NOT NULL,
+  `id` int(5) UNSIGNED NOT NULL,
   `code` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `name_english` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `geo_id` int(5) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `geo_id` int(5) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `province`
@@ -1879,12 +1836,12 @@ INSERT INTO `province` (`id`, `code`, `name`, `name_english`, `geo_id`) VALUES
 CREATE TABLE `region` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `region_parent_id` int(8) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `region_parent_id` int(4) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `region`
@@ -1911,12 +1868,12 @@ INSERT INTO `region` (`id`, `created`, `modified`, `owner`, `name`, `description
 CREATE TABLE `retail_pc` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `employee_id` int(4) NOT NULL,
-  `agent_id` int(4) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `agent_id` int(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `retail_pc`
@@ -1935,12 +1892,12 @@ INSERT INTO `retail_pc` (`id`, `created`, `modified`, `owner`, `name`, `employee
 CREATE TABLE `retail_stock_report` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
-  `agent_id` int(4) NOT NULL,
-  `product_id` int(4) NOT NULL,
-  `quantity_remain` int(16) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
+  `agent_id` int(8) NOT NULL,
+  `product_id` int(8) NOT NULL,
+  `quantity_remain` int(16) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `retail_stock_report`
@@ -1949,7 +1906,7 @@ CREATE TABLE `retail_stock_report` (
 INSERT INTO `retail_stock_report` (`id`, `created`, `modified`, `owner`, `agent_id`, `product_id`, `quantity_remain`) VALUES
 (1, '2017-01-24 01:17:49', '2017-01-23 18:17:49', 1, 1, 1, 2),
 (2, '2017-01-24 01:30:21', '2017-01-23 18:30:21', 1, 1, 1, 2),
-(3, '2017-01-24 01:30:51', '2017-01-23 18:30:51', 1, 20, 1, 2),
+(3, '2017-01-24 01:30:51', '2017-01-23 18:30:51', 1, 1, 1, 2),
 (4, '2017-01-24 01:42:37', '2017-01-23 18:42:37', 1, 1, 1, 2),
 (5, '2017-01-24 01:50:53', '2017-01-23 18:50:53', 1, 1, 1, 2),
 (6, '2017-01-24 01:51:37', '2017-01-23 18:51:37', 1, 1, 1, 2),
@@ -1965,27 +1922,70 @@ INSERT INTO `retail_stock_report` (`id`, `created`, `modified`, `owner`, `agent_
 CREATE TABLE `supplier` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
-  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
+  `name` text COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `city` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
-  `province` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `city` text COLLATE utf8_unicode_ci NOT NULL,
+  `province` text COLLATE utf8_unicode_ci NOT NULL,
   `country` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `post_code` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `phone` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `bank_account` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `bank_account_2` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `tax_identification` varchar(32) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `phone` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `bank_account` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `bank_account_2` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `tax_identification` varchar(64) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `supplier`
 --
 
-INSERT INTO `supplier` (`id`, `created`, `modified`, `owner`, `name`, `description`, `city`, `province`, `country`, `email`, `phone`, `bank_account`, `bank_account_2`, `tax_identification`) VALUES
-(1, '2017-01-20 15:08:51', '2017-01-21 18:49:13', 1, 'SHANTOU JIXIANG TRADING CO.,LTD.', 'EMON1=MANGO, EMON2=FENNIE', 'ROOM 201 NO.32', 'CHANGPING ROAD', 'CHINA', '', '0086-768-6933518', '', '', ''),
-(2, '2017-01-20 15:08:51', '2017-01-22 08:18:06', 1, 'SHANTOU JIXIANG TRADING CO.,LTD.', 'EMONu', 'ROOM 201 NO', '', '', '', '', '', '', '');
+INSERT INTO `supplier` (`id`, `created`, `modified`, `owner`, `name`, `description`, `city`, `province`, `country`, `post_code`, `email`, `phone`, `bank_account`, `bank_account_2`, `tax_identification`) VALUES
+(1, '2017-01-20 15:08:51', '2017-01-23 20:12:16', 1, 'GUANGDONG SITONG GROUP CO.,LTD', 'SITONG=BBRIAN', 'B11-41 SOUTH AREA CHAO ZHOU RAILWAY', 'STATION DEVELOPING AREA GUANGDONG', 'CHINA', '', '', '0086-1382-7341-981', '', '', ''),
+(2, '2017-01-24 10:38:22', '2017-01-23 20:39:39', 1, 'SHENZHEN JIAYUHE IMP.& EXP. CO.,LTD', 'FENNY', 'RM709 WENJINDU EXPORT CUSTOMS', 'DECLARATION BUILDING SOUTH YANHE RD SHENZHEN', 'CHINA', '', '', '0086-768-6933518', '', '', ''),
+(3, '2017-01-24 10:43:36', '2017-01-23 20:43:36', 2, 'SHUNDE ELITE IMPORT AND EXPORT CO.,LTD.', 'ANDY', 'NO.5047 ROAD', 'SHENNAN DONG SHENZHEN', 'CHINA', '', '', '0086-13760918639', '', '', ''),
+(4, '2017-01-24 10:49:42', '2017-01-23 20:52:15', 2, 'HANGZHOU KINGSUN IMP.&EXP.CO.,LTD.', 'ALEX', '18F GREEN CITY TRADING SQUARE', 'NO.819 MIDDLE SHIXIN ROAD XIAOSHAN HANGZHOU', 'CHINA', '', 'alex@chinashowerroom.com', '0086-571-22877912', '', '', ''),
+(5, '2017-01-24 10:50:29', '2017-01-23 20:50:29', 2, 'HANGZHOU SUNLIGHT TRADE CO.,LTD.', 'ALLAN', '503/4# KAIYUANMINGDU XIAOSHAN', 'HANGZHOU ZHEJIANG', 'CHINA', '', '', '0086-138-68002641', '', '', ''),
+(6, '2017-01-24 11:00:05', '2017-01-24 08:59:55', 2, 'HANGZHOU SUNLIGHT SANITARY WARE CO.,LTD.', 'SUNLIGHT=AARON', 'INDUSTRY AREA DANGSHAN HANGZHOU', 'ZHEJIANG', 'CHINA 311245', '', 'master@zjsunlight.com, sales@zjsunlight.com', '0086-571-82531666', '', '', ''),
+(7, '2017-01-24 11:24:18', '2017-01-23 21:24:18', 2, 'GLOBAL WELSUN CO.,LTD.', 'SHOWER DOOR MASSAGE BATHUB=FLOSSY', 'ROOM 951 9/F GUANGFA BLDG', 'DONGMEN SHOUTH ROAD, SHENZHEN', 'CHINA ', '', 'dandan-18@qq.com', '0086-133-92229204', '', '', ''),
+(8, '2017-01-24 15:50:04', '2017-01-24 08:50:04', 2, 'HANGZHOU HUASHEN MIRROR INDUSTRY CO.,LTD.', 'MIRROR PROJECT : HELLER', 'NO.64 DANGKE ROAD DANGSHAN TOWN', 'XIAOSHAN DISTRICT HANGZHOU', 'CHINA', '', '', '0086-571-82523381', '', '', ''),
+(9, '2017-01-24 16:08:10', '2017-01-24 09:08:10', 2, 'GUANGDONG XIONGFENG INDUSTRIES CO.,LTD.', 'SEAT COVER 1619 1673 1674', 'HUA AN SECOR ANJIE ROAD FENGTANG TOWN', 'CHAOZHOU CITY GUANGDONG', 'CHINA', '', 'www.xiongfeng.com', '0086-768-6850111', '', '', ''),
+(10, '2017-01-24 16:09:40', '2017-01-24 09:09:40', 2, 'ANSON INDUSTRIAL (CHAOZHOU) CO.,LIMITED', 'SANITARY WARE ANBI', 'GUXIANG INDUSTRIAL ZHONE', 'CHAOZHOU GUANGDONG PROVINCE', 'CHINA', '', '', '0086-768-2890601', '', '', ''),
+(11, '2017-01-24 16:11:02', '2017-01-24 09:12:06', 2, 'PRIME-VINH PHUC JOINT STOCK COMPANY', 'TILES VIETNAM : TAMNT', '', '', 'VIETNAM', '', '', '0084-2113888987', '', '', ''),
+(12, '2017-01-24 16:12:46', '2017-01-24 09:12:46', 2, 'PRIME-DAI VIET JOINT STOCK COMPANY', 'TILES VIETNAM : TAMNT', '', '', 'VIETNAM', '', '', '0084-2113888987', '', '', ''),
+(13, '2017-01-24 16:17:50', '2017-01-24 09:17:50', 2, 'VIGLACERA HANOI JOINT STOCK COMPANY', 'TILES LOW COST', '', '', 'VIETNAM', '', '', '', '', '', ''),
+(14, '2017-01-24 16:20:23', '2017-01-24 09:20:23', 2, 'ONDULINE.S.A. (MALAYSIA)', 'ONDULINE : CHAOVALIT', '35 RUE BAUDIN', 'LEVALLOIS-PERRET', 'FRANCE', '', '', '081-8221848', '', 'สั่งฝรั่งเศส แต่ผลิตจากมาเลเซีย', ''),
+(15, '2017-01-24 16:23:00', '2017-01-24 09:23:00', 2, 'CHAOAN HUIQUAN CERAMIC CO.,LTD.', 'SANITARY WARE EMON1-2', '', '', 'CHINA', '', '', '0086-768-6933518', '', '', ''),
+(16, '2017-01-24 16:23:43', '2017-01-24 09:23:43', 2, 'CHAOZHOU MEITAO CERAMICS CO.,LTD.', 'MEITAO SANITARYWARE', '', '', 'CHINA', '', '', '0086-013-433788155', '', '', ''),
+(17, '2017-01-24 16:29:22', '2017-01-24 09:29:22', 2, 'GUANGZHOU WEISHIBAO DOORS CO.,LTD.', 'FACTORY BATHWOOD', '', '', 'CHINA', '', '', '0086-138-26157838', '', '', ''),
+(18, '2017-01-24 16:30:29', '2017-01-24 09:30:29', 2, 'CHAOAN GUXIANG MANJIE CERAMICS FACTORY', 'FACTORY LETOP', '', '', 'CHINA', '', '', '0086-768-6837092', '', '', ''),
+(19, '2017-01-24 16:31:14', '2017-01-24 09:31:14', 2, 'GAOMING BIJIE SANITARY WARE CO.,LTD.', 'FACTORY TIANYA', '', '', 'CHINA', '', '', '0086-136-30146193', '', '', ''),
+(20, '2017-01-24 16:31:43', '2017-01-24 09:31:43', 2, 'JIALONG SANITARY WARE CO.,LTD.', 'FACTORY JIALONG', '', '', 'CHINA', '', '', '0086-768-6926158', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supplier_link_trader`
+--
+
+CREATE TABLE `supplier_link_trader` (
+  `id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
+  `supplier_id` int(4) NOT NULL,
+  `trader_id` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `supplier_link_trader`
+--
+
+INSERT INTO `supplier_link_trader` (`id`, `created`, `modified`, `owner`, `supplier_id`, `trader_id`) VALUES
+(1, '2017-01-24 16:14:17', '2017-01-24 09:14:17', 2, 11, 13),
+(2, '2017-01-24 16:16:57', '2017-01-24 09:16:57', 2, 12, 13),
+(3, '2017-01-24 16:18:58', '2017-01-24 09:18:58', 2, 13, 14);
 
 -- --------------------------------------------------------
 
@@ -1996,33 +1996,33 @@ INSERT INTO `supplier` (`id`, `created`, `modified`, `owner`, `name`, `descripti
 CREATE TABLE `task` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `task_parent_id` int(4) NOT NULL,
   `task_action_type_id` int(4) NOT NULL,
   `task_status_id` int(4) NOT NULL,
-  `job_id` int(8) NOT NULL,
-  `amphur_id` int(4) NOT NULL,
-  `province_id` int(4) NOT NULL,
-  `country_id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `job_id` int(4) NOT NULL,
+  `amphur_id` int(4) UNSIGNED NOT NULL,
+  `province_id` int(4) UNSIGNED NOT NULL,
+  `country` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `task_open` date NOT NULL,
   `task_close` date NOT NULL,
-  `error_msg_thai` text COLLATE utf8_unicode_ci NOT NULL,
-  `error_msg_english` text COLLATE utf8_unicode_ci NOT NULL,
-  `success_msg_thai` text COLLATE utf8_unicode_ci NOT NULL,
-  `success_msg_english` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `error_msg_thai` varchar(120) COLLATE utf8_unicode_ci NOT NULL,
+  `error_msg_english` varchar(120) COLLATE utf8_unicode_ci NOT NULL,
+  `success_msg_thai` varchar(120) COLLATE utf8_unicode_ci NOT NULL,
+  `success_msg_english` varchar(120) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `task`
 --
 
-INSERT INTO `task` (`id`, `created`, `modified`, `owner`, `task_parent_id`, `task_action_type_id`, `task_status_id`, `job_id`, `amphur_id`, `province_id`, `country_id`, `name`, `description`, `task_open`, `task_close`, `error_msg_thai`, `error_msg_english`, `success_msg_thai`, `success_msg_english`) VALUES
+INSERT INTO `task` (`id`, `created`, `modified`, `owner`, `task_parent_id`, `task_action_type_id`, `task_status_id`, `job_id`, `amphur_id`, `province_id`, `country`, `name`, `description`, `task_open`, `task_close`, `error_msg_thai`, `error_msg_english`, `success_msg_thai`, `success_msg_english`) VALUES
 (1, '2017-01-15 11:18:20', '2017-01-15 06:02:14', 1, 1, 1, 1, 1, 843, 7, 'ไทย', 'root', 'root', '2017-01-15', '2018-01-15', '', '', '', ''),
-(3, '2017-01-15 13:11:41', '2017-01-15 07:11:49', 7777, 6, 3, 1, 8, 843, 7, 'ไทย', 'ยื่นขออนุมัติวงเงิน ใบสั่งซื้อ', 'ยื่นอนุมัติวงเงิน ใบสั่งซื้อ', '2017-01-15', '2018-01-15', '', '', '', ''),
 (2, '2017-01-15 11:18:20', '2017-01-15 07:00:08', 1, 1, 1, 1, 2, 843, 7, 'ไทย', 'บันทึกใบ PO', 'ิบันทึกใบPO ผ่านทางระบบ bathline uno ', '2017-01-15', '2018-01-15', '', '', '', ''),
+(3, '2017-01-15 13:11:41', '2017-01-15 07:11:49', 7777, 6, 3, 1, 8, 843, 7, 'ไทย', 'ยื่นขออนุมัติวงเงิน ใบสั่งซื้อ', 'ยื่นอนุมัติวงเงิน ใบสั่งซื้อ', '2017-01-15', '2018-01-15', '', '', '', ''),
 (4, '2017-01-15 13:17:01', '2017-01-15 07:05:21', 7777, 6, 4, 1, 8, 843, 7, 'ไทย', 'อนุมัติวงเงิน ใบสั่งซื้อแบบ อัตโนมัติ', 'อนุมัติวงเงิน อัตโนมัติโดยมีระบบคอยควบคุมไม่ให้เกินวงเงิน', '2017-01-15', '2018-01-15', '', '', '', ''),
 (5, '2017-01-15 13:55:22', '2017-01-15 06:55:55', 7777, 3, 4, 1, 10, 843, 7, 'ไทย', 'อนุมัติวงเงิน ใบสั่งซื้อ', 'อนุมัติวงเงิน เมื่อมีความสมเหตุสมผล', '2017-01-15', '2018-01-15', '', '', '', ''),
 (6, '2017-01-15 14:02:48', '2017-01-15 07:02:48', 7777, 2, 4, 1, 2, 843, 7, 'ไทย', 'ตรวจสอบความถูกต้อง ใบสั่งซื้อ', 'ตรวจสอบความถูกต้อง ใบสั่งซื้อ', '2017-01-15', '2018-01-15', '', '', '', ''),
@@ -2037,8 +2037,8 @@ INSERT INTO `task` (`id`, `created`, `modified`, `owner`, `task_parent_id`, `tas
 (15, '2017-01-19 01:52:08', '2017-01-18 18:52:08', 1, 2, 1, 1, 2, 843, 7, 'ไทย', 'บันทึกรายละเอียดสินค้า', 'บันทึกรายละเอียดสินค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
 (16, '2017-01-19 19:35:32', '2017-01-19 12:39:15', 1, 1, 1, 1, 6, 843, 7, 'ไทย', 'เพิ่ม บุคลากร ', 'เพิ่มบุคลากร', '2017-01-15', '2018-01-15', '', '', '', ''),
 (17, '2017-01-19 19:35:56', '2017-01-19 12:59:06', 1, 1, 2, 1, 6, 843, 7, 'ไทย', 'แก้ไข บุคลากร', 'แก้ไข บุคลากร', '2017-01-15', '2018-01-15', '', '', '', ''),
-(18, '2017-01-19 19:36:22', '2017-01-19 20:05:48', 1, 1, 1, 1, 2, 843, 7, 'ไทย', 'เพิ่ม ลูกค้า', 'เพิ่ม ลูกค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
-(19, '2017-01-19 19:36:31', '2017-01-19 20:05:36', 1, 1, 2, 1, 2, 843, 7, 'ไทย', 'แก้ไข ลูกค้า', 'แก้ไข ลูกค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
+(18, '2017-01-19 19:36:22', '2017-01-24 04:59:19', 1, 1, 1, 1, 8, 843, 7, 'ไทย', 'เพิ่ม ลูกค้า', 'เพิ่ม ลูกค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
+(19, '2017-01-19 19:36:31', '2017-01-24 04:59:27', 1, 1, 2, 1, 8, 843, 7, 'ไทย', 'แก้ไข ลูกค้า', 'แก้ไข ลูกค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
 (20, '2017-01-19 19:37:18', '2017-01-19 20:06:35', 1, 1, 1, 1, 3, 843, 7, 'ไทย', 'เพิ่ม โรงงานผลิต', 'เพิ่ม โรงงานผลิต', '2017-01-15', '2018-01-15', '', '', '', ''),
 (21, '2017-01-19 19:37:25', '2017-01-19 20:06:43', 1, 1, 2, 1, 3, 843, 7, 'ไทย', 'แก้ไข โรงงานผลิต', 'แก้ไข โรงงานผลิต', '2017-01-15', '2018-01-15', '', '', '', ''),
 (22, '2017-01-19 19:37:58', '2017-01-19 12:37:58', 1, 1, 2, 1, 6, 843, 7, 'ไทย', 'แก้ไข ยานพาหนะ', 'แก้ไข ยานพาหนะ', '2017-01-15', '2018-01-15', '', '', '', ''),
@@ -2046,12 +2046,16 @@ INSERT INTO `task` (`id`, `created`, `modified`, `owner`, `task_parent_id`, `tas
 (24, '2017-01-20 02:35:23', '2017-01-19 19:35:23', 1, 1, 1, 1, 6, 843, 7, 'ไทย', 'เพิ่ม ตำแหน่งงาน', 'เพิ่ม ตำแหน่งงาน', '2017-01-15', '2018-01-15', '', '', '', ''),
 (25, '2017-01-20 02:35:33', '2017-01-19 19:35:33', 1, 1, 2, 1, 6, 843, 7, 'ไทย', 'แก้ไข ตำแหน่งงาน', 'เพิ่ม ตำแหน่งงาน', '2017-01-15', '2018-01-15', '', '', '', ''),
 (26, '2017-01-20 03:55:13', '2017-01-19 20:55:13', 1, 1, 1, 1, 3, 843, 7, 'ไทย', 'เพิ่ม สินค้า', 'เพิ่ม สินค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
-(27, '2017-01-20 03:55:18', '2017-01-19 20:55:18', 1, 1, 1, 1, 3, 843, 7, 'ไทย', 'แก้ไข สินค้า', 'เพิ่ม สินค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
+(27, '2017-01-20 03:55:18', '2017-01-24 03:43:10', 1, 1, 2, 1, 3, 843, 7, 'ไทย', 'แก้ไข สินค้า', 'เพิ่ม สินค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
 (28, '2017-01-20 04:03:29', '2017-01-19 21:03:29', 1, 1, 1, 1, 3, 843, 7, 'ไทย', 'เพิ่ม หมวดหมู่สินค้า', 'เพิ่ม หมวดหมู่สินค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
 (29, '2017-01-20 04:03:39', '2017-01-19 21:03:39', 1, 1, 2, 1, 3, 843, 7, 'ไทย', 'แก้ไข หมวดหมู่สินค้า', 'แก้ไข หมวดหมู่สินค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
 (30, '2017-01-23 19:43:08', '2017-01-23 17:05:21', 1, 1, 5, 1, 11, 1, 1, 'ไทย', 'รายงาน สต็อค สินค้าคงเหลือ ประจำวัน', 'โดยให้กรอกข้อมูล รายงานการขายสินค้า BATHLINE ที่อยู่ในร้าน ทุกๆ วัน', '2017-01-15', '2018-01-15', '', '', '', ''),
 (31, '2017-01-23 22:39:46', '2017-01-23 16:04:15', 1, 1, 1, 1, 12, 1, 1, 'ไทย', 'ระบุ ร้านค้า กับ พนักงาน PC', 'ระบุร้านค้า กับ พนักงาน PC', '2017-01-15', '2018-01-15', '', '', '', ''),
-(32, '2017-01-23 23:03:46', '2017-01-23 16:03:46', 1, 1, 2, 1, 12, 843, 7, 'ไทย', 'แก้ไข ร้านค้า กับ พนักงาน PC', 'แก้ไข ร้านค้า กับ พนักงาน PC', '2017-01-15', '2018-01-15', '', '', '', '');
+(32, '2017-01-23 23:03:46', '2017-01-23 16:03:46', 1, 1, 2, 1, 12, 843, 7, 'ไทย', 'แก้ไข ร้านค้า กับ พนักงาน PC', 'แก้ไข ร้านค้า กับ พนักงาน PC', '2017-01-15', '2018-01-15', '', '', '', ''),
+(33, '2017-01-24 11:27:22', '2017-01-24 04:58:59', 1, 1, 1, 1, 3, 843, 7, 'ไทย', 'เพิ่ม ผู้ประกอบการค้า', 'เพิ่ม ผู้ประกอบการค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
+(34, '2017-01-24 11:27:31', '2017-01-24 04:27:31', 1, 1, 2, 1, 3, 843, 7, 'ไทย', 'แก้ไข ผู้ประกอบการค้า', 'เพิ่ม ผู้ประกอบการค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
+(35, '2017-01-24 11:28:25', '2017-01-24 04:28:25', 1, 1, 1, 1, 3, 843, 7, 'ไทย', 'เชื่อม ผู้ประกอบการค้า กับ โรงงาน', 'เชื่อม ผู้ประกอบการค้า กับ โรงงาน', '2017-01-15', '2018-01-15', '', '', '', ''),
+(36, '2017-01-24 11:28:33', '2017-01-24 04:28:33', 1, 1, 2, 1, 3, 843, 7, 'ไทย', 'แก้ไข ผู้ประกอบการค้า กับ โรงงาน', 'เชื่อม ผู้ประกอบการค้า กับ โรงงาน', '2017-01-15', '2018-01-15', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -2062,11 +2066,11 @@ INSERT INTO `task` (`id`, `created`, `modified`, `owner`, `task_parent_id`, `tas
 CREATE TABLE `task_action_type` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `task_action_type`
@@ -2088,11 +2092,11 @@ INSERT INTO `task_action_type` (`id`, `created`, `modified`, `owner`, `name`, `d
 CREATE TABLE `task_db_log` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `task_id` int(4) NOT NULL,
   `db_reference_id` int(4) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `task_db_log`
@@ -2100,10 +2104,10 @@ CREATE TABLE `task_db_log` (
 
 INSERT INTO `task_db_log` (`id`, `created`, `modified`, `owner`, `task_id`, `db_reference_id`) VALUES
 (1, '2017-01-17 14:28:27', '2017-01-18 19:39:43', 1, 6, 4),
-(8, '2017-01-19 02:09:58', '2017-01-18 19:48:22', 1, 7, 4),
+(5, '2017-01-17 16:20:34', '2017-01-17 09:20:34', 1, 12, 4),
 (6, '2017-01-19 01:52:25', '2017-01-18 18:52:25', 1, 15, 2),
 (7, '2017-01-19 01:56:20', '2017-01-18 19:39:56', 1, 2, 4),
-(5, '2017-01-17 16:20:34', '2017-01-17 09:20:34', 1, 12, 4),
+(8, '2017-01-19 02:09:58', '2017-01-18 19:48:22', 1, 7, 4),
 (9, '2017-01-19 02:42:20', '2017-01-18 19:42:20', 1, 13, 1),
 (10, '2017-01-19 19:38:48', '2017-01-19 12:38:48', 1, 18, 1),
 (11, '2017-01-19 20:11:49', '2017-01-19 13:11:49', 1, 16, 7),
@@ -2121,23 +2125,11 @@ INSERT INTO `task_db_log` (`id`, `created`, `modified`, `owner`, `task_id`, `db_
 (23, '2017-01-20 04:05:05', '2017-01-23 15:58:50', 1, 29, 13),
 (24, '2017-01-23 22:59:32', '2017-01-23 15:59:32', 1, 31, 12),
 (25, '2017-01-23 23:02:31', '2017-01-23 16:02:31', 1, 30, 14),
-(26, '2017-01-23 23:05:13', '2017-01-23 16:05:13', 1, 32, 12);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `task_flow`
---
-
-CREATE TABLE `task_flow` (
-  `id` int(11) NOT NULL,
-  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `owner` int(8) NOT NULL,
-  `task_list` text COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+(26, '2017-01-23 23:05:13', '2017-01-23 16:05:13', 1, 32, 12),
+(27, '2017-01-24 11:31:24', '2017-01-24 04:31:24', 1, 33, 16),
+(28, '2017-01-24 11:31:28', '2017-01-24 04:31:28', 1, 34, 16),
+(29, '2017-01-24 11:31:34', '2017-01-24 04:31:34', 1, 35, 15),
+(30, '2017-01-24 11:31:38', '2017-01-24 04:31:38', 1, 36, 15);
 
 -- --------------------------------------------------------
 
@@ -2146,18 +2138,18 @@ CREATE TABLE `task_flow` (
 --
 
 CREATE TABLE `task_log` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `record_name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `record_document` int(8) NOT NULL,
   `task_id` int(8) NOT NULL,
-  `task_action_type` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `task_action_type` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `query` text COLLATE utf8_unicode_ci NOT NULL,
   `task_log_status_id` int(4) NOT NULL,
   `task_msg` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `task_log`
@@ -2511,7 +2503,92 @@ INSERT INTO `task_log` (`id`, `created`, `modified`, `owner`, `record_name`, `re
 (342, '2017-01-24 01:50:53', '2017-01-23 18:50:53', 1, 'retail_stock_report', 6, 1, 'INSERT', 'INSERT INTO retail_stock_report (id,created,modified,owner,agent_id,product_id,quantity_remain) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,2)', 1, 'successfully'),
 (343, '2017-01-24 01:51:37', '2017-01-23 18:51:37', 1, 'retail_stock_report', 7, 1, 'INSERT', 'INSERT INTO retail_stock_report (id,created,modified,owner,agent_id,product_id,quantity_remain) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,2)', 1, 'successfully'),
 (344, '2017-01-24 01:51:50', '2017-01-23 18:51:50', 1, 'retail_stock_report', 8, 1, 'INSERT', 'INSERT INTO retail_stock_report (id,created,modified,owner,agent_id,product_id,quantity_remain) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,2)', 1, 'successfully'),
-(345, '2017-01-24 01:53:46', '2017-01-23 18:53:46', 1, 'retail_stock_report', 9, 1, 'INSERT', 'INSERT INTO retail_stock_report (id,created,modified,owner,agent_id,product_id,quantity_remain) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,2)', 1, 'successfully');
+(345, '2017-01-24 01:53:46', '2017-01-23 18:53:46', 1, 'retail_stock_report', 9, 1, 'INSERT', 'INSERT INTO retail_stock_report (id,created,modified,owner,agent_id,product_id,quantity_remain) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,2)', 1, 'successfully'),
+(346, '2017-01-24 10:07:25', '2017-01-24 03:07:25', 1, 'province', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMONu\',city=\'ROOM 201 NO\',province=\'\',country=\'s\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMONu\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'s\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(347, '2017-01-24 10:07:25', '2017-01-24 03:07:25', 1, 'supplier', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMONu\',city=\'ROOM 201 NO\',province=\'\',country=\'s\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMONu\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'s\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(348, '2017-01-24 10:07:31', '2017-01-24 03:07:31', 1, 'province', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMONu\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMONu\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(349, '2017-01-24 10:07:31', '2017-01-24 03:07:31', 1, 'supplier', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMONu\',city=\'ROOM 201 NO\',province=\'\',country=\'\',email=\'\',phone=\'\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMONu\' OR city != \'ROOM 201 NO\' OR province != \'\' OR country != \'\' OR email != \'\' OR phone != \'\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(350, '2017-01-24 10:12:16', '2017-01-24 03:12:16', 1, 'province', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'GUANGDONG SITONG GROUP CO.,LTD\',description=\'SITONG=BBRIAN\',city=\'B11-41 SOUTH AREA CHAO ZHOU RAILWAY\',province=\'STATION DEVELOPING AREA GUANGDONG\',country=\'CHINA\',email=\'\',phone=\'0086-1382-7341-981\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'GUANGDONG SITONG GROUP CO.,LTD\' OR description != \'SITONG=BBRIAN\' OR city != \'B11-41 SOUTH AREA CHAO ZHOU RAILWAY\' OR province != \'STATION DEVELOPING AREA GUANGDONG\' OR country != \'CHINA\' OR email != \'\' OR phone != \'0086-1382-7341-981\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(351, '2017-01-24 10:12:16', '2017-01-24 03:12:16', 1, 'supplier', 2, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'GUANGDONG SITONG GROUP CO.,LTD\',description=\'SITONG=BBRIAN\',city=\'B11-41 SOUTH AREA CHAO ZHOU RAILWAY\',province=\'STATION DEVELOPING AREA GUANGDONG\',country=\'CHINA\',email=\'\',phone=\'0086-1382-7341-981\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'GUANGDONG SITONG GROUP CO.,LTD\' OR description != \'SITONG=BBRIAN\' OR city != \'B11-41 SOUTH AREA CHAO ZHOU RAILWAY\' OR province != \'STATION DEVELOPING AREA GUANGDONG\' OR country != \'CHINA\' OR email != \'\' OR phone != \'0086-1382-7341-981\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(352, '2017-01-24 10:38:22', '2017-01-24 03:38:22', 1, 'supplier', 4, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'SHENZHEN JIAYUHE IMP.&EXP.CO.,LTD\',\'FENNY\',\'RM709 WENJINDU EXPORT CUSTOMS\',\'DECLARATION BUILDING SOUTH YANHE RD SHENZHEN\',\'CHINDA\',\'\',\'0086-768-6933518\',\'\',\'\',\'\')', 1, 'successfully'),
+(353, '2017-01-24 10:39:23', '2017-01-24 03:39:23', 1, 'province', 3, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHENZHEN JIAYUHE IMP.&EXP.CO.,LTD\',description=\'FENNY\',city=\'RM709 WENJINDU EXPORT CUSTOMS\',province=\'DECLARATION BUILDING SOUTH YANHE RD SHENZHEN\',country=\'CHINA\',email=\'\',phone=\'0086-768-6933518\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =3 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHENZHEN JIAYUHE IMP.&EXP.CO.,LTD\' OR description != \'FENNY\' OR city != \'RM709 WENJINDU EXPORT CUSTOMS\' OR province != \'DECLARATION BUILDING SOUTH YANHE RD SHENZHEN\' OR country != \'CHINA\' OR email != \'\' OR phone != \'0086-768-6933518\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(354, '2017-01-24 10:39:23', '2017-01-24 03:39:23', 1, 'supplier', 3, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHENZHEN JIAYUHE IMP.&EXP.CO.,LTD\',description=\'FENNY\',city=\'RM709 WENJINDU EXPORT CUSTOMS\',province=\'DECLARATION BUILDING SOUTH YANHE RD SHENZHEN\',country=\'CHINA\',email=\'\',phone=\'0086-768-6933518\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =3 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHENZHEN JIAYUHE IMP.&EXP.CO.,LTD\' OR description != \'FENNY\' OR city != \'RM709 WENJINDU EXPORT CUSTOMS\' OR province != \'DECLARATION BUILDING SOUTH YANHE RD SHENZHEN\' OR country != \'CHINA\' OR email != \'\' OR phone != \'0086-768-6933518\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(355, '2017-01-24 10:39:39', '2017-01-24 03:39:39', 1, 'province', 3, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHENZHEN JIAYUHE IMP.& EXP. CO.,LTD\',description=\'FENNY\',city=\'RM709 WENJINDU EXPORT CUSTOMS\',province=\'DECLARATION BUILDING SOUTH YANHE RD SHENZHEN\',country=\'CHINA\',email=\'\',phone=\'0086-768-6933518\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =3 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHENZHEN JIAYUHE IMP.& EXP. CO.,LTD\' OR description != \'FENNY\' OR city != \'RM709 WENJINDU EXPORT CUSTOMS\' OR province != \'DECLARATION BUILDING SOUTH YANHE RD SHENZHEN\' OR country != \'CHINA\' OR email != \'\' OR phone != \'0086-768-6933518\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(356, '2017-01-24 10:39:39', '2017-01-24 03:39:39', 1, 'supplier', 3, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'SHENZHEN JIAYUHE IMP.& EXP. CO.,LTD\',description=\'FENNY\',city=\'RM709 WENJINDU EXPORT CUSTOMS\',province=\'DECLARATION BUILDING SOUTH YANHE RD SHENZHEN\',country=\'CHINA\',email=\'\',phone=\'0086-768-6933518\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =3 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'SHENZHEN JIAYUHE IMP.& EXP. CO.,LTD\' OR description != \'FENNY\' OR city != \'RM709 WENJINDU EXPORT CUSTOMS\' OR province != \'DECLARATION BUILDING SOUTH YANHE RD SHENZHEN\' OR country != \'CHINA\' OR email != \'\' OR phone != \'0086-768-6933518\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(357, '2017-01-24 10:41:12', '2017-01-24 03:41:12', 2, 'supplier', 5, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'SHENZHEN XINYAONGYONGHONG IMP&EXP TRADE LIMITED COMPANY CHINA\',\'FANNY\',\'ROOM 623 ALONG WATERWAY MAN KAM TO EXPORT\',\'DECLARATION BUILDING LUOHU AREA SHENZHEN\',\'CHINA\',\'\',\'0086-013433788155\',\'\',\'\',\'\')', 1, 'successfully'),
+(358, '2017-01-24 10:43:10', '2017-01-24 03:43:10', 1, 'task', 27, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=2,task_status_id=1,job_id=3,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'แก้ไข สินค้า\',description=\'เพิ่ม สินค้า\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =27 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 2 OR task_status_id != 1 OR job_id != 3 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'แก้ไข สินค้า\' OR description != \'เพิ่ม สินค้า\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(359, '2017-01-24 10:43:36', '2017-01-24 03:43:36', 2, 'supplier', 6, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'SHUNDE ELITE IMPORT AND EXPORT CO.,LTD.\',\'ANDY\',\'NO.5047 ROAD\',\'SHENNAN DONG SHENZHEN\',\'CHINA\',\'\',\'0086-13760918639\',\'\',\'\',\'\')', 1, 'successfully'),
+(360, '2017-01-24 10:45:30', '2017-01-24 03:45:30', 2, 'supplier', 7, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'FOSHAN ITO IMP. & EXP. CO.,LTD.\',\'DAVID\',\'BLDG.3 HONGYI CERAMICS-CITY\',\'WUGANG RD.FOSHAN GUANGDONG\',\'CHINA\',\'davidlai2000@vip.163.com\',\'0086-757-83300640\',\'\',\'\',\'\')', 1, 'successfully'),
+(361, '2017-01-24 10:46:22', '2017-01-24 03:46:22', 2, 'province', 1, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON1=MANGO, EMON2=FENNIE\',city=\'ROOM 201 NO.32\',province=\'CHANGPING ROAD\',country=\'CHINA\',email=\'marketing@huiquan-chaozhou.com.cn, zheng.202@qq.com\',phone=\'0086-768-6933518\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON1=MANGO, EMON2=FENNIE\' OR city != \'ROOM 201 NO.32\' OR province != \'CHANGPING ROAD\' OR country != \'CHINA\' OR email != \'marketing@huiquan-chaozhou.com.cn, zheng.202@qq.com\' OR phone != \'0086-768-6933518\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(362, '2017-01-24 10:46:22', '2017-01-24 03:46:22', 2, 'supplier', 1, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'SHANTOU JIXIANG TRADING CO.,LTD.\',description=\'EMON1=MANGO, EMON2=FENNIE\',city=\'ROOM 201 NO.32\',province=\'CHANGPING ROAD\',country=\'CHINA\',email=\'marketing@huiquan-chaozhou.com.cn, zheng.202@qq.com\',phone=\'0086-768-6933518\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'SHANTOU JIXIANG TRADING CO.,LTD.\' OR description != \'EMON1=MANGO, EMON2=FENNIE\' OR city != \'ROOM 201 NO.32\' OR province != \'CHANGPING ROAD\' OR country != \'CHINA\' OR email != \'marketing@huiquan-chaozhou.com.cn, zheng.202@qq.com\' OR phone != \'0086-768-6933518\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(363, '2017-01-24 10:49:42', '2017-01-24 03:49:42', 2, 'supplier', 8, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'HANGZHOU KINGSUN IMP.&EXP.CO.,LTD.\',\'ALEX\',\'18F GREEN CITY TRADING SQUARE\',\'NO.819 MIDDLE SHIXIN ROAD XIAOSHAN HANGZHOU\',\'CHINA\',\'\',\'0086-571-22877912\',\'\',\'\',\'\')', 1, 'successfully'),
+(364, '2017-01-24 10:50:29', '2017-01-24 03:50:29', 2, 'supplier', 9, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'HANGZHOU SUNLIGHT TRADE CO.,LTD.\',\'ALLAN\',\'503/4# KAIYUANMINGDU XIAOSHAN\',\'HANGZHOU ZHEJIANG\',\'CHINA\',\'\',\'0086-138-68002641\',\'\',\'\',\'\')', 1, 'successfully'),
+(365, '2017-01-24 10:51:44', '2017-01-24 03:51:44', 2, 'supplier', 10, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'FOSHAN GAOMING HENGRUI EXP.& IMP.CO.,LTD.\',\'BATHWOOD=SUNEE\',\'NO.56 CANGJIANG RD HECHENG GAOMING DISTRICT\',\'FOSHAN CITY GUANGDONG\',\'CHINA\',\'t.zhouqing@hotmail.com \',\'0086-138-26157838\',\'\',\'\',\'\')', 1, 'successfully'),
+(366, '2017-01-24 10:52:15', '2017-01-24 03:52:15', 2, 'province', 7, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'HANGZHOU KINGSUN IMP.&EXP.CO.,LTD.\',description=\'ALEX\',city=\'18F GREEN CITY TRADING SQUARE\',province=\'NO.819 MIDDLE SHIXIN ROAD XIAOSHAN HANGZHOU\',country=\'CHINA\',email=\'alex@chinashowerroom.com\',phone=\'0086-571-22877912\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =7 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'HANGZHOU KINGSUN IMP.&EXP.CO.,LTD.\' OR description != \'ALEX\' OR city != \'18F GREEN CITY TRADING SQUARE\' OR province != \'NO.819 MIDDLE SHIXIN ROAD XIAOSHAN HANGZHOU\' OR country != \'CHINA\' OR email != \'alex@chinashowerroom.com\' OR phone != \'0086-571-22877912\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(367, '2017-01-24 10:52:15', '2017-01-24 03:52:15', 2, 'supplier', 7, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'HANGZHOU KINGSUN IMP.&EXP.CO.,LTD.\',description=\'ALEX\',city=\'18F GREEN CITY TRADING SQUARE\',province=\'NO.819 MIDDLE SHIXIN ROAD XIAOSHAN HANGZHOU\',country=\'CHINA\',email=\'alex@chinashowerroom.com\',phone=\'0086-571-22877912\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =7 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'HANGZHOU KINGSUN IMP.&EXP.CO.,LTD.\' OR description != \'ALEX\' OR city != \'18F GREEN CITY TRADING SQUARE\' OR province != \'NO.819 MIDDLE SHIXIN ROAD XIAOSHAN HANGZHOU\' OR country != \'CHINA\' OR email != \'alex@chinashowerroom.com\' OR phone != \'0086-571-22877912\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(368, '2017-01-24 10:57:01', '2017-01-24 03:57:01', 2, 'supplier', 11, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'FOSHAN SINCERE BUILDING MATERIALS CO.,LTD.\',\'POLISHED TILES=CINDY, MIKI\',\'FOSHAN INTERNATIONAL CERAMICS EXHIBITION CENTER\',\'LOT BO.20-21 BLOCK A3 4TH JIHUA ROAD FOSHAN \',\'CHINA\',\'cindy@sincerechina.net\',\'0086-159-15204091\',\'\',\'\',\'\')', 1, 'successfully'),
+(369, '2017-01-24 10:59:14', '2017-01-24 03:59:14', 2, 'supplier', 12, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'SHENZHEN MITI IMPORT & EXPORT TRADING CO.,LTD.CHINA\',\'LETOP=SOPHIA\',\'RM1707 JINGGUANG CENTER SHENNAN ROAD EAST\',\'LUOHU SHENZHEN\',\'CHINA\',\'\',\'0086-768-6837092\',\'\',\'\',\'\')', 1, 'successfully'),
+(370, '2017-01-24 11:00:05', '2017-01-24 04:00:05', 2, 'supplier', 13, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'HANGZHOU SUNLIGHT SANITARY WARE CO.,LTD.\',\'SUNLIGHT=AARON\',\'INDUSTRY AREA DANGSHAN HANGZHOU\',\'ZHEJIANG\',\'CHINA 311245\',\'\',\'0086-571-82531666\',\'\',\'\',\'\')', 1, 'successfully'),
+(371, '2017-01-24 11:04:40', '2017-01-24 04:04:40', 1, 'employee', 1, 1, 'UPDATE', 'UPDATE employee SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'ซี\',firstname_thai=\'สิรภพ\',lastname_thai=\'ศิริศิลป์\',firstname_english=\'Siraphop\',lastname_english=\'Sirisilp\',phone=\'0802689444\',email=\'seawaykung@gmail.com\',address=\'52 ปรางค์สามยอด\',post_code=\'\',start_date=\'1970-01-01\',join_date=\'1970-01-01\',national_id=\'1101402029290\',bank_account=\'\',province_id=7,amphur_id=843 WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'ซี\' OR firstname_thai != \'สิรภพ\' OR lastname_thai != \'ศิริศิลป์\' OR firstname_english != \'Siraphop\' OR lastname_english != \'Sirisilp\' OR phone != \'0802689444\' OR email != \'seawaykung@gmail.com\' OR address != \'52 ปรางค์สามยอด\' OR post_code != \'\' OR start_date != \'1970-01-01\' OR join_date != \'1970-01-01\' OR national_id != \'1101402029290\' OR bank_account != \'\' OR province_id != 7 OR amphur_id != 843 )', 1, 'successfully'),
+(372, '2017-01-24 11:05:13', '2017-01-24 04:05:13', 1, 'employee', 1, 1, 'UPDATE', 'UPDATE employee SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,name=\'ซี\',firstname_thai=\'สิรภพ\',lastname_thai=\'ศิริศิลป์\',firstname_english=\'Siraphop\',lastname_english=\'Sirisilp\',phone=\'0802689444\',email=\'seawaykung@gmail.com\',address=\'52 ปรางค์สามยอด\',post_code=\'\',start_date=\'2017-01-15\',join_date=\'2017-01-15\',national_id=\'1101402029290\',bank_account=\'\',province_id=7,amphur_id=843 WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR name != \'ซี\' OR firstname_thai != \'สิรภพ\' OR lastname_thai != \'ศิริศิลป์\' OR firstname_english != \'Siraphop\' OR lastname_english != \'Sirisilp\' OR phone != \'0802689444\' OR email != \'seawaykung@gmail.com\' OR address != \'52 ปรางค์สามยอด\' OR post_code != \'\' OR start_date != \'2017-01-15\' OR join_date != \'2017-01-15\' OR national_id != \'1101402029290\' OR bank_account != \'\' OR province_id != 7 OR amphur_id != 843 )', 1, 'successfully'),
+(373, '2017-01-24 11:18:18', '2017-01-24 04:18:18', 2, 'supplier', 14, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'FOSHAN HONGRUI TRADE CORPORATION LTD.\',\'TIANYA=MILDRED\',\'NO.56 CANGJIANG ROAD HECHENG\',\'GAOMING DISTRICT FOSHAN CITY\',\'CHINA\',\'\',\'\',\'0086-136-30146193\',\'\',\'\',\'\')', 1, 'successfully'),
+(374, '2017-01-24 11:24:18', '2017-01-24 04:24:18', 2, 'supplier', 15, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'GLOBAL WELSUN CO.,LTD.\',\'SHOWER DOOR MASSAGE BATHUB=FLOSSY\',\'ROOM 951 9/F GUANGFA BLDG\',\'DONGMEN SHOUTH ROAD, SHENZHEN\',\'CHINA \',\'\',\'dandan-18@qq.com\',\'0086-133-92229204\',\'\',\'\',\'\')', 1, 'successfully'),
+(375, '2017-01-24 11:25:33', '2017-01-24 04:25:33', 2, 'supplier', 16, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'SHENZHEN LIJIATONGDA TRADE CO.,LTD.\',\'JIALONG=GLADDYS\',\'NO.8 ROAD FENGER INDUSTRIAL AREA\',\'GUXIANG TOWN CHAOAN GUANGDONG\',\'CHINA\',\'\',\'\',\'0086-768-6926158\',\'\',\'\',\'\')', 1, 'successfully'),
+(376, '2017-01-24 11:27:22', '2017-01-24 04:27:22', 1, 'task', 34, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,1,3,843,7,\'ไทย\',\'เพิ่ม ผู้ประกอบการค้า\',\'เพิ่ม ผู้ประกอบการค้า\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(377, '2017-01-24 11:27:31', '2017-01-24 04:27:31', 1, 'task', 35, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,2,1,3,843,7,\'ไทย\',\'แก้ไข ผู้ประกอบการค้า\',\'เพิ่ม ผู้ประกอบการค้า\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(378, '2017-01-24 11:28:25', '2017-01-24 04:28:25', 1, 'task', 36, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,1,3,843,7,\'ไทย\',\'เชื่อม ผู้ประกอบการค้า กับ โรงงาน\',\'เชื่อม ผู้ประกอบการค้า กับ โรงงาน\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(379, '2017-01-24 11:28:33', '2017-01-24 04:28:33', 1, 'task', 37, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country_id,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,2,1,3,843,7,\'ไทย\',\'แก้ไข ผู้ประกอบการค้า กับ โรงงาน\',\'เชื่อม ผู้ประกอบการค้า กับ โรงงาน\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(380, '2017-01-24 11:30:50', '2017-01-24 04:30:50', 1, 'db_reference', 16, 1, 'INSERT', 'INSERT INTO db_reference (id,created,modified,owner,name,db_name) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'supplier_link_trader\',\'supplier_link_trader\')', 1, 'successfully'),
+(381, '2017-01-24 11:30:57', '2017-01-24 04:30:57', 1, 'db_reference', 17, 1, 'INSERT', 'INSERT INTO db_reference (id,created,modified,owner,name,db_name) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'trader\',\'trader\')', 1, 'successfully'),
+(382, '2017-01-24 11:31:24', '2017-01-24 04:31:24', 1, 'task_db_log', 28, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,33,16)', 1, 'successfully'),
+(383, '2017-01-24 11:31:28', '2017-01-24 04:31:28', 1, 'task_db_log', 29, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,34,16)', 1, 'successfully'),
+(384, '2017-01-24 11:31:34', '2017-01-24 04:31:34', 1, 'task_db_log', 30, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,35,15)', 1, 'successfully'),
+(385, '2017-01-24 11:31:38', '2017-01-24 04:31:38', 1, 'task_db_log', 31, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,36,15)', 1, 'successfully'),
+(386, '2017-01-24 11:41:19', '2017-01-24 04:41:19', 2, 'supplier', 17, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'HANGZHOU HUASHEN MIRROR INDUSTRY CO.,LTD.\',\'MIRROR PROJECT : HELLER\',\'NO.64 DANGKE ROAD DANGSHAN TOWN\',\'XIAOSHAN DISTRICT HANGZHOU\',\'CHINA\',\'\',\'\',\'0086-571-82523381\',\'\',\'\',\'\')', 1, 'successfully'),
+(387, '2017-01-24 11:42:39', '2017-01-24 04:42:39', 2, 'supplier', 2, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'LAND CAPITAL INTERNATIONAL LIMITED\',\'CLASSIC WASH BASIN : JASSE\',\'1521 15/F INNERWAY BLDG HONGYUAN RD\',\'DONGGUAN CITY GUANGCONG\',\'CHINA\',\'\',\'\',\'0086-769-22412138\',\'\',\'\',\'\')', 1, 'successfully'),
+(388, '2017-01-24 11:44:07', '2017-01-24 04:44:07', 2, 'supplier', 2, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'SHENZHEN YIHAODI IMPORT AND EXPORT CO.,LTD.\',\'BOMEI TWO PIECE LOW COST : ABLE\',\'FUQING NO.1 ROAD\',\'CHAOZHOU\',\'CHINA\',\'\',\'\',\'0768-6874406\',\'\',\'\',\'\')', 1, 'successfully'),
+(389, '2017-01-24 11:45:25', '2017-01-24 04:45:25', 2, 'supplier', 2, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'FOSHAN CITY JINHUALI HOUSEHOLD ELECTRICAL APPLIANCE CO.,LTD.\',\'COOKING RANGE :ANGELA\',\'6 JIANGYI RD JIANG YI INDUSTRIAL PARK\',\'LE LIU TOWN SHUNDE FOSHAN GUANGDONG\',\'CHINA\',\'\',\'\',\'0086-0757-25523788\',\'\',\'\',\'\')', 1, 'successfully'),
+(390, '2017-01-24 11:54:13', '2017-01-24 04:54:13', 1, 'supplier_link_trader', 2, 1, 'INSERT', 'INSERT INTO supplier_link_trader (id,created,modified,owner,trader_id,supplier_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1)', 1, 'successfully'),
+(391, '2017-01-24 11:56:17', '2017-01-24 04:56:17', 1, 'supplier_link_trader', 2, 1, 'INSERT', 'INSERT INTO supplier_link_trader (id,created,modified,owner,trader_id,supplier_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1)', 1, 'successfully'),
+(392, '2017-01-24 11:56:22', '2017-01-24 04:56:22', 1, 'supplier_link_trader', 1, 1, 'UPDATE', 'UPDATE supplier_link_trader SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,trader_id=1,supplier_id=2 WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR trader_id != 1 OR supplier_id != 2 )', 1, 'successfully'),
+(393, '2017-01-24 11:56:28', '2017-01-24 04:56:28', 1, 'supplier_link_trader', 1, 1, 'UPDATE', 'UPDATE supplier_link_trader SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,trader_id=1,supplier_id=4 WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR trader_id != 1 OR supplier_id != 4 )', 1, 'successfully');
+INSERT INTO `task_log` (`id`, `created`, `modified`, `owner`, `record_name`, `record_document`, `task_id`, `task_action_type`, `query`, `task_log_status_id`, `task_msg`) VALUES
+(394, '2017-01-24 11:58:47', '2017-01-24 04:58:47', 1, 'task', 33, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=1,task_status_id=1,job_id=8,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'เพิ่ม ผู้ประกอบการค้า\',description=\'เพิ่ม ผู้ประกอบการค้า\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =33 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 1 OR task_status_id != 1 OR job_id != 8 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'เพิ่ม ผู้ประกอบการค้า\' OR description != \'เพิ่ม ผู้ประกอบการค้า\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(395, '2017-01-24 11:58:59', '2017-01-24 04:58:59', 1, 'task', 33, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=1,task_status_id=1,job_id=3,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'เพิ่ม ผู้ประกอบการค้า\',description=\'เพิ่ม ผู้ประกอบการค้า\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =33 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 1 OR task_status_id != 1 OR job_id != 3 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'เพิ่ม ผู้ประกอบการค้า\' OR description != \'เพิ่ม ผู้ประกอบการค้า\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(396, '2017-01-24 11:59:19', '2017-01-24 04:59:19', 1, 'task', 18, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=1,task_status_id=1,job_id=8,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'เพิ่ม ลูกค้า\',description=\'เพิ่ม ลูกค้า\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =18 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 1 OR task_status_id != 1 OR job_id != 8 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'เพิ่ม ลูกค้า\' OR description != \'เพิ่ม ลูกค้า\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(397, '2017-01-24 11:59:27', '2017-01-24 04:59:27', 1, 'task', 19, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=2,task_status_id=1,job_id=8,amphur_id=843,province_id=7,country_id=\'ไทย\',name=\'แก้ไข ลูกค้า\',description=\'แก้ไข ลูกค้า\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =19 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 2 OR task_status_id != 1 OR job_id != 8 OR amphur_id != 843 OR province_id != 7 OR country_id != \'ไทย\' OR name != \'แก้ไข ลูกค้า\' OR description != \'แก้ไข ลูกค้า\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(398, '2017-01-24 15:50:04', '2017-01-24 08:50:04', 2, 'supplier', 9, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'HANGZHOU HUASHEN MIRROR INDUSTRY CO.,LTD.\',\'MIRROR PROJECT : HELLER\',\'NO.64 DANGKE ROAD DANGSHAN TOWN\',\'XIAOSHAN DISTRICT HANGZHOU\',\'CHINA\',\'\',\'\',\'0086-571-82523381\',\'\',\'\',\'\')', 1, 'successfully'),
+(399, '2017-01-24 15:51:48', '2017-01-24 08:51:48', 2, 'trader', 10, 1, 'INSERT', 'INSERT INTO trader (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'LAND CAPITAL INTERNATIONAL LIMITED\',\'TILES ARTSTONE:JASSE\',\'1521 15/F WINNERWAY BLDG\',\'HONGYUAN RD DONGGUAN CITY GUANGDONG\',\'CHINA\',\'\',\'\',\'0086-769-22412138\',\'\',\'\',\'\')', 1, 'successfully'),
+(400, '2017-01-24 15:53:27', '2017-01-24 08:53:27', 2, 'trader', 11, 1, 'INSERT', 'INSERT INTO trader (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'SHENZHEN YIHAODI IMPORT AND EXPORT CO.,LTD.\',\'BOMEI : ABLE (2P LOW COST)\',\'FUQING NO.1 ROAD\',\'CHAOZHOU\',\'CHINA\',\'\',\'\',\'0768-6874406\',\'\',\'\',\'\')', 1, 'successfully'),
+(401, '2017-01-24 15:56:24', '2017-01-24 08:56:24', 2, 'trader', 12, 1, 'INSERT', 'INSERT INTO trader (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'GUANGDONG SHUNDE FOREIGN TRADE DEVELOPMENT CO.,LTD.\',\'COOKING RANGE : ANGELA\',\'12 RONG QI MAIN ROAD, \',\'RONGGUI SHUNDE GUANGDONG \',\'CHINA\',\'\',\'\',\'0086-0757-25523788\',\'\',\'\',\'\')', 1, 'successfully'),
+(402, '2017-01-24 15:59:17', '2017-01-24 08:59:17', 2, 'trader', 13, 1, 'INSERT', 'INSERT INTO trader (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'ZHOUGSHAN MEITU PLASTIC IND.,CO.,LTD.\',\'MEITU : BILLY\',\'DACHE INDUSTRIAL AREA,\',\'NANLANG,ZHONGSHAN,GUANGDONG\',\'CHINA\',\'\',\'\',\'86-760-85211111\',\'\',\'\',\'\')', 1, 'successfully'),
+(403, '2017-01-24 15:59:55', '2017-01-24 08:59:55', 2, 'province', 6, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'HANGZHOU SUNLIGHT SANITARY WARE CO.,LTD.\',description=\'SUNLIGHT=AARON\',city=\'INDUSTRY AREA DANGSHAN HANGZHOU\',province=\'ZHEJIANG\',country=\'CHINA 311245\',post_code=\'\',email=\'master@zjsunlight.com, sales@zjsunlight.com\',phone=\'0086-571-82531666\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =6 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'HANGZHOU SUNLIGHT SANITARY WARE CO.,LTD.\' OR description != \'SUNLIGHT=AARON\' OR city != \'INDUSTRY AREA DANGSHAN HANGZHOU\' OR province != \'ZHEJIANG\' OR country != \'CHINA 311245\' OR post_code != \'\' OR email != \'master@zjsunlight.com, sales@zjsunlight.com\' OR phone != \'0086-571-82531666\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(404, '2017-01-24 15:59:55', '2017-01-24 08:59:55', 2, 'supplier', 6, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'HANGZHOU SUNLIGHT SANITARY WARE CO.,LTD.\',description=\'SUNLIGHT=AARON\',city=\'INDUSTRY AREA DANGSHAN HANGZHOU\',province=\'ZHEJIANG\',country=\'CHINA 311245\',post_code=\'\',email=\'master@zjsunlight.com, sales@zjsunlight.com\',phone=\'0086-571-82531666\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =6 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'HANGZHOU SUNLIGHT SANITARY WARE CO.,LTD.\' OR description != \'SUNLIGHT=AARON\' OR city != \'INDUSTRY AREA DANGSHAN HANGZHOU\' OR province != \'ZHEJIANG\' OR country != \'CHINA 311245\' OR post_code != \'\' OR email != \'master@zjsunlight.com, sales@zjsunlight.com\' OR phone != \'0086-571-82531666\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(405, '2017-01-24 16:00:42', '2017-01-24 09:00:42', 2, 'province', 7, 1, 'UPDATE', 'UPDATE trader SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'FOSHAN HONGRUI TRADE CORPORATION LTD.\',description=\'TIANYA=MILDRED\',city=\'NO.56 CANGJIANG ROAD HECHENG\',province=\'GAOMING DISTRICT FOSHAN CITY\',country=\'CHINA\',post_code=\'\',email=\'mildredmak@yahoo.com.cn\',phone=\'0086-136-30146193\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =7 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'FOSHAN HONGRUI TRADE CORPORATION LTD.\' OR description != \'TIANYA=MILDRED\' OR city != \'NO.56 CANGJIANG ROAD HECHENG\' OR province != \'GAOMING DISTRICT FOSHAN CITY\' OR country != \'CHINA\' OR post_code != \'\' OR email != \'mildredmak@yahoo.com.cn\' OR phone != \'0086-136-30146193\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(406, '2017-01-24 16:00:42', '2017-01-24 09:00:42', 2, 'trader', 7, 1, 'UPDATE', 'UPDATE trader SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'FOSHAN HONGRUI TRADE CORPORATION LTD.\',description=\'TIANYA=MILDRED\',city=\'NO.56 CANGJIANG ROAD HECHENG\',province=\'GAOMING DISTRICT FOSHAN CITY\',country=\'CHINA\',post_code=\'\',email=\'mildredmak@yahoo.com.cn\',phone=\'0086-136-30146193\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =7 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'FOSHAN HONGRUI TRADE CORPORATION LTD.\' OR description != \'TIANYA=MILDRED\' OR city != \'NO.56 CANGJIANG ROAD HECHENG\' OR province != \'GAOMING DISTRICT FOSHAN CITY\' OR country != \'CHINA\' OR post_code != \'\' OR email != \'mildredmak@yahoo.com.cn\' OR phone != \'0086-136-30146193\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(407, '2017-01-24 16:01:06', '2017-01-24 09:01:06', 2, 'province', 8, 1, 'UPDATE', 'UPDATE trader SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'SHENZHEN LIJIATONGDA TRADE CO.,LTD.\',description=\'JIALONG=GLADDYS\',city=\'NO.8 ROAD FENGER INDUSTRIAL AREA\',province=\'GUXIANG TOWN CHAOAN GUANGDONG\',country=\'CHINA\',post_code=\'\',email=\'411747612@qq.com\',phone=\'0086-768-6926158\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =8 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'SHENZHEN LIJIATONGDA TRADE CO.,LTD.\' OR description != \'JIALONG=GLADDYS\' OR city != \'NO.8 ROAD FENGER INDUSTRIAL AREA\' OR province != \'GUXIANG TOWN CHAOAN GUANGDONG\' OR country != \'CHINA\' OR post_code != \'\' OR email != \'411747612@qq.com\' OR phone != \'0086-768-6926158\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(408, '2017-01-24 16:01:06', '2017-01-24 09:01:06', 2, 'trader', 8, 1, 'UPDATE', 'UPDATE trader SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'SHENZHEN LIJIATONGDA TRADE CO.,LTD.\',description=\'JIALONG=GLADDYS\',city=\'NO.8 ROAD FENGER INDUSTRIAL AREA\',province=\'GUXIANG TOWN CHAOAN GUANGDONG\',country=\'CHINA\',post_code=\'\',email=\'411747612@qq.com\',phone=\'0086-768-6926158\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =8 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'SHENZHEN LIJIATONGDA TRADE CO.,LTD.\' OR description != \'JIALONG=GLADDYS\' OR city != \'NO.8 ROAD FENGER INDUSTRIAL AREA\' OR province != \'GUXIANG TOWN CHAOAN GUANGDONG\' OR country != \'CHINA\' OR post_code != \'\' OR email != \'411747612@qq.com\' OR phone != \'0086-768-6926158\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(409, '2017-01-24 16:01:27', '2017-01-24 09:01:27', 2, 'province', 6, 1, 'UPDATE', 'UPDATE trader SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'SHENZHEN MITI IMPORT & EXPORT TRADING CO.,LTD.CHINA\',description=\'LETOP=SOPHIA\',city=\'RM1707 JINGGUANG CENTER SHENNAN ROAD EAST\',province=\'LUOHU SHENZHEN\',country=\'CHINA\',post_code=\'\',email=\'sophia@honli.com\',phone=\'0086-768-6837092\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =6 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'SHENZHEN MITI IMPORT & EXPORT TRADING CO.,LTD.CHINA\' OR description != \'LETOP=SOPHIA\' OR city != \'RM1707 JINGGUANG CENTER SHENNAN ROAD EAST\' OR province != \'LUOHU SHENZHEN\' OR country != \'CHINA\' OR post_code != \'\' OR email != \'sophia@honli.com\' OR phone != \'0086-768-6837092\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(410, '2017-01-24 16:01:27', '2017-01-24 09:01:27', 2, 'trader', 6, 1, 'UPDATE', 'UPDATE trader SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'SHENZHEN MITI IMPORT & EXPORT TRADING CO.,LTD.CHINA\',description=\'LETOP=SOPHIA\',city=\'RM1707 JINGGUANG CENTER SHENNAN ROAD EAST\',province=\'LUOHU SHENZHEN\',country=\'CHINA\',post_code=\'\',email=\'sophia@honli.com\',phone=\'0086-768-6837092\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =6 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'SHENZHEN MITI IMPORT & EXPORT TRADING CO.,LTD.CHINA\' OR description != \'LETOP=SOPHIA\' OR city != \'RM1707 JINGGUANG CENTER SHENNAN ROAD EAST\' OR province != \'LUOHU SHENZHEN\' OR country != \'CHINA\' OR post_code != \'\' OR email != \'sophia@honli.com\' OR phone != \'0086-768-6837092\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(411, '2017-01-24 16:08:10', '2017-01-24 09:08:10', 2, 'supplier', 10, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'GUANGDONG XIONGFENG INDUSTRIES CO.,LTD.\',\'SEAT COVER 1619 1673 1674\',\'HUA AN SECOR ANJIE ROAD FENGTANG TOWN\',\'CHAOZHOU CITY GUANGDONG\',\'CHINA\',\'\',\'www.xiongfeng.com\',\'0086-768-6850111\',\'\',\'\',\'\')', 1, 'successfully'),
+(412, '2017-01-24 16:09:40', '2017-01-24 09:09:40', 2, 'supplier', 11, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'ANSON INDUSTRIAL (CHAOZHOU) CO.,LIMITED\',\'SANITARY WARE ANBI\',\'GUXIANG INDUSTRIAL ZHONE\',\'CHAOZHOU GUANGDONG PROVINCE\',\'CHINA\',\'\',\'\',\'0086-768-2890601\',\'\',\'\',\'\')', 1, 'successfully'),
+(413, '2017-01-24 16:11:02', '2017-01-24 09:11:02', 2, 'supplier', 12, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'PRIME TRADE INC.,\',\'TILES VIETNAM : TAMNT\',\'BINH XUYEN INDUSTRY ZONE BINH XUYEN\',\'DISTRICT VINH PHUC PROVINCE\',\'VIETNAM\',\'\',\'\',\'0084-2113888987\',\'\',\'\',\'\')', 1, 'successfully'),
+(414, '2017-01-24 16:12:06', '2017-01-24 09:12:06', 2, 'province', 11, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'PRIME-VINH PHUC JOINT STOCK COMPANY\',description=\'TILES VIETNAM : TAMNT\',city=\'\',province=\'\',country=\'VIETNAM\',post_code=\'\',email=\'\',phone=\'0084-2113888987\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =11 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'PRIME-VINH PHUC JOINT STOCK COMPANY\' OR description != \'TILES VIETNAM : TAMNT\' OR city != \'\' OR province != \'\' OR country != \'VIETNAM\' OR post_code != \'\' OR email != \'\' OR phone != \'0084-2113888987\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(415, '2017-01-24 16:12:06', '2017-01-24 09:12:06', 2, 'supplier', 11, 1, 'UPDATE', 'UPDATE supplier SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,name=\'PRIME-VINH PHUC JOINT STOCK COMPANY\',description=\'TILES VIETNAM : TAMNT\',city=\'\',province=\'\',country=\'VIETNAM\',post_code=\'\',email=\'\',phone=\'0084-2113888987\',bank_account=\'\',bank_account_2=\'\',tax_identification=\'\' WHERE id =11 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR name != \'PRIME-VINH PHUC JOINT STOCK COMPANY\' OR description != \'TILES VIETNAM : TAMNT\' OR city != \'\' OR province != \'\' OR country != \'VIETNAM\' OR post_code != \'\' OR email != \'\' OR phone != \'0084-2113888987\' OR bank_account != \'\' OR bank_account_2 != \'\' OR tax_identification != \'\' )', 1, 'successfully'),
+(416, '2017-01-24 16:12:46', '2017-01-24 09:12:46', 2, 'supplier', 13, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'PRIME-DAI VIET JOINT STOCK COMPANY\',\'TILES VIETNAM : TAMNT\',\'\',\'\',\'VIETNAM\',\'\',\'\',\'0084-2113888987\',\'\',\'\',\'\')', 1, 'successfully'),
+(417, '2017-01-24 16:13:59', '2017-01-24 09:13:59', 2, 'trader', 14, 1, 'INSERT', 'INSERT INTO trader (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'PRIME TRADE INC.,\',\'TILES VIETNAM : TAMNT\',\'BINH XUYEN INDUSTRY ZONE, BINH XUYEN\',\'DISTRICT VINH PHUC PROVINCE\',\'VIETNAM\',\'\',\'\',\'0084-2113888987\',\'\',\'\',\'\')', 1, 'successfully'),
+(418, '2017-01-24 16:14:17', '2017-01-24 09:14:17', 2, 'supplier_link_trader', 2, 1, 'INSERT', 'INSERT INTO supplier_link_trader (id,created,modified,owner,supplier_id,trader_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,11,13)', 1, 'successfully'),
+(419, '2017-01-24 16:16:57', '2017-01-24 09:16:57', 2, 'supplier_link_trader', 3, 1, 'INSERT', 'INSERT INTO supplier_link_trader (id,created,modified,owner,supplier_id,trader_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,12,13)', 1, 'successfully'),
+(420, '2017-01-24 16:17:50', '2017-01-24 09:17:50', 2, 'supplier', 14, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'VIGLACERA HANOI JOINT STOCK COMPANY\',\'TILES LOW COST\',\'\',\'\',\'VIETNAM\',\'\',\'\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(421, '2017-01-24 16:18:49', '2017-01-24 09:18:49', 2, 'trader', 15, 1, 'INSERT', 'INSERT INTO trader (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'VIGLACERA CERAMIC TILES TRADING JSC\',\'TILES LOW COST : NGUYEN\',\'2ND FLOOR VIGLACERA TOWER METRI\',\'TU LIEM HANOI\',\'VIETNAM\',\'\',\'\',\'043-5430726\',\'\',\'\',\'\')', 1, 'successfully'),
+(422, '2017-01-24 16:18:58', '2017-01-24 09:18:58', 2, 'supplier_link_trader', 4, 1, 'INSERT', 'INSERT INTO supplier_link_trader (id,created,modified,owner,supplier_id,trader_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,13,14)', 1, 'successfully'),
+(423, '2017-01-24 16:20:23', '2017-01-24 09:20:23', 2, 'supplier', 15, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'ONDULINE.S.A. (MALAYSIA)\',\'ONDULINE : CHAOVALIT\',\'35 RUE BAUDIN\',\'LEVALLOIS-PERRET\',\'FRANCE\',\'\',\'\',\'081-8221848\',\'\',\'สั่งฝรั่งเศส แต่ผลิตจากมาเลเซีย\',\'\')', 1, 'successfully'),
+(424, '2017-01-24 16:23:00', '2017-01-24 09:23:00', 2, 'supplier', 16, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'CHAOAN HUIQUAN CERAMIC CO.,LTD.\',\'SANITARY WARE EMON1-2\',\'\',\'\',\'CHINA\',\'\',\'\',\'0086-768-6933518\',\'\',\'\',\'\')', 1, 'successfully'),
+(425, '2017-01-24 16:23:43', '2017-01-24 09:23:43', 2, 'supplier', 17, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'CHAOZHOU MEITAO CERAMICS CO.,LTD.\',\'MEITAO SANITARYWARE\',\'\',\'\',\'CHINA\',\'\',\'\',\'0086-013-433788155\',\'\',\'\',\'\')', 1, 'successfully'),
+(426, '2017-01-24 16:29:22', '2017-01-24 09:29:22', 2, 'supplier', 18, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'GUANGZHOU WEISHIBAO DOORS CO.,LTD.\',\'FACTORY BATHWOOD\',\'\',\'\',\'CHINA\',\'\',\'\',\'0086-138-26157838\',\'\',\'\',\'\')', 1, 'successfully'),
+(427, '2017-01-24 16:30:29', '2017-01-24 09:30:29', 2, 'supplier', 19, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'CHAOAN GUXIANG MANJIE CERAMICS FACTORY\',\'FACTORY LETOP\',\'\',\'\',\'CHINA\',\'\',\'\',\'0086-768-6837092\',\'\',\'\',\'\')', 1, 'successfully'),
+(428, '2017-01-24 16:31:14', '2017-01-24 09:31:14', 2, 'supplier', 20, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'GAOMING BIJIE SANITARY WARE CO.,LTD.\',\'FACTORY TIANYA\',\'\',\'\',\'CHINA\',\'\',\'\',\'0086-136-30146193\',\'\',\'\',\'\')', 1, 'successfully'),
+(429, '2017-01-24 16:31:43', '2017-01-24 09:31:43', 2, 'supplier', 21, 1, 'INSERT', 'INSERT INTO supplier (id,created,modified,owner,name,description,city,province,country,post_code,email,phone,bank_account,bank_account_2,tax_identification) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,\'JIALONG SANITARY WARE CO.,LTD.\',\'FACTORY JIALONG\',\'\',\'\',\'CHINA\',\'\',\'\',\'0086-768-6926158\',\'\',\'\',\'\')', 1, 'successfully');
 
 -- --------------------------------------------------------
 
@@ -2522,11 +2599,18 @@ INSERT INTO `task_log` (`id`, `created`, `modified`, `owner`, `record_name`, `re
 CREATE TABLE `task_log_status` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `task_log_status`
+--
+
+INSERT INTO `task_log_status` (`id`, `created`, `modified`, `owner`, `name`, `description`) VALUES
+(1, '2017-01-25 04:00:24', '2017-01-24 21:00:25', 1, 'root', 'root');
 
 -- --------------------------------------------------------
 
@@ -2537,12 +2621,12 @@ CREATE TABLE `task_log_status` (
 CREATE TABLE `task_status` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `boolean` int(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `boolean` int(1) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `task_status`
@@ -2555,20 +2639,64 @@ INSERT INTO `task_status` (`id`, `created`, `modified`, `owner`, `name`, `descri
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `trader`
+--
+
+CREATE TABLE `trader` (
+  `id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
+  `name` text COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `city` text COLLATE utf8_unicode_ci NOT NULL,
+  `province` text COLLATE utf8_unicode_ci NOT NULL,
+  `country` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `post_code` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `bank_account` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `bank_account_2` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `tax_identification` varchar(64) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `trader`
+--
+
+INSERT INTO `trader` (`id`, `created`, `modified`, `owner`, `name`, `description`, `city`, `province`, `country`, `post_code`, `email`, `phone`, `bank_account`, `bank_account_2`, `tax_identification`) VALUES
+(1, '2017-01-20 15:08:51', '2017-01-23 20:46:22', 2, 'SHANTOU JIXIANG TRADING CO.,LTD.', 'EMON1=MANGO, EMON2=FENNIE', 'ROOM 201 NO.32', 'CHANGPING ROAD', 'CHINA', '', 'marketing@huiquan-chaozhou.com.cn, zheng.202@qq.com', '0086-768-6933518', '', '', ''),
+(2, '2017-01-24 10:41:12', '2017-01-23 20:41:12', 2, 'SHENZHEN XINYAONGYONGHONG IMP&EXP TRADE LIMITED COMPANY CHINA', 'FANNY', 'ROOM 623 ALONG WATERWAY MAN KAM TO EXPORT', 'DECLARATION BUILDING LUOHU AREA SHENZHEN', 'CHINA', '', '', '0086-013433788155', '', '', ''),
+(3, '2017-01-24 10:45:30', '2017-01-23 20:45:30', 2, 'FOSHAN ITO IMP. & EXP. CO.,LTD.', 'DAVID', 'BLDG.3 HONGYI CERAMICS-CITY', 'WUGANG RD.FOSHAN GUANGDONG', 'CHINA', '', 'davidlai2000@vip.163.com', '0086-757-83300640', '', '', ''),
+(4, '2017-01-24 10:51:44', '2017-01-23 20:51:44', 2, 'FOSHAN GAOMING HENGRUI EXP.& IMP.CO.,LTD.', 'BATHWOOD=SUNEE', 'NO.56 CANGJIANG RD HECHENG GAOMING DISTRICT', 'FOSHAN CITY GUANGDONG', 'CHINA', '', 't.zhouqing@hotmail.com ', '0086-138-26157838', '', '', ''),
+(5, '2017-01-24 10:57:01', '2017-01-23 20:57:01', 2, 'FOSHAN SINCERE BUILDING MATERIALS CO.,LTD.', 'POLISHED TILES=CINDY, MIKI', 'FOSHAN INTERNATIONAL CERAMICS EXHIBITION CENTER', 'LOT BO.20-21 BLOCK A3 4TH JIHUA ROAD FOSHAN ', 'CHINA', '', 'cindy@sincerechina.net', '0086-159-15204091', '', '', ''),
+(6, '2017-01-24 10:59:14', '2017-01-24 09:01:27', 2, 'SHENZHEN MITI IMPORT & EXPORT TRADING CO.,LTD.CHINA', 'LETOP=SOPHIA', 'RM1707 JINGGUANG CENTER SHENNAN ROAD EAST', 'LUOHU SHENZHEN', 'CHINA', '', 'sophia@honli.com', '0086-768-6837092', '', '', ''),
+(7, '2017-01-24 11:18:18', '2017-01-24 09:00:42', 2, 'FOSHAN HONGRUI TRADE CORPORATION LTD.', 'TIANYA=MILDRED', 'NO.56 CANGJIANG ROAD HECHENG', 'GAOMING DISTRICT FOSHAN CITY', 'CHINA', '', 'mildredmak@yahoo.com.cn', '0086-136-30146193', '', '', ''),
+(8, '2017-01-24 11:25:33', '2017-01-24 09:01:06', 2, 'SHENZHEN LIJIATONGDA TRADE CO.,LTD.', 'JIALONG=GLADDYS', 'NO.8 ROAD FENGER INDUSTRIAL AREA', 'GUXIANG TOWN CHAOAN GUANGDONG', 'CHINA', '', '411747612@qq.com', '0086-768-6926158', '', '', ''),
+(9, '2017-01-24 15:51:48', '2017-01-24 08:51:48', 2, 'LAND CAPITAL INTERNATIONAL LIMITED', 'TILES ARTSTONE:JASSE', '1521 15/F WINNERWAY BLDG', 'HONGYUAN RD DONGGUAN CITY GUANGDONG', 'CHINA', '', '', '0086-769-22412138', '', '', ''),
+(10, '2017-01-24 15:53:27', '2017-01-24 08:53:27', 2, 'SHENZHEN YIHAODI IMPORT AND EXPORT CO.,LTD.', 'BOMEI : ABLE (2P LOW COST)', 'FUQING NO.1 ROAD', 'CHAOZHOU', 'CHINA', '', '', '0768-6874406', '', '', ''),
+(11, '2017-01-24 15:56:24', '2017-01-24 08:56:24', 2, 'GUANGDONG SHUNDE FOREIGN TRADE DEVELOPMENT CO.,LTD.', 'COOKING RANGE : ANGELA', '12 RONG QI MAIN ROAD, ', 'RONGGUI SHUNDE GUANGDONG ', 'CHINA', '', '', '0086-0757-25523788', '', '', ''),
+(12, '2017-01-24 15:59:17', '2017-01-24 08:59:17', 2, 'ZHOUGSHAN MEITU PLASTIC IND.,CO.,LTD.', 'MEITU : BILLY', 'DACHE INDUSTRIAL AREA,', 'NANLANG,ZHONGSHAN,GUANGDONG', 'CHINA', '', '', '86-760-85211111', '', '', ''),
+(13, '2017-01-24 16:13:59', '2017-01-24 09:13:59', 2, 'PRIME TRADE INC.,', 'TILES VIETNAM : TAMNT', 'BINH XUYEN INDUSTRY ZONE, BINH XUYEN', 'DISTRICT VINH PHUC PROVINCE', 'VIETNAM', '', '', '0084-2113888987', '', '', ''),
+(14, '2017-01-24 16:18:49', '2017-01-24 09:18:49', 2, 'VIGLACERA CERAMIC TILES TRADING JSC', 'TILES LOW COST : NGUYEN', '2ND FLOOR VIGLACERA TOWER METRI', 'TU LIEM HANOI', 'VIETNAM', '', '', '043-5430726', '', '', '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `vehicle`
 --
 
 CREATE TABLE `vehicle` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
-  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
+  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `vehicle_brand_id` int(4) NOT NULL,
   `vehicle_catagory_id` int(4) NOT NULL,
   `purchased_year` date NOT NULL,
-  `license_number` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `license_number` varchar(32) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -2579,11 +2707,11 @@ CREATE TABLE `vehicle` (
 CREATE TABLE `vehicle_brand` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(8) NOT NULL,
-  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
+  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `vehicle_brand`
@@ -2614,12 +2742,12 @@ INSERT INTO `vehicle_brand` (`id`, `created`, `modified`, `owner`, `name`, `desc
 CREATE TABLE `vehicle_catagory` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(4) NOT NULL,
-  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
+  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
   `vehicle_catagory_parent_id` int(4) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `vehicle_catagory`
@@ -2630,8 +2758,8 @@ INSERT INTO `vehicle_catagory` (`id`, `created`, `modified`, `owner`, `name`, `d
 (2, '2017-01-19 21:29:30', '2017-01-19 14:29:30', 1, 'SEDAN', 'SEDAN', 1),
 (3, '2017-01-19 21:30:01', '2017-01-19 14:30:01', 1, 'PICKUP TRUCK', 'PICKUP TRUCK', 1),
 (4, '2017-01-19 21:30:06', '2017-01-19 14:30:06', 1, 'TRUCK', 'TRUCK', 1),
-(6, '2017-01-19 21:32:56', '2017-01-19 14:32:56', 1, 'TRAILER HEAD', 'TRAILER HEAD', 1),
 (5, '2017-01-19 21:32:25', '2017-01-19 14:32:25', 1, 'TRAILER', 'TRAILER', 1),
+(6, '2017-01-19 21:32:56', '2017-01-19 14:32:56', 1, 'TRAILER HEAD', 'TRAILER HEAD', 1),
 (7, '2017-01-19 21:33:43', '2017-01-19 14:33:43', 1, 'MUV', 'MUV', 1),
 (8, '2017-01-19 21:33:54', '2017-01-19 14:33:54', 1, 'MOTOCYCLE', 'MOTOCYCLE', 1),
 (9, '2017-01-19 21:34:02', '2017-01-19 14:34:02', 1, 'BICYCLE', 'BICYCLE', 1),
@@ -2644,13 +2772,13 @@ INSERT INTO `vehicle_catagory` (`id`, `created`, `modified`, `owner`, `name`, `d
 --
 
 CREATE TABLE `vehicle_log` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(4) NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
   `vehicle_id` int(4) NOT NULL,
   `vehicle_status_id` int(4) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -2661,12 +2789,12 @@ CREATE TABLE `vehicle_log` (
 CREATE TABLE `vehicle_status` (
   `id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL,
-  `owner` int(4) NOT NULL,
-  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `boolean` int(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` int(4) UNSIGNED NOT NULL,
+  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `boolean` int(1) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `vehicle_status`
@@ -2684,28 +2812,20 @@ INSERT INTO `vehicle_status` (`id`, `created`, `modified`, `owner`, `name`, `des
 --
 
 --
--- Indexes for table `action_permission`
---
-ALTER TABLE `action_permission`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `action_permission_type`
---
-ALTER TABLE `action_permission_type`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `agent`
 --
 ALTER TABLE `agent`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_agent_region` (`region_id`),
+  ADD KEY `FK_agent_agent_type` (`agent_type_id`),
+  ADD KEY `FK_agent_province` (`province_id`);
 
 --
 -- Indexes for table `agent_credit_log`
 --
 ALTER TABLE `agent_credit_log`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_agent_credit_log_agent` (`agent_id`);
 
 --
 -- Indexes for table `agent_type`
@@ -2723,7 +2843,8 @@ ALTER TABLE `amphur`
 -- Indexes for table `attachment`
 --
 ALTER TABLE `attachment`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_attachment_attachment_type` (`attachment_type_id`);
 
 --
 -- Indexes for table `attachment_type`
@@ -2738,7 +2859,9 @@ ALTER TABLE `authentication`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username_UNIQUE` (`username`),
   ADD UNIQUE KEY `id_UNIQUE` (`id`),
-  ADD UNIQUE KEY `email_UNIQUE` (`email`);
+  ADD UNIQUE KEY `email_UNIQUE` (`email`),
+  ADD UNIQUE KEY `national_id` (`national_id`),
+  ADD KEY `FK_authentication_employee` (`employee_id`);
 
 --
 -- Indexes for table `db_reference`
@@ -2750,13 +2873,18 @@ ALTER TABLE `db_reference`
 -- Indexes for table `delivery`
 --
 ALTER TABLE `delivery`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_delivery_order_list` (`order_list_id`),
+  ADD KEY `FK_delivery_employee` (`employee_id`);
 
 --
 -- Indexes for table `delivery_log`
 --
 ALTER TABLE `delivery_log`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_delivery_log_delivery` (`delivery_id`),
+  ADD KEY `FK_delivery_log_delivery_process_status` (`delivery_process_status_id`),
+  ADD KEY `FK_delivery_log_vehicle` (`vehicle_id`);
 
 --
 -- Indexes for table `delivery_process_status`
@@ -2780,13 +2908,17 @@ ALTER TABLE `employee_suffix`
 -- Indexes for table `job`
 --
 ALTER TABLE `job`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_job_job` (`job_parent_id`);
 
 --
 -- Indexes for table `job_log`
 --
 ALTER TABLE `job_log`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_job_log_job` (`job_id`),
+  ADD KEY `FK_job_log_employee` (`employee_id`),
+  ADD KEY `FK_job_log_job_log_status` (`job_log_status_id`);
 
 --
 -- Indexes for table `job_log_status`
@@ -2804,19 +2936,25 @@ ALTER TABLE `loginattempts`
 -- Indexes for table `note`
 --
 ALTER TABLE `note`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_note_employee` (`from`),
+  ADD KEY `FK_note_employee_2` (`to`);
 
 --
 -- Indexes for table `note_type`
 --
 ALTER TABLE `note_type`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_note_type_note_type` (`note_type_parent_id`);
 
 --
 -- Indexes for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_order_detail_order_list` (`order_list_id`),
+  ADD KEY `FK_order_detail_order_detail_status` (`order_detail_status_id`),
+  ADD KEY `FK_order_detail_product` (`product_id`);
 
 --
 -- Indexes for table `order_detail_status`
@@ -2834,7 +2972,9 @@ ALTER TABLE `order_list`
 -- Indexes for table `order_log`
 --
 ALTER TABLE `order_log`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_order_log_order_list` (`order_list_id`),
+  ADD KEY `FK_order_log_order_process_status` (`order_process_status_id`);
 
 --
 -- Indexes for table `order_process_status`
@@ -2846,31 +2986,41 @@ ALTER TABLE `order_process_status`
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_product_product_catagories` (`product_catagories_id`),
+  ADD KEY `FK_product_product_status` (`product_status_id`),
+  ADD KEY `FK_product_supplier` (`supplier_id`);
 
 --
 -- Indexes for table `product_attribute`
 --
 ALTER TABLE `product_attribute`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_product_attribute_product_attribute` (`product_attribute_parent_id`),
+  ADD KEY `FK_product_attribute_product_catagories` (`product_catagories_id`);
 
 --
 -- Indexes for table `product_attribute_option`
 --
 ALTER TABLE `product_attribute_option`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_product_attribute_option_product_attribute` (`product_attribute_id`);
 
 --
 -- Indexes for table `product_attribute_value`
 --
 ALTER TABLE `product_attribute_value`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_product_attribute_value_product` (`product_id`),
+  ADD KEY `FK_product_attribute_value_product_attribute` (`product_attribute_id`),
+  ADD KEY `FK_product_attribute_value_product_attribute_option` (`product_attribute_option_id`);
 
 --
 -- Indexes for table `product_catagories`
 --
 ALTER TABLE `product_catagories`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_product_catagories_product_catagories` (`product_catagories_parent_id`);
 
 --
 -- Indexes for table `product_status`
@@ -2888,19 +3038,24 @@ ALTER TABLE `province`
 -- Indexes for table `region`
 --
 ALTER TABLE `region`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_region_region` (`region_parent_id`);
 
 --
 -- Indexes for table `retail_pc`
 --
 ALTER TABLE `retail_pc`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_retail_pc_employee` (`employee_id`),
+  ADD KEY `FK_retail_pc_agent` (`agent_id`);
 
 --
 -- Indexes for table `retail_stock_report`
 --
 ALTER TABLE `retail_stock_report`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_retail_stock_report_agent` (`agent_id`),
+  ADD KEY `FK_retail_stock_report_product` (`product_id`);
 
 --
 -- Indexes for table `supplier`
@@ -2909,34 +3064,45 @@ ALTER TABLE `supplier`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `supplier_link_trader`
+--
+ALTER TABLE `supplier_link_trader`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_supplier_link_trader_supplier` (`supplier_id`),
+  ADD KEY `FK_supplier_link_trader_trader` (`trader_id`);
+
+--
 -- Indexes for table `task`
 --
 ALTER TABLE `task`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_task_task` (`task_parent_id`),
+  ADD KEY `FK_task_task_action_type` (`task_action_type_id`),
+  ADD KEY `FK_task_task_status` (`task_status_id`),
+  ADD KEY `FK_task_job` (`job_id`);
 
 --
 -- Indexes for table `task_action_type`
 --
 ALTER TABLE `task_action_type`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `task_db_log`
 --
 ALTER TABLE `task_db_log`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `task_flow`
---
-ALTER TABLE `task_flow`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_task_db_log_task` (`task_id`),
+  ADD KEY `FK_task_db_log_db_reference` (`db_reference_id`);
 
 --
 -- Indexes for table `task_log`
 --
 ALTER TABLE `task_log`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_task_log_task` (`task_id`),
+  ADD KEY `FK_task_log_task_log_status` (`task_log_status_id`);
 
 --
 -- Indexes for table `task_log_status`
@@ -2951,10 +3117,18 @@ ALTER TABLE `task_status`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `trader`
+--
+ALTER TABLE `trader`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `vehicle`
 --
 ALTER TABLE `vehicle`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_vehicle_vehicle_brand` (`vehicle_brand_id`),
+  ADD KEY `FK_vehicle_vehicle_catagory` (`vehicle_catagory_id`);
 
 --
 -- Indexes for table `vehicle_brand`
@@ -2966,13 +3140,16 @@ ALTER TABLE `vehicle_brand`
 -- Indexes for table `vehicle_catagory`
 --
 ALTER TABLE `vehicle_catagory`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_vehicle_catagory_vehicle_catagory` (`vehicle_catagory_parent_id`);
 
 --
 -- Indexes for table `vehicle_log`
 --
 ALTER TABLE `vehicle_log`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_vehicle_log_vehicle` (`vehicle_id`),
+  ADD KEY `FK_vehicle_log_vehicle_status` (`vehicle_status_id`);
 
 --
 -- Indexes for table `vehicle_status`
@@ -2984,16 +3161,6 @@ ALTER TABLE `vehicle_status`
 -- AUTO_INCREMENT for dumped tables
 --
 
---
--- AUTO_INCREMENT for table `action_permission`
---
-ALTER TABLE `action_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `action_permission_type`
---
-ALTER TABLE `action_permission_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `agent`
 --
@@ -3013,12 +3180,12 @@ ALTER TABLE `agent_type`
 -- AUTO_INCREMENT for table `amphur`
 --
 ALTER TABLE `amphur`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=999;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=999;
 --
 -- AUTO_INCREMENT for table `attachment`
 --
 ALTER TABLE `attachment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `attachment_type`
 --
@@ -3028,7 +3195,7 @@ ALTER TABLE `attachment_type`
 -- AUTO_INCREMENT for table `db_reference`
 --
 ALTER TABLE `db_reference`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `delivery`
 --
@@ -3038,7 +3205,7 @@ ALTER TABLE `delivery`
 -- AUTO_INCREMENT for table `delivery_log`
 --
 ALTER TABLE `delivery_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `delivery_process_status`
 --
@@ -3063,7 +3230,7 @@ ALTER TABLE `job`
 -- AUTO_INCREMENT for table `job_log`
 --
 ALTER TABLE `job_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `job_log_status`
 --
@@ -3073,7 +3240,7 @@ ALTER TABLE `job_log_status`
 -- AUTO_INCREMENT for table `loginattempts`
 --
 ALTER TABLE `loginattempts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `note`
 --
@@ -3088,7 +3255,7 @@ ALTER TABLE `note_type`
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `order_detail_status`
 --
@@ -3103,7 +3270,7 @@ ALTER TABLE `order_list`
 -- AUTO_INCREMENT for table `order_log`
 --
 ALTER TABLE `order_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `order_process_status`
 --
@@ -3143,7 +3310,7 @@ ALTER TABLE `product_status`
 -- AUTO_INCREMENT for table `province`
 --
 ALTER TABLE `province`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 --
 -- AUTO_INCREMENT for table `region`
 --
@@ -3163,12 +3330,17 @@ ALTER TABLE `retail_stock_report`
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `supplier_link_trader`
+--
+ALTER TABLE `supplier_link_trader`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `task_action_type`
 --
@@ -3178,27 +3350,27 @@ ALTER TABLE `task_action_type`
 -- AUTO_INCREMENT for table `task_db_log`
 --
 ALTER TABLE `task_db_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
---
--- AUTO_INCREMENT for table `task_flow`
---
-ALTER TABLE `task_flow`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `task_log`
 --
 ALTER TABLE `task_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=346;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=430;
 --
 -- AUTO_INCREMENT for table `task_log_status`
 --
 ALTER TABLE `task_log_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `task_status`
 --
 ALTER TABLE `task_status`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `trader`
+--
+ALTER TABLE `trader`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `vehicle`
 --
@@ -3218,12 +3390,203 @@ ALTER TABLE `vehicle_catagory`
 -- AUTO_INCREMENT for table `vehicle_log`
 --
 ALTER TABLE `vehicle_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `vehicle_status`
 --
 ALTER TABLE `vehicle_status`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `agent`
+--
+ALTER TABLE `agent`
+  ADD CONSTRAINT `FK_agent_agent_type` FOREIGN KEY (`agent_type_id`) REFERENCES `agent_type` (`id`),
+  ADD CONSTRAINT `FK_agent_region` FOREIGN KEY (`region_id`) REFERENCES `region` (`id`);
+
+--
+-- Constraints for table `agent_credit_log`
+--
+ALTER TABLE `agent_credit_log`
+  ADD CONSTRAINT `FK_agent_credit_log_agent` FOREIGN KEY (`agent_id`) REFERENCES `agent` (`id`);
+
+--
+-- Constraints for table `attachment`
+--
+ALTER TABLE `attachment`
+  ADD CONSTRAINT `FK_attachment_attachment_type` FOREIGN KEY (`attachment_type_id`) REFERENCES `attachment_type` (`id`);
+
+--
+-- Constraints for table `authentication`
+--
+ALTER TABLE `authentication`
+  ADD CONSTRAINT `FK_authentication_employee` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`);
+
+--
+-- Constraints for table `delivery`
+--
+ALTER TABLE `delivery`
+  ADD CONSTRAINT `FK_delivery_employee` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`),
+  ADD CONSTRAINT `FK_delivery_order_list` FOREIGN KEY (`order_list_id`) REFERENCES `order_list` (`id`);
+
+--
+-- Constraints for table `delivery_log`
+--
+ALTER TABLE `delivery_log`
+  ADD CONSTRAINT `FK_delivery_log_delivery` FOREIGN KEY (`delivery_id`) REFERENCES `delivery` (`id`),
+  ADD CONSTRAINT `FK_delivery_log_delivery_process_status` FOREIGN KEY (`delivery_process_status_id`) REFERENCES `delivery_process_status` (`id`),
+  ADD CONSTRAINT `FK_delivery_log_vehicle` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicle` (`id`);
+
+--
+-- Constraints for table `job`
+--
+ALTER TABLE `job`
+  ADD CONSTRAINT `FK_job_job` FOREIGN KEY (`job_parent_id`) REFERENCES `job` (`id`);
+
+--
+-- Constraints for table `job_log`
+--
+ALTER TABLE `job_log`
+  ADD CONSTRAINT `FK_job_log_employee` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`),
+  ADD CONSTRAINT `FK_job_log_job` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`),
+  ADD CONSTRAINT `FK_job_log_job_log_status` FOREIGN KEY (`job_log_status_id`) REFERENCES `job_log_status` (`id`);
+
+--
+-- Constraints for table `note`
+--
+ALTER TABLE `note`
+  ADD CONSTRAINT `FK_note_employee` FOREIGN KEY (`from`) REFERENCES `employee` (`id`),
+  ADD CONSTRAINT `FK_note_employee_2` FOREIGN KEY (`to`) REFERENCES `employee` (`id`);
+
+--
+-- Constraints for table `note_type`
+--
+ALTER TABLE `note_type`
+  ADD CONSTRAINT `FK_note_type_note_type` FOREIGN KEY (`note_type_parent_id`) REFERENCES `note_type` (`id`);
+
+--
+-- Constraints for table `order_detail`
+--
+ALTER TABLE `order_detail`
+  ADD CONSTRAINT `FK_order_detail_order_detail_status` FOREIGN KEY (`order_detail_status_id`) REFERENCES `order_detail_status` (`id`),
+  ADD CONSTRAINT `FK_order_detail_order_list` FOREIGN KEY (`order_list_id`) REFERENCES `order_list` (`id`),
+  ADD CONSTRAINT `FK_order_detail_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
+
+--
+-- Constraints for table `order_log`
+--
+ALTER TABLE `order_log`
+  ADD CONSTRAINT `FK_order_log_order_list` FOREIGN KEY (`order_list_id`) REFERENCES `order_list` (`id`),
+  ADD CONSTRAINT `FK_order_log_order_process_status` FOREIGN KEY (`order_process_status_id`) REFERENCES `order_process_status` (`id`);
+
+--
+-- Constraints for table `product`
+--
+ALTER TABLE `product`
+  ADD CONSTRAINT `FK_product_product_catagories` FOREIGN KEY (`product_catagories_id`) REFERENCES `product_catagories` (`id`),
+  ADD CONSTRAINT `FK_product_product_status` FOREIGN KEY (`product_status_id`) REFERENCES `product_status` (`id`),
+  ADD CONSTRAINT `FK_product_supplier` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`id`);
+
+--
+-- Constraints for table `product_attribute`
+--
+ALTER TABLE `product_attribute`
+  ADD CONSTRAINT `FK_product_attribute_product_attribute` FOREIGN KEY (`product_attribute_parent_id`) REFERENCES `product_attribute` (`id`),
+  ADD CONSTRAINT `FK_product_attribute_product_catagories` FOREIGN KEY (`product_catagories_id`) REFERENCES `product_catagories` (`id`);
+
+--
+-- Constraints for table `product_attribute_option`
+--
+ALTER TABLE `product_attribute_option`
+  ADD CONSTRAINT `FK_product_attribute_option_product_attribute` FOREIGN KEY (`product_attribute_id`) REFERENCES `product_attribute` (`id`);
+
+--
+-- Constraints for table `product_attribute_value`
+--
+ALTER TABLE `product_attribute_value`
+  ADD CONSTRAINT `FK_product_attribute_value_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `FK_product_attribute_value_product_attribute` FOREIGN KEY (`product_attribute_id`) REFERENCES `product_attribute` (`id`),
+  ADD CONSTRAINT `FK_product_attribute_value_product_attribute_option` FOREIGN KEY (`product_attribute_option_id`) REFERENCES `product_attribute_option` (`id`);
+
+--
+-- Constraints for table `product_catagories`
+--
+ALTER TABLE `product_catagories`
+  ADD CONSTRAINT `FK_product_catagories_product_catagories` FOREIGN KEY (`product_catagories_parent_id`) REFERENCES `product_catagories` (`id`);
+
+--
+-- Constraints for table `region`
+--
+ALTER TABLE `region`
+  ADD CONSTRAINT `FK_region_region` FOREIGN KEY (`region_parent_id`) REFERENCES `region` (`id`);
+
+--
+-- Constraints for table `retail_pc`
+--
+ALTER TABLE `retail_pc`
+  ADD CONSTRAINT `FK_retail_pc_agent` FOREIGN KEY (`agent_id`) REFERENCES `agent` (`id`),
+  ADD CONSTRAINT `FK_retail_pc_employee` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`);
+
+--
+-- Constraints for table `retail_stock_report`
+--
+ALTER TABLE `retail_stock_report`
+  ADD CONSTRAINT `FK_retail_stock_report_agent` FOREIGN KEY (`agent_id`) REFERENCES `agent` (`id`),
+  ADD CONSTRAINT `FK_retail_stock_report_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
+
+--
+-- Constraints for table `supplier_link_trader`
+--
+ALTER TABLE `supplier_link_trader`
+  ADD CONSTRAINT `FK_supplier_link_trader_supplier` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`id`),
+  ADD CONSTRAINT `FK_supplier_link_trader_trader` FOREIGN KEY (`trader_id`) REFERENCES `trader` (`id`);
+
+--
+-- Constraints for table `task`
+--
+ALTER TABLE `task`
+  ADD CONSTRAINT `FK_task_job` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`),
+  ADD CONSTRAINT `FK_task_task` FOREIGN KEY (`task_parent_id`) REFERENCES `task` (`id`),
+  ADD CONSTRAINT `FK_task_task_action_type` FOREIGN KEY (`task_action_type_id`) REFERENCES `task_action_type` (`id`),
+  ADD CONSTRAINT `FK_task_task_status` FOREIGN KEY (`task_status_id`) REFERENCES `task_status` (`id`);
+
+--
+-- Constraints for table `task_db_log`
+--
+ALTER TABLE `task_db_log`
+  ADD CONSTRAINT `FK_task_db_log_db_reference` FOREIGN KEY (`db_reference_id`) REFERENCES `db_reference` (`id`),
+  ADD CONSTRAINT `FK_task_db_log_task` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`);
+
+--
+-- Constraints for table `task_log`
+--
+ALTER TABLE `task_log`
+  ADD CONSTRAINT `FK_task_log_task` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`),
+  ADD CONSTRAINT `FK_task_log_task_log_status` FOREIGN KEY (`task_log_status_id`) REFERENCES `task_log_status` (`id`);
+
+--
+-- Constraints for table `vehicle`
+--
+ALTER TABLE `vehicle`
+  ADD CONSTRAINT `FK_vehicle_vehicle_brand` FOREIGN KEY (`vehicle_brand_id`) REFERENCES `vehicle_brand` (`id`),
+  ADD CONSTRAINT `FK_vehicle_vehicle_catagory` FOREIGN KEY (`vehicle_catagory_id`) REFERENCES `vehicle_catagory` (`id`);
+
+--
+-- Constraints for table `vehicle_catagory`
+--
+ALTER TABLE `vehicle_catagory`
+  ADD CONSTRAINT `FK_vehicle_catagory_vehicle_catagory` FOREIGN KEY (`vehicle_catagory_parent_id`) REFERENCES `vehicle_catagory` (`id`);
+
+--
+-- Constraints for table `vehicle_log`
+--
+ALTER TABLE `vehicle_log`
+  ADD CONSTRAINT `FK_vehicle_log_vehicle` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicle` (`id`),
+  ADD CONSTRAINT `FK_vehicle_log_vehicle_status` FOREIGN KEY (`vehicle_status_id`) REFERENCES `vehicle_status` (`id`);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

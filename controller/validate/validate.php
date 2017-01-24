@@ -154,8 +154,13 @@ class validate
      }
     public function lookup_join_table($base_id,$value){
         $db = new Db();
-        if (strpos($base_id, '_id')){
-            $base = rtrim($base_id,'_id');
+        if (isset($base_id)){
+            if (strpos($base_id, '_id')){
+                $base = rtrim($base_id,'_id');
+            }
+            if (strpos($base_id, '_parent_id')){
+                $base=str_replace('_parent_id', '', $base_id);
+            }
             $result = $db -> select("SELECT * FROM ".$base." WHERE id = ".$value);
             if ($result){
                 return $result;
