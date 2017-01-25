@@ -318,6 +318,7 @@ class validate
     $post['owner']=$_SESSION['employee_id'];
     $disable_input_list= array("form_title","act");
     $disable_append_quote= array("CURRENT_TIMESTAMP","DEFAULT");
+
         foreach ($post as $key => $value) {
             if (!in_array($key, $disable_input_list)) 
             {
@@ -376,8 +377,125 @@ class validate
         }
             $sql['head']=rtrim($query_head,",");
             $sql['value']=rtrim($query_value,",");
-            
             return $sql;
-    }    
+    }
+    public function insert_multiple($post,$num){
+    $db = new Db(); 
+    $validate= new validate();
+    $query_head ="";
+    $query_value ="";   
+    $post['id']="DEFAULT";
+    $post['created']="CURRENT_TIMESTAMP";
+    $post['modified']="CURRENT_TIMESTAMP";
+    $post['owner']=$_SESSION['employee_id'];
+    $disable_input_list= array("form_title","act");
+    $disable_append_quote= array("CURRENT_TIMESTAMP","DEFAULT");
+    foreach ($post as $key => $value) {
+       if(strpos($key, "_")){   
+            $explode=explode("_", $key);         
+            $explode_list[$explode[0]]=0;
+       }
+    }
+    foreach ($post as $key => $value) {
+       if(strpos($key, "_")){ 
+            $explode=explode("_", $key); 
+            if (array_key_exists($explode[0], $explode_list)) {
+                $explode_list[$explode[0]]++;
+            }         
+       }
+    }
+    $explode_list_else=$explode_list;
+    foreach ($explode_list as $key => $value) {
+        if ($value <2){
+            unset($explode_list[$key]);
+        }
+    }
+    $explode_list = array_filter($explode_list);
+    if (!empty($explode_list)) {
+            foreach ($post as $key => $value) {
+                if (!in_array($key, $disable_input_list)) 
+                {
+                                    
+                }
+            }   
+            $rows = $db -> select("SHOW COLUMNS FROM ".$post['form_title']);
+            //var_dump($rows);  
+            foreach ($rows as $key => $value) 
+            {   
+                $query_head .=$value['Field'].",";                 
+                if (strpos($value["Type"] , "timestamp") !== false) 
+                {   
+                    $query_value .=$post[$value['Field']].",";         
+                }
+                if ($value["Type"]== "datetime") 
+                {   
+                    $query_value .="".$post[$value['Field']].",";     
+                }
+                if ($value["Type"]== "date") 
+                {   
+                    $datetime = strtotime($post[$value['Field']]);
+                    $mysqldate = date("Y-m-d", $datetime);
+                    $query_value .= "'".$mysqldate."',";            
+                }
+                if (strpos($value["Type"] , "int") !== false) 
+                {   
+                    /*
+                    if ($post[$value['Field']] == "")
+                    {
+                        $query_value .="NULL,";
+                    }
+                    else
+                    {*/
+                        $temp_value_count=0;
+                        foreach ($explode_list as $key2 => $value2) {
+                            if (strpos($value['Field'], $key2) !== false){
+                                $query_value .=$post[$value['Field'].$num].",";
+                                $temp_value_count=1;
+                            }                        
+                        }
+
+                        if (strpos($value['Field'], $key2) == false && $temp_value_count==0){
+                                $query_value .=$post[$value['Field']].",";
+                        }
+                      
+                    //}                       
+                                
+                }
+                 if (strpos($value["Type"] , "decimal") !== false) 
+                {                  
+                    $query_value .=$post[$value['Field']].",";   
+                }
+                if (strpos($value["Type"] , "varchar") !== false) 
+                {               
+                    $query_value .= "'".$post[$value['Field']]."',";   
+                }
+                if (strpos($value["Type"] , "text") !== false) 
+                {               
+                    $query_value .= "'".$post[$value['Field']]."',";   
+                }
+                if (strpos($value["Type"] , "email") !== false) 
+                {               
+                    $query_value .= "'".$post[$value['Field']]."',";   
+                }
+                
+            }
+                $sql['head']=rtrim($query_head,",");
+                $sql['value']=rtrim($query_value,",");
+                
+                return $sql;
+        }else{
+            foreach ($explode_list_else as $key => $value) {
+                foreach ($post as $key2 => $value2) {
+                    $last=substr($key2, -1);
+                    if(is_numeric(substr($key2, -1))){
+                        $post[rtrim($key2,$last)]=$value2;
+                        unset($post[$key2]);
+                    }
+                    
+                }
+            }
+           return $validate -> insert($post);  
+        }
+    }        
 }
 ?>

@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Bathline | v.<?php echo $config['version']; ?></title>
+	<title>Bathline UNO | <?php echo $config['version']; ?></title>
 	<link rel="stylesheet" type="text/css" href="/public/fonts/thsarabunnew.css" />
 	<script src="/public/js/jquery-latest.js"></script>
 	<script src="/public/js/bootstrap.min.js"></script> 
@@ -37,16 +37,16 @@
 <div class="container">
 	<div class="row">	
 		<div class="col-md-2">
-			<h1>BATHLINE</h1>
+			<h1>BATHLINE / UNO </h1><small><?php echo $config['version']; ?></small>
 		</div>	
 		<div class="col-md-3">
-			<blockquote>"บอกให้รู้ไว้ หัวใจรักจริง"</blockquote>
+			<br><blockquote>"บอกให้รู้ไว้ หัวใจรักจริง"</blockquote>
 		</div>
 		<div class="col-md-4">
 			<small><br>คุณภาพ คือ การใส่ใจในการป้อน ข้อมูล <br>ข้อมูล คือ ความเข้าใจในงาน<br>ประสิทธิภาพ คือ ความเชื่อมั่นในระบบ และ พัฒนาตามความต้องการ<br>ผลลัพธ์ คือ ความชัดเจนของข้อมูล</small>
 		</div>	
 		<div class="col-md-2">
-			ใช้งานล่าสุด <br>
+			<br>ใช้งานล่าสุด <br>
 			 <h4> <?php echo "<a href=''>คุณ ".$info['profile']['firstname_thai']." ".$info['profile']['lastname_thai']."</a>"; ?></h4>
 			 <a href="/plugin/login/logout.php">ออกจากระบบ</a>
 		</div>		

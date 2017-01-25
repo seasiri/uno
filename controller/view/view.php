@@ -621,7 +621,7 @@ class view{
                                 created,
                                 agent_id,
                                 product_id,
-                                quantity_remain                                                                                                                    
+                                quantity_remain    
                                 ";
                 view::grid_make($title,$show_list); 
                 break;
@@ -722,7 +722,21 @@ class view{
     public function grid_make($title,$show_list){
         $db = new Db();
         $validate = new validate();
-        $rows = $db -> select("SELECT ".$show_list." FROM ".$title." "); 
+        switch ($_GET['act']) {
+            case 'edit':
+                $rows = $db -> select("SELECT ".$show_list." FROM ".$title."  "); 
+                break;
+            case 'grid':
+                $rows = $db -> select("SELECT ".$show_list." FROM ".$title."  "); 
+                break;
+            case 'edit_credential_time':
+                 $rows = $db -> select("SELECT ".$show_list." FROM ".$title." WHERE owner =".$_SESSION['employee_id']." AND created  BETWEEN CURDATE() - INTERVAL 1 DAY  AND CURDATE() + INTERVAL 1 DAY ");
+                break;
+            default:
+                # code...
+                break;
+        }
+        
         //var_dump($rows);
         foreach ($rows as $key => $value) {
             foreach ($rows[$key] as $key2 => $value2) {
@@ -765,7 +779,7 @@ class view{
                      
                 }
                 if(isset($get['task'])){
-                    echo '<td><a href="?db='.$title.'&act=edit&doc='.$array['id'].'&task='.$get['task'].'"> edit </a> / <a href="?db='.$title.'&act=edit"> del </a></td>';
+                    echo '<td><a href="?db='.$title.'&act='.$get['act'].'&doc='.$array['id'].'&task='.$get['task'].'"> edit </a> / <a href="?db='.$title.'&act=edit"> del </a></td>';
                 }else{
                     echo '<td><a href="?db='.$title.'&act=edit&doc='.$array['id'].'"> edit </a> / <a href="?db='.$title.'&act=edit"> del </a></td>';
 
@@ -780,7 +794,7 @@ class view{
     public function dropdown($result,$table){
         if ($result){ 
             echo $table['column']."<br>"; 
-            echo '<select name="'.$table['column'].'">';
+            echo '<select name="'.$table['column'].$table['form_count'].'">';
             if (!   isset($table['doc_id'])){
                 echo '<option selected value="null">please select</option>';
             }  $i=0;
@@ -816,6 +830,10 @@ class view{
         $db = new Db();
         $temp="";
         $table['relate']="";
+        //check if insert multiple by looking form_count if so pass empty string
+        if (!isset($table['form_count'])){
+            $table['form_count']="";
+        }
         if (strpos($table['column'] , "parent_id")) {
             $temp="_parent_id";
             $table['relate'] = substr($table['column'], 0, strrpos($table['column'], $temp));                      
@@ -863,7 +881,12 @@ class view{
                     echo '    <input step=0.01  type="number" class="form-control input-sm" name="'.$table['column'].'" value="'.$result[0][$table['column']].'" placeholder="">';
                     echo '</div>'; 
                 }
-                else{
+                else if (isset($table['form_count'])){
+                    echo '<div class="form-group">';
+                    echo '    <label>'.$table['column'].'</label>';
+                    echo '    <input step=0.01 type="number" class="form-control input-sm" name="'.$table['column'].$table['form_count'].'"  placeholder="">';
+                    echo '</div>'; 
+                }else{
                     echo '<div class="form-group">';
                     echo '    <label>'.$table['column'].'</label>';
                     echo '    <input step=0.01 type="number" class="form-control input-sm" name="'.$table['column'].'"  placeholder="">';

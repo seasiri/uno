@@ -6,7 +6,6 @@
 	$validate = new validate();
 	$attachment = new attachment();
 	$_POST['act']=strtolower($_POST['act']);
-	var_dump($_POST);
 	switch ($_POST['act']) {
 		case 'insert':
 			$result = $attachment -> upload($_FILES,$_POST);
@@ -25,32 +24,32 @@
 				}
 			}
 			break;
-		case 'insert_credential':
-			
-				$temp_count=0;
-				foreach ($_POST as $key => $value) {
-					if (strpos($key , "_id") !== false) {
-						$exist_result = $validate -> lookup_if_rows_exist($_POST[$key],str_replace("_id", "", $key));
-						$temp_count = $exist_result+$temp_count;
-					}                    
-				}
-				if ($temp_count==0)
-				{
-					$sql_element = $validate -> insert($_POST);	
-					$sql="INSERT INTO ".$_POST['form_title']." (".$sql_element['head'].") VALUES (".$sql_element['value'].")";
-					echo $sql;
-					$result=$db -> query($sql);
-					if ($result)
-					{
-						$url = '/?task='.$_POST['task'].'&act='.$_POST['act'].'&msg=เเก้ไขเรียบร้อย'; 
-						header( "Location: $url" );
-					}else{
-						echo '<a href="javascript:history.go(-1)">คลิกเพื่อกลับไปแก้ไข</a>';
+		case 'insert_multiple':
+				if(isset($_POST['row'])&&isset($_POST['skp'])){
+					for ($i=0; $i < $_POST['row']; $i++) { 
+						$count[]=$i;
 					}
-				}else{
-					echo '<a href="javascript:history.go(-1)">คลิกเพื่อกลับไปแก้ไข ค่าไม่มีอยู่จริง</a>';
+					$i=0;	
+					$sql_value="";
+					foreach ($count as $key => $value) {	
+						$sql_element = $validate -> insert_multiple($_POST,$i);						
+						$sql_head="INSERT INTO ".$_POST['form_title']." (".$sql_element['head'].") VALUES ";
+						$sql_value.="(".$sql_element['value']."),";
+						$i++;
+					}
+					$sql_value=rtrim($sql_value,",");
+					$sql_value.=";";
+					$sql=$sql_head.$sql_value;
+					var_dump($sql);
+					$result=$db -> query($sql);
+						if ($result)
+						{
+							$url = '/?task='.$_POST['task'].'&act='.$_POST['act'].'&msg=เเก้ไขเรียบร้อย&row='.$_POST['row'].'&skp='.$_POST['skp'].''; 
+							header( "Location: $url" );
+						}else{
+							echo '<a href="javascript:history.go(-1)">คลิกเพื่อกลับไปแก้ไข</a>';
+						}
 				}
-			
 			break;
 		case 'edit':
 			$result = $attachment -> upload($_FILES,$_POST);
@@ -67,13 +66,23 @@
 				}else{
 					echo '<a href="javascript:history.go(-1)">คลิกเพื่อกลับไปแก้ไข</a>';
 				}
-				/*
-				ob_start();
-				while (ob_get_status()) 
+			}
+			break;
+		case 'edit_credential_time':
+			$result = $attachment -> upload($_FILES,$_POST);
+			if($result)
+			{
+				$sql_element = $validate -> edit($_POST);
+				$sql="UPDATE ".$_POST['form_title']." SET ".$sql_element['value'];
+				ECHO $sql;
+				$result=$db -> query($sql);
+				if ($result)
 				{
-				    ob_end_clean();
-				}*/
-				//header( "Location: $url" );
+					$url = '/?task='.$_POST['task'].'&act='.$_POST['act'].'&msg=เเก้ไขเรียบร้อย'; 
+					header( "Location: $url" );
+				}else{
+					echo '<a href="javascript:history.go(-1)">คลิกเพื่อกลับไปแก้ไข</a>';
+				}
 			}
 			break;
 		default:

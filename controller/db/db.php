@@ -40,6 +40,7 @@ class Db {
         $connection = $this -> connect();
 
         // Query the database
+        mysqli_real_escape_string($connection,$query);
         $result = $connection -> query($query);
         //echo $connection -> affected_rows."<br>";         
         if ($result)
