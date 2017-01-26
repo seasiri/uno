@@ -392,24 +392,26 @@ class validate
     $disable_append_quote= array("CURRENT_TIMESTAMP","DEFAULT");
     foreach ($post as $key => $value) {
        if(strpos($key, "_")){   
-            $explode=explode("_", $key);         
-            $explode_list[$explode[0]]=0;
+        $parts = preg_split('~_(?=[^_]*$)~', $key);        
+            $explode_list[$parts[0]]=0;
        }
     }
     foreach ($post as $key => $value) {
        if(strpos($key, "_")){ 
-            $explode=explode("_", $key); 
-            if (array_key_exists($explode[0], $explode_list)) {
-                $explode_list[$explode[0]]++;
+            $parts = preg_split('~_(?=[^_]*$)~', $key);  
+            if (array_key_exists($parts[0], $explode_list)) {
+                $explode_list[$parts[0]]++;
             }         
        }
     }
+    
     $explode_list_else=$explode_list;
     foreach ($explode_list as $key => $value) {
         if ($value <2){
             unset($explode_list[$key]);
         }
     }
+
     $explode_list = array_filter($explode_list);
     if (!empty($explode_list)) {
             foreach ($post as $key => $value) {
@@ -422,6 +424,7 @@ class validate
             //var_dump($rows);  
             foreach ($rows as $key => $value) 
             {   
+
                 $query_head .=$value['Field'].",";                 
                 if (strpos($value["Type"] , "timestamp") !== false) 
                 {   
@@ -448,9 +451,10 @@ class validate
                     {*/
                         $temp_value_count=0;
                         foreach ($explode_list as $key2 => $value2) {
-                            if (strpos($value['Field'], $key2) !== false){
+                            if (strpos($value['Field'], $key2) !== false && $temp_value_count==0){
                                 $query_value .=$post[$value['Field'].$num].",";
                                 $temp_value_count=1;
+                                 echo $post[$value['Field'].$num];
                             }                        
                         }
 

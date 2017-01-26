@@ -18,14 +18,14 @@
 				if ($result)
 				{
 					$url = '/?task='.$_POST['task'].'&act='.$_POST['act'].'&msg=เเก้ไขเรียบร้อย'; 
-					header( "Location: $url" );
+					echo "<script>window.location = '".$url."';</script>";
 				}else{
 					echo '<a href="javascript:history.go(-1)">คลิกเพื่อกลับไปแก้ไข</a>';
 				}
 			}
 			break;
 		case 'insert_multiple':
-				if(isset($_POST['row'])&&isset($_POST['skp'])){
+				if(isset($_POST['row'])&&isset($_POST['skp'])&&!($_POST['row']>10)){
 					for ($i=0; $i < $_POST['row']; $i++) { 
 						$count[]=$i;
 					}
@@ -40,12 +40,11 @@
 					$sql_value=rtrim($sql_value,",");
 					$sql_value.=";";
 					$sql=$sql_head.$sql_value;
-					var_dump($sql);
 					$result=$db -> query($sql);
 						if ($result)
 						{
 							$url = '/?task='.$_POST['task'].'&act='.$_POST['act'].'&msg=เเก้ไขเรียบร้อย&row='.$_POST['row'].'&skp='.$_POST['skp'].''; 
-							header( "Location: $url" );
+							echo "<script>window.location = '".$url."';</script>";
 						}else{
 							echo '<a href="javascript:history.go(-1)">คลิกเพื่อกลับไปแก้ไข</a>';
 						}
@@ -62,7 +61,7 @@
 				if ($result)
 				{
 					$url = '/?task='.$_POST['task'].'&act='.$_POST['act'].'&msg=เเก้ไขเรียบร้อย'; 
-					header( "Location: $url" );
+					echo "<script>window.location = '".$url."';</script>";
 				}else{
 					echo '<a href="javascript:history.go(-1)">คลิกเพื่อกลับไปแก้ไข</a>';
 				}
@@ -74,12 +73,11 @@
 			{
 				$sql_element = $validate -> edit($_POST);
 				$sql="UPDATE ".$_POST['form_title']." SET ".$sql_element['value'];
-				ECHO $sql;
 				$result=$db -> query($sql);
 				if ($result)
 				{
 					$url = '/?task='.$_POST['task'].'&act='.$_POST['act'].'&msg=เเก้ไขเรียบร้อย'; 
-					header( "Location: $url" );
+					echo "<script>window.location = '".$url."';</script>";
 				}else{
 					echo '<a href="javascript:history.go(-1)">คลิกเพื่อกลับไปแก้ไข</a>';
 				}

@@ -1,18 +1,40 @@
 <?php
 class frontend_view{
+    public function breadcrumb($info,$get){
+        foreach ($info['task'] as $key => $value) {
+                if ($info['task'][$key]['id']==$get['task']){
+                    if (isset($_GET['doc'])&&isset($_GET['db'])){
+                        $url= $_SERVER['QUERY_STRING'];
+                        $breadcrumb_url_list=explode("&", $_SERVER['QUERY_STRING']);
+                        $back_url="";
+                        foreach ( $breadcrumb_url_list as $key2 => $value2) {
+                            if (strpos($value2 , "doc") !== false){
+                                $back_url=str_replace($value2, "",  $url);
+                            }
+                            if (strpos($value2 , "db") !== false){
+                                $back_url=str_replace($value2, "",  $url);
+                            }
+                            $url = $back_url;
+                        }
+                        $url=str_replace("&&", "&",  $url);
+                        $url=ltrim($url, '&');
+                        echo "<h3>".$info['task'][$key]['name']." /<small><a href='/?".$url."'>grid</a>/<code>".$_GET['act']."->doc_id:".$_GET['doc']."</code></small></h3><hr>";
+                    }else{
+                        echo "<h3>".$info['task'][$key]['name']."</h3><hr>";
+                    }
+                    return $task_action_type=$info['task'][$key]['task_action_type'];
+                }
+            }
+    }
     public function template($info,$get){
         if (!empty($get)&&isset($get['act'])&&isset($get['task']))
         {
 
             $frontend_view = new frontend_view();
             $view = new view();
-            foreach ($info['task'] as $key => $value) {
-                if ($info['task'][$key]['id']==$get['task']){
-                    echo "<h3>".$info['task'][$key]['name']."</h3><hr>";
-                    $task_action_type=$info['task'][$key]['task_action_type'];
-                }
-            }
-            //var_dump($info['db']);
+            ///BREADCRUMB
+            $task_action_type = frontend_view::breadcrumb($info,$get);
+            //ACT DECISION
             foreach ($info['db'] as $key => $value) {
                 foreach ($info['db'][$key] as $key2 => $value2) {
                     if ($key==$get['task'] && $get['act']==strtolower($task_action_type)){
@@ -56,6 +78,7 @@ class frontend_view{
         }       
     }
     public function navigation($info){
+        
         foreach ($info['job'] as $key => $value) {
                 $i=0;                               
                 foreach ($info['task'] as $key2 => $value2) {
@@ -71,16 +94,27 @@ class frontend_view{
                             case '30':
                                 echo "<a href='?act=".strtolower($info['task'][$key2]['task_action_type'])."&task=".$info['task'][$key2]['id']."&row=1&skp=agent_id'>-- ".$info['task'][$key2]['name']."</a><br>";
                                 break;
-                            
+                            case '42':
+                                echo "<a href='?act=".strtolower($info['task'][$key2]['task_action_type'])."&task=".$info['task'][$key2]['id']."&row=1&skp=product_id'>-- ".$info['task'][$key2]['name']."</a><br>";
+                                break;
                             default:
-                                echo "<a href='?act=".strtolower($info['task'][$key2]['task_action_type'])."&task=".$info['task'][$key2]['id']."'>-- ".$info['task'][$key2]['name']."</a><br>";
+                                if (isset($_GET['task'])){
+                                    if ($info['task'][$key2]['id']==$_GET['task']){
+                                        echo "<code><e href='?act=".strtolower($info['task'][$key2]['task_action_type'])."&task=".$info['task'][$key2]['id']."'><b>-->".$info['task'][$key2]['name']."</e></b></code><br>";
+                                    }else{
+                                        echo "<a href='?act=".strtolower($info['task'][$key2]['task_action_type'])."&task=".$info['task'][$key2]['id']."'>-- ".$info['task'][$key2]['name']."</a><br>";
+                                    }
+                                }else{
+                                        echo "<a href='?act=".strtolower($info['task'][$key2]['task_action_type'])."&task=".$info['task'][$key2]['id']."'>-- ".$info['task'][$key2]['name']."</a><br>";
+                                }
                                 break;
                         }
                         
                     }
                                         
                 }
-            }
+            
+        }
     }
     
     public function edit($title,$doc_id){
@@ -411,7 +445,7 @@ class frontend_view{
                         $row_explode=explode("=", $value);
                     }                                
                 }
-                echo "จำนวน ช่อง บันทึกสินค้า ";
+                echo "<code>*จำนวนช่อง เลือกให้พอดี</code>";
                 for ($i=1; $i < 11; $i++) {  
                     $keep= str_replace("&row=".$row_explode[1]."&","&row=".$i."&",$_SERVER['REQUEST_URI']);
                     echo "<a href='".$keep."'> ".$i." </a>";

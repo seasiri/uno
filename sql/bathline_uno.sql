@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2017 at 10:28 PM
+-- Generation Time: Jan 26, 2017 at 09:27 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -1204,7 +1204,10 @@ INSERT INTO `db_reference` (`id`, `created`, `modified`, `owner`, `name`, `db_na
 (13, '2017-01-23 22:58:35', '2017-01-23 15:58:35', 1, 'product_catagories', 'product_catagories'),
 (14, '2017-01-23 23:02:03', '2017-01-23 16:02:03', 1, 'retail_stock_report', 'retail_stock_report'),
 (15, '2017-01-24 11:30:50', '2017-01-24 04:30:50', 1, 'supplier_link_trader', 'supplier_link_trader'),
-(16, '2017-01-24 11:30:57', '2017-01-24 04:30:57', 1, 'trader', 'trader');
+(16, '2017-01-24 11:30:57', '2017-01-24 04:30:57', 1, 'trader', 'trader'),
+(17, '2017-01-27 01:54:24', '2017-01-26 18:54:24', 1, 'product_attribute', 'product_attribute'),
+(18, '2017-01-27 01:54:32', '2017-01-26 18:54:32', 1, 'product_attribute_option', 'product_attribute_option'),
+(19, '2017-01-27 01:54:40', '2017-01-26 18:54:40', 1, 'product_attribute_value', 'product_attribute_value');
 
 -- --------------------------------------------------------
 
@@ -1685,8 +1688,37 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `created`, `modified`, `owner`, `product_catagories_id`, `product_status_id`, `supplier_id`, `name`, `name_english`, `short_description`, `long_description`, `barcode`) VALUES
-(1, '2017-01-19 01:01:58', '2017-01-25 22:25:59', 1, 2, 1, 15, 'B-4654', 'TALAS', 'ทาลัส', 'ใช้น้ำ 3/4.5ลิตร', '8859199111057'),
-(2, '2017-01-25 16:33:51', '2017-01-25 22:26:32', 1, 2, 1, 15, 'B-4654A', 'TALAS', 'ทาลัส', 'พร้อมฝารองนั่งอัตโนมัติ', '8859199111606');
+(1, '2017-01-19 01:01:58', '2017-01-26 19:26:27', 1, 1, 1, 15, 'B-4654', 'TALAS', 'ทาลัส', 'ใช้น้ำ 3/4.5ลิตร ฝาUF', '8859199111057'),
+(2, '2017-01-25 16:33:51', '2017-01-26 08:07:11', 2, 1, 1, 15, 'B-4654A', 'TALAS', 'ทาลัส', 'พร้อมฝารองนั่งอัตโนมัติ', '8859199111606'),
+(3, '2017-01-26 15:04:39', '2017-01-26 08:06:57', 2, 1, 1, 15, 'B-4681', 'New Pronto', 'นิวปรอนโต้', 'ใช้น้ำ3/4.5ลิตร ฝาUF', '8859199111675'),
+(4, '2017-01-26 15:06:10', '2017-01-26 08:06:41', 2, 1, 1, 15, 'B-4613', 'DANAS', 'ดานัส', 'ใช้น้ำ 3/4.5ลิตร ฝาUF', '8859199110999'),
+(5, '2017-01-26 15:07:56', '2017-01-26 08:08:26', 2, 1, 1, 15, 'B-4620', 'SPEEDY', 'สปีดี้', 'ใช้น้ำ 3/4.5ลิตร ฝาPP', '8859199111040'),
+(6, '2017-01-26 15:09:18', '2017-01-26 11:44:05', 2, 15, 1, 15, 'B-1619', 'VICTORY', 'วิคทอรี่', 'ใช้น้ำ 3/6 ลิตร ฝาSlide Click', '8859199110050'),
+(7, '2017-01-26 15:10:06', '2017-01-26 11:44:07', 2, 19, 1, 15, 'B-1673', 'WIN', 'วิน', 'ใช้น้ำ 3/6 ลิตร ฝาSlide Click Long Curve', '8859199110111'),
+(8, '2017-01-26 15:11:16', '2017-01-26 11:44:09', 2, 15, 1, 18, 'B-4024', 'THE BEST', 'เดอะเบสท์', 'ใช้น้ำ 2.5/4 ลิตร ฝาSlow Downธรรมดา', '8859199110067'),
+(9, '2017-01-26 15:16:35', '2017-01-26 11:44:12', 2, 31, 1, 18, 'B-4023', 'BOOM', 'บูม', 'ใช้น้ำ 2.5/4ลิตร ฝาSlow Down', '8859199110104'),
+(10, '2017-01-26 15:17:27', '2017-01-26 11:44:18', 2, 31, 1, 18, 'B-4078', 'SUPER SAVE', 'ซุปเปอร์เซฟ', 'ใช้น้ำ 3/6ลิตร ฝาSlow Down', '8859199110142'),
+(11, '2017-01-26 15:18:19', '2017-01-26 11:44:14', 2, 31, 1, 15, 'B-1674', 'SUPER JET', 'ซุปเปอร์เจ็ท', 'ใช้น้ำ 3/6ลิตร ฝาSlide Click', '8859199111651'),
+(12, '2017-01-26 15:18:50', '2017-01-26 11:44:20', 2, 31, 1, 15, 'B-4026', 'FIN', 'ฟิน', 'ใช้น้ำ 3/6ลิตร ฝาSlow Down', '8859199111644'),
+(13, '2017-01-26 15:19:45', '2017-01-26 11:44:23', 2, 31, 1, 15, 'B-2144', 'PREMA', 'พรีม่า', 'ใช้น้ำ 3/6ลิตร ฝาSlow Down', '8859199111637'),
+(14, '2017-01-26 15:21:58', '2017-01-26 11:44:24', 2, 31, 1, 30, 'B-2145', 'ORCA', 'ออก้า', 'ใช้น้ำ 3/6ลิตร ฝาEasy Click , UF', '8859199111699'),
+(15, '2017-01-26 15:23:21', '2017-01-26 11:44:26', 2, 11, 1, 15, 'ฺB-1607', 'BEBE', 'เบบี้', 'ใช้น้ำ 3/6ลิตร ', '8859199111422'),
+(16, '2017-01-26 15:40:04', '2017-01-26 11:44:29', 1, 31, 1, 15, 'B-4607', 'SPIRAL', 'สไปรัล', 'ใช้น้ำ 3/4.5ลิตร ฝาSlow Down ', '8859199111019'),
+(17, '2017-01-26 15:40:50', '2017-01-26 08:40:50', 2, 2, 1, 18, 'B-008', 'SUPER BIG', 'ซุปเปอร์บิ๊ก', 'ใช้น้ำ 3/6ลิตร Slow Down', '8859199110203'),
+(18, '2017-01-26 15:41:21', '2017-01-26 08:41:21', 2, 2, 1, 18, 'B-2024', 'LOVELY', 'เลิฟลี่', 'ใช้น้ำ 3/6 ลิตร ฝาSlow Down', '8859199110234'),
+(19, '2017-01-26 15:41:55', '2017-01-26 08:41:55', 2, 2, 1, 18, 'B-2025', 'LUCKY', 'ลัคกี้', 'ใชน้ำ 3/6ลิตร ฝาSlow Down', '8859199110241'),
+(20, '2017-01-26 15:44:27', '2017-01-26 08:44:27', 2, 9, 1, 29, 'B-7280', 'JUMBO', 'จัมโบ้', '37x50x41cm.', '8859199110265'),
+(21, '2017-01-26 15:45:34', '2017-01-26 08:45:34', 2, 9, 1, 16, 'B-111 W', 'COMFORT WHITE', 'สบาย สีขาว', '38x46x38cm.', '8859199110302'),
+(22, '2017-01-26 15:46:28', '2017-01-26 08:46:28', 2, 9, 1, 16, 'B-111 B', 'COMFORT BLUE', 'สบาย สีฟ้า', '38x46x38cm.', '8859199110272'),
+(23, '2017-01-26 15:47:16', '2017-01-26 08:47:16', 2, 9, 1, 16, 'B-111 P', 'COMFORT PINK', 'สบาย สีชมพู', '38x46x38cm.', '8859199110289'),
+(24, '2017-01-26 15:47:53', '2017-01-26 08:47:53', 2, 9, 1, 16, 'B-111 G', 'COMFORT GREEN', 'สบาย สีเขียวอ่อน', '38x46x38cm.', '8859199110296'),
+(25, '2017-01-26 15:49:08', '2017-01-26 08:49:08', 2, 2, 1, 28, 'B-2138', 'IMPERIAL', 'อิมพีเรียล', 'ใช้น้ำ 6ลิตร ฝาSlow Down', '8859199111736'),
+(26, '2017-01-26 15:51:18', '2017-01-26 08:51:29', 2, 2, 1, 28, 'B-2188', 'MODULAR', 'โมดูลล่า', 'ใช้น้ำ 3/6ลิตร ฝาSlow Down', '8859199111910'),
+(27, '2017-01-26 16:02:47', '2017-01-26 11:44:31', 2, 11, 1, 29, 'B-4201', 'TRIUMP', 'ไทรอัมพ์', 'ใช้น้ำ 3/6ลิตร ฝาEasy Click with BIDET', '8859199111743'),
+(28, '2017-01-26 16:03:50', '2017-01-26 09:03:50', 2, 1, 1, 15, 'B-4610', 'MAXIMUM', 'แม็กซิมั่ม', 'ใช้น้ำ 3/6ลิตร ฝาPP Easy Click', '8859199131420'),
+(29, '2017-01-26 16:20:08', '2017-01-26 11:44:33', 2, 31, 1, 18, 'B-1672', 'NATURA', 'นาทูร่า', '', '8859199110036'),
+(30, '2017-01-26 16:23:06', '2017-01-26 11:44:35', 2, 31, 1, 15, 'B-1674 G', 'SUPER JET GOLD', 'ซุปเปอร์เจ็ท ขอบทอง', 'ใช้น้ำ 3/6ลิตร ฝาSlide Click', ''),
+(31, '2017-01-26 16:23:55', '2017-01-26 11:44:37', 2, 11, 1, 15, 'B-1674 S', 'SUPER JET SILVER', 'ซุปเปอร์เจ็ท ขอบเงิน', 'ใช้น้ำ 3/6ลิตร ฝาSlide Click', '');
 
 -- --------------------------------------------------------
 
@@ -1713,7 +1745,7 @@ CREATE TABLE `product_attribute` (
 --
 
 INSERT INTO `product_attribute` (`id`, `created`, `modified`, `owner`, `product_attribute_parent_id`, `product_catagories_id`, `name`, `name_english`, `description`, `unit_thai`, `unit_english`) VALUES
-(1, '2017-01-23 20:18:00', '2017-01-23 14:37:46', 1, 1, 1, 'root', 'root', 'root', '', ''),
+(1, '2017-01-23 20:18:00', '2017-01-26 11:59:57', 1, 1, 11, 'root', 'root', 'root', '', ''),
 (2, '2017-01-23 21:02:26', '2017-01-23 14:03:27', 1, 1, 5, 'ระบบนํ้า', 'ระบบนํ้า', 'ระบบนํ้า', '', ''),
 (3, '2017-01-23 21:38:19', '2017-01-23 14:38:19', 1, 1, 5, 'ประเภท', 'ประเภท', 'ประเภท', '', '');
 
@@ -1758,13 +1790,6 @@ CREATE TABLE `product_attribute_value` (
   `product_attribute_option_id` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `product_attribute_value`
---
-
-INSERT INTO `product_attribute_value` (`id`, `created`, `modified`, `owner`, `product_id`, `product_attribute_id`, `product_attribute_option_id`) VALUES
-(1, '2017-01-23 21:29:29', '2017-01-23 14:29:29', 1, 1, 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -1787,11 +1812,11 @@ CREATE TABLE `product_catagories` (
 --
 
 INSERT INTO `product_catagories` (`id`, `created`, `modified`, `owner`, `product_catagories_parent_id`, `name`, `name_english`, `description`) VALUES
-(1, '2017-01-19 01:00:35', '2017-01-25 08:51:54', 2, 5, 'ชักโครกวันพีช', 'One Piece Toilet', ''),
-(2, '2017-01-23 19:46:16', '2017-01-25 08:47:41', 2, 5, 'ชักโครกวันพีช ทอร์นาโด', 'One Piece Tornado Toilet', 'root'),
-(3, '2017-01-23 19:47:42', '2017-01-25 08:48:22', 2, 5, 'ชักโครกทูพีช ', 'Two Piece Toilet', ''),
-(4, '2017-01-23 19:48:50', '2017-01-25 21:00:50', 1, 5, 'ชักโครกทูพีช ทอร์นาโด', 'Two Piece Tornado Toilet', ''),
-(5, '2017-01-23 19:50:14', '2017-01-25 08:52:48', 2, 5, 'สุขภัณฑ์', 'Sanitary Ware', ''),
+(1, '2017-01-23 19:46:16', '2017-01-26 12:04:26', 1, 2, 'ห้องนํ้า', 'Bathroom', 'root'),
+(2, '2017-01-23 19:47:42', '2017-01-26 12:05:53', 1, 5, 'ชักโครก', 'Toilet', ''),
+(3, '2017-01-25 16:12:54', '2017-01-26 12:07:19', 2, 3, 'กล่องสุขภัณฑ์', 'Sanitary Ware BOX', ''),
+(4, '2017-01-25 16:12:23', '2017-01-26 12:07:22', 2, 4, 'หลังคา', 'Roof', ''),
+(5, '2017-01-23 19:50:14', '2017-01-26 11:34:19', 1, 2, 'สุขภัณฑ์', 'Sanitary Ware', ''),
 (6, '2017-01-23 19:51:36', '2017-01-25 08:53:25', 2, 5, 'อ่างล้างหน้า', 'Wash Basin', ''),
 (7, '2017-01-23 19:51:56', '2017-01-25 08:53:54', 2, 5, 'ขาตั้งเคลือบ', 'Pedestal Wash Basin', ''),
 (8, '2017-01-23 20:00:50', '2017-01-25 08:54:18', 2, 5, 'โถปัสสาวะชาย', 'Urinal', ''),
@@ -1812,19 +1837,15 @@ INSERT INTO `product_catagories` (`id`, `created`, `modified`, `owner`, `product
 (23, '2017-01-25 16:07:10', '2017-01-25 09:08:19', 2, 23, 'อะไหล่', 'Spare Part', ''),
 (24, '2017-01-25 16:08:52', '2017-01-25 09:25:17', 2, 24, 'บล็อกแก้ว', 'Glass Block', ''),
 (25, '2017-01-25 16:11:43', '2017-01-25 09:25:33', 2, 25, 'น้ำยาเคมี', 'Chemical Cleaning', ''),
-(26, '2017-01-25 16:12:23', '2017-01-25 09:25:45', 2, 26, 'หลังคา', 'Roof', ''),
-(27, '2017-01-25 16:12:54', '2017-01-25 09:25:58', 2, 27, 'กล่องสุขภัณฑ์', 'Sanitary Ware BOX', ''),
 (28, '2017-01-25 16:20:04', '2017-01-25 09:26:10', 2, 28, 'ไม้บัวพีวีซี', 'Wooden Cornice PVC', ''),
 (29, '2017-01-25 16:20:28', '2017-01-25 09:26:35', 2, 29, 'โมเสค', 'Mosaic', ''),
 (30, '2017-01-25 16:20:44', '2017-01-25 09:26:54', 2, 30, 'อิฐมวลเย็น', 'Block', ''),
 (31, '2017-01-25 16:21:02', '2017-01-25 09:27:22', 2, 31, 'กระดาษฟอร์ม', 'Form Paper', ''),
 (32, '2017-01-25 16:21:21', '2017-01-25 09:27:34', 2, 32, 'เสื้อพนักงาน', 'BATH LINE Uniform', ''),
 (33, '2017-01-25 16:21:35', '2017-01-25 09:27:47', 2, 33, 'สินค้าตัวอย่าง', 'Sample Product', ''),
-(34, '2017-01-25 16:22:13', '2017-01-25 09:27:58', 2, 34, 'ชักโครกทูพีช(ไทย)', 'Two Piece Toilet Thai', ''),
-(35, '2017-01-25 16:22:30', '2017-01-25 09:28:09', 2, 35, 'อ่างล้างหน้า(ไทย)', 'Wash Basin Thai', ''),
-(36, '2017-01-25 16:23:13', '2017-01-25 09:28:21', 2, 36, 'ขาตั้งอ่าง(ไทย)', 'Pedestal Wash Basin Thai', ''),
+(36, '2017-01-25 16:23:13', '2017-01-26 11:50:25', 2, 36, 'ขาตั้งอ่าง', 'Pedestal Wash Basin', ''),
 (37, '2017-01-25 16:23:32', '2017-01-25 09:28:32', 2, 37, 'แท่นโชว์', 'Booth Show Product', ''),
-(38, '2017-01-25 16:24:36', '2017-01-25 09:28:43', 2, 38, 'ปูนกาว(ไทย) ', 'Glue Cement', '');
+(38, '2017-01-25 16:24:36', '2017-01-26 11:49:08', 2, 38, 'ปูนกาว', 'Glue Cement', '');
 
 -- --------------------------------------------------------
 
@@ -2191,7 +2212,13 @@ INSERT INTO `task` (`id`, `created`, `modified`, `owner`, `task_parent_id`, `tas
 (34, '2017-01-24 11:27:31', '2017-01-24 04:27:31', 1, 1, 2, 1, 3, 843, 7, 'ไทย', 'แก้ไข ผู้ประกอบการค้า', 'เพิ่ม ผู้ประกอบการค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
 (35, '2017-01-24 11:28:25', '2017-01-24 04:28:25', 1, 1, 1, 1, 3, 843, 7, 'ไทย', 'เชื่อม ผู้ประกอบการค้า กับ โรงงาน', 'เชื่อม ผู้ประกอบการค้า กับ โรงงาน', '2017-01-15', '2018-01-15', '', '', '', ''),
 (36, '2017-01-24 11:28:33', '2017-01-24 04:28:33', 1, 1, 2, 1, 3, 843, 7, 'ไทย', 'แก้ไข ผู้ประกอบการค้า กับ โรงงาน', 'เชื่อม ผู้ประกอบการค้า กับ โรงงาน', '2017-01-15', '2018-01-15', '', '', '', ''),
-(37, '2017-01-26 03:04:48', '2017-01-25 20:07:27', 1, 1, 6, 1, 11, 843, 7, 'ไทย', 'ประวัติ การบันทึก ย้อนหลัง 7 วัน', 'ประวัติ การบันทึก ย้อนหลัง 7 วัน', '2017-01-15', '2018-01-15', '', '', '', '');
+(37, '2017-01-26 03:04:48', '2017-01-25 20:07:27', 1, 1, 6, 1, 11, 843, 7, 'ไทย', 'ประวัติ การบันทึก ย้อนหลัง 7 วัน', 'ประวัติ การบันทึก ย้อนหลัง 7 วัน', '2017-01-15', '2018-01-15', '', '', '', ''),
+(38, '2017-01-27 01:50:58', '2017-01-26 18:53:00', 1, 1, 1, 1, 3, 843, 7, 'ไทย', 'เพิ่ม หมวดหมู่ ลักษณะ ', 'เพิ่ม หมวดหมู่ ลักษณะ ', '2017-01-15', '2018-01-15', '', '', '', ''),
+(39, '2017-01-27 01:51:13', '2017-01-26 18:53:13', 1, 1, 2, 1, 3, 843, 7, 'ไทย', 'แก้ไข หมวดหมู่ ลักษณะ ', 'แก้ไข หมวดหมู่ ลักษณะ ', '2017-01-15', '2018-01-15', '', '', '', ''),
+(40, '2017-01-27 01:51:35', '2017-01-26 18:51:35', 1, 1, 1, 1, 3, 843, 7, 'ไทย', 'เพิ่ม ลักษณะ ตัวเลือก', 'เพิ่ม ลักษณะ ตัวเลือก', '2017-01-15', '2018-01-15', '', '', '', ''),
+(41, '2017-01-27 01:51:44', '2017-01-26 18:51:44', 1, 1, 2, 1, 3, 843, 7, 'ไทย', 'แก้ไข ลักษณะ ตัวเลือก', 'แก้ไข ลักษณะ ตัวเลือก', '2017-01-15', '2018-01-15', '', '', '', ''),
+(42, '2017-01-27 01:52:33', '2017-01-26 18:57:39', 1, 1, 5, 1, 3, 843, 7, 'ไทย', 'เพิ่ม ลักษณะ สินค้า', 'เพิ่ม ลักษณะ สินค้า', '2017-01-15', '2018-01-15', '', '', '', ''),
+(43, '2017-01-27 01:52:42', '2017-01-26 18:52:42', 1, 1, 2, 1, 3, 843, 7, 'ไทย', 'แก้ไข ลักษณะ สินค้า', 'แก้ไข ลักษณะ สินค้า', '2017-01-15', '2018-01-15', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -2267,7 +2294,13 @@ INSERT INTO `task_db_log` (`id`, `created`, `modified`, `owner`, `task_id`, `db_
 (28, '2017-01-24 11:31:28', '2017-01-24 04:31:28', 1, 34, 16),
 (29, '2017-01-24 11:31:34', '2017-01-24 04:31:34', 1, 35, 15),
 (30, '2017-01-24 11:31:38', '2017-01-24 04:31:38', 1, 36, 15),
-(31, '2017-01-26 03:19:24', '2017-01-25 20:19:24', 1, 37, 14);
+(31, '2017-01-26 03:19:24', '2017-01-25 20:19:24', 1, 37, 14),
+(32, '2017-01-27 01:55:43', '2017-01-26 18:55:43', 1, 38, 17),
+(33, '2017-01-27 01:55:47', '2017-01-26 18:55:47', 1, 39, 17),
+(34, '2017-01-27 01:55:53', '2017-01-26 18:55:53', 1, 40, 18),
+(35, '2017-01-27 01:55:57', '2017-01-26 18:55:57', 1, 41, 18),
+(36, '2017-01-27 01:56:02', '2017-01-26 18:56:02', 1, 42, 19),
+(37, '2017-01-27 01:56:06', '2017-01-26 18:56:06', 1, 43, 19);
 
 -- --------------------------------------------------------
 
@@ -2874,7 +2907,115 @@ INSERT INTO `task_log` (`id`, `created`, `modified`, `owner`, `record_name`, `re
 (573, '2017-01-26 05:25:09', '2017-01-25 22:25:09', 1, 'product', 1, 1, 'UPDATE', 'UPDATE product SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_id=2,product_status_id=1,supplier_id=15,name=\'B-4654\',name_english=\'TALAS\',short_description=\'ทาลัส\',long_description=\'ใช้น้ำ 3/4.5ลิตร\',barcode=\'8859199111057\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_id != 2 OR product_status_id != 1 OR supplier_id != 15 OR name != \'B-4654\' OR name_english != \'TALAS\' OR short_description != \'ทาลัส\' OR long_description != \'ใช้น้ำ 3/4.5ลิตร\' OR barcode != \'8859199111057\' )', 1, 'successfully'),
 (574, '2017-01-26 05:25:30', '2017-01-25 22:25:30', 1, 'product', 1, 1, 'UPDATE', 'UPDATE product SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_id=2,product_status_id=1,supplier_id=15,name=\'B-4654\',name_english=\'TALASs\',short_description=\'ทาลัส\',long_description=\'ใช้น้ำ 3/4.5ลิตร\',barcode=\'8859199111057\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_id != 2 OR product_status_id != 1 OR supplier_id != 15 OR name != \'B-4654\' OR name_english != \'TALASs\' OR short_description != \'ทาลัส\' OR long_description != \'ใช้น้ำ 3/4.5ลิตร\' OR barcode != \'8859199111057\' )', 1, 'successfully'),
 (575, '2017-01-26 05:25:59', '2017-01-25 22:25:59', 1, 'product', 1, 1, 'UPDATE', 'UPDATE product SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_id=2,product_status_id=1,supplier_id=15,name=\'B-4654\',name_english=\'TALAS\',short_description=\'ทาลัส\',long_description=\'ใช้น้ำ 3/4.5ลิตร\',barcode=\'8859199111057\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_id != 2 OR product_status_id != 1 OR supplier_id != 15 OR name != \'B-4654\' OR name_english != \'TALAS\' OR short_description != \'ทาลัส\' OR long_description != \'ใช้น้ำ 3/4.5ลิตร\' OR barcode != \'8859199111057\' )', 1, 'successfully'),
-(576, '2017-01-26 05:26:32', '2017-01-25 22:26:32', 1, 'product', 2, 1, 'UPDATE', 'UPDATE product SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_id=2,product_status_id=1,supplier_id=15,name=\'B-4654A\',name_english=\'TALAS\',short_description=\'ทาลัส\',long_description=\'พร้อมฝารองนั่งอัตโนมัติ\',barcode=\'8859199111606\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_id != 2 OR product_status_id != 1 OR supplier_id != 15 OR name != \'B-4654A\' OR name_english != \'TALAS\' OR short_description != \'ทาลัส\' OR long_description != \'พร้อมฝารองนั่งอัตโนมัติ\' OR barcode != \'8859199111606\' )', 1, 'successfully');
+(576, '2017-01-26 05:26:32', '2017-01-25 22:26:32', 1, 'product', 2, 1, 'UPDATE', 'UPDATE product SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_id=2,product_status_id=1,supplier_id=15,name=\'B-4654A\',name_english=\'TALAS\',short_description=\'ทาลัส\',long_description=\'พร้อมฝารองนั่งอัตโนมัติ\',barcode=\'8859199111606\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_id != 2 OR product_status_id != 1 OR supplier_id != 15 OR name != \'B-4654A\' OR name_english != \'TALAS\' OR short_description != \'ทาลัส\' OR long_description != \'พร้อมฝารองนั่งอัตโนมัติ\' OR barcode != \'8859199111606\' )', 1, 'successfully'),
+(577, '2017-01-26 15:04:39', '2017-01-26 08:04:39', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,2,1,15,\'B-4681\',\'New Pronto\',\'นิวปรอนโต้\',\'ใช้น้ำ3/4.5ลิตร\',\'8859199111675\')', 1, 'successfully'),
+(578, '2017-01-26 15:06:10', '2017-01-26 08:06:10', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,2,1,15,\'B-4613\',\'DANAS\',\'ดานัส\',\'ใช้น้ำ \',\'\')', 1, 'successfully'),
+(579, '2017-01-26 15:06:29', '2017-01-26 08:06:29', 2, 'product', 4, 1, 'UPDATE', 'UPDATE product SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,product_catagories_id=2,product_status_id=1,supplier_id=15,name=\'B-4613\',name_english=\'DANAS\',short_description=\'ดานัส\',long_description=\'ใช้น้ำ 3/4.5ลิตร ฝาUF\',barcode=\'\' WHERE id =4 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR product_catagories_id != 2 OR product_status_id != 1 OR supplier_id != 15 OR name != \'B-4613\' OR name_english != \'DANAS\' OR short_description != \'ดานัส\' OR long_description != \'ใช้น้ำ 3/4.5ลิตร ฝาUF\' OR barcode != \'\' )', 1, 'successfully'),
+(580, '2017-01-26 15:06:41', '2017-01-26 08:06:41', 2, 'product', 4, 1, 'UPDATE', 'UPDATE product SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,product_catagories_id=2,product_status_id=1,supplier_id=15,name=\'B-4613\',name_english=\'DANAS\',short_description=\'ดานัส\',long_description=\'ใช้น้ำ 3/4.5ลิตร ฝาUF\',barcode=\'8859199110999\' WHERE id =4 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR product_catagories_id != 2 OR product_status_id != 1 OR supplier_id != 15 OR name != \'B-4613\' OR name_english != \'DANAS\' OR short_description != \'ดานัส\' OR long_description != \'ใช้น้ำ 3/4.5ลิตร ฝาUF\' OR barcode != \'8859199110999\' )', 1, 'successfully'),
+(581, '2017-01-26 15:06:57', '2017-01-26 08:06:57', 2, 'product', 3, 1, 'UPDATE', 'UPDATE product SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,product_catagories_id=2,product_status_id=1,supplier_id=15,name=\'B-4681\',name_english=\'New Pronto\',short_description=\'นิวปรอนโต้\',long_description=\'ใช้น้ำ3/4.5ลิตร ฝาUF\',barcode=\'8859199111675\' WHERE id =3 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR product_catagories_id != 2 OR product_status_id != 1 OR supplier_id != 15 OR name != \'B-4681\' OR name_english != \'New Pronto\' OR short_description != \'นิวปรอนโต้\' OR long_description != \'ใช้น้ำ3/4.5ลิตร ฝาUF\' OR barcode != \'8859199111675\' )', 1, 'successfully'),
+(582, '2017-01-26 15:07:11', '2017-01-26 08:07:11', 2, 'product', 2, 1, 'UPDATE', 'UPDATE product SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,product_catagories_id=2,product_status_id=1,supplier_id=15,name=\'B-4654A\',name_english=\'TALAS\',short_description=\'ทาลัส\',long_description=\'พร้อมฝารองนั่งอัตโนมัติ\',barcode=\'8859199111606\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR product_catagories_id != 2 OR product_status_id != 1 OR supplier_id != 15 OR name != \'B-4654A\' OR name_english != \'TALAS\' OR short_description != \'ทาลัส\' OR long_description != \'พร้อมฝารองนั่งอัตโนมัติ\' OR barcode != \'8859199111606\' )', 1, 'successfully'),
+(583, '2017-01-26 15:07:19', '2017-01-26 08:07:19', 2, 'product', 1, 1, 'UPDATE', 'UPDATE product SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,product_catagories_id=2,product_status_id=1,supplier_id=15,name=\'B-4654\',name_english=\'TALAS\',short_description=\'ทาลัส\',long_description=\'ใช้น้ำ 3/4.5ลิตร ฝาUF\',barcode=\'8859199111057\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR product_catagories_id != 2 OR product_status_id != 1 OR supplier_id != 15 OR name != \'B-4654\' OR name_english != \'TALAS\' OR short_description != \'ทาลัส\' OR long_description != \'ใช้น้ำ 3/4.5ลิตร ฝาUF\' OR barcode != \'8859199111057\' )', 1, 'successfully'),
+(584, '2017-01-26 15:07:56', '2017-01-26 08:07:56', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,2,1,15,\'B-4620\',\'SPEEDY\',\'สปีดี้\',\'ใช้น้ำ \',\'\')', 1, 'successfully'),
+(585, '2017-01-26 15:08:26', '2017-01-26 08:08:26', 2, 'product', 5, 1, 'UPDATE', 'UPDATE product SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,product_catagories_id=2,product_status_id=1,supplier_id=15,name=\'B-4620\',name_english=\'SPEEDY\',short_description=\'สปีดี้\',long_description=\'ใช้น้ำ 3/4.5ลิตร ฝาPP\',barcode=\'8859199111040\' WHERE id =5 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR product_catagories_id != 2 OR product_status_id != 1 OR supplier_id != 15 OR name != \'B-4620\' OR name_english != \'SPEEDY\' OR short_description != \'สปีดี้\' OR long_description != \'ใช้น้ำ 3/4.5ลิตร ฝาPP\' OR barcode != \'8859199111040\' )', 1, 'successfully'),
+(586, '2017-01-26 15:09:18', '2017-01-26 08:09:18', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,1,1,15,\'B-1619\',\'VICTORY\',\'วิคทอรี่\',\'ใช้น้ำ 3/6 ลิตร ฝาSlide Click\',\'8859199110050\')', 1, 'successfully'),
+(587, '2017-01-26 15:10:06', '2017-01-26 08:10:06', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,1,1,15,\'B-1673\',\'WIN\',\'วิน\',\'ใช้น้ำ 3/6 ลิตร ฝาSlide Click Long Curve\',\'8859199110111\')', 1, 'successfully');
+INSERT INTO `task_log` (`id`, `created`, `modified`, `owner`, `record_name`, `record_document`, `task_id`, `task_action_type`, `query`, `task_log_status_id`, `task_msg`) VALUES
+(588, '2017-01-26 15:11:16', '2017-01-26 08:11:16', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,1,1,18,\'B-4024\',\'THE BEST\',\'เดอะเบสท์\',\'ใช้น้ำ 2.5/4 ลิตร ฝาSlow Downธรรมดา\',\'8859199110067\')', 1, 'successfully'),
+(589, '2017-01-26 15:16:35', '2017-01-26 08:16:35', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,1,1,18,\'B-4023\',\'BOOM\',\'บูม\',\'ใช้น้ำ 2.5/4ลิตร ฝาSlow Down\',\'8859199110104\')', 1, 'successfully'),
+(590, '2017-01-26 15:17:27', '2017-01-26 08:17:27', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,1,1,18,\'B-4078\',\'SUPER SAVE\',\'ซุปเปอร์เซฟ\',\'ใช้น้ำ 3/6ลิตร ฝาSlow Down\',\'8859199110142\')', 1, 'successfully'),
+(591, '2017-01-26 15:18:19', '2017-01-26 08:18:19', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,1,1,15,\'B-1674\',\'SUPER JET\',\'ซุปเปอร์เจ็ท\',\'ใช้น้ำ 3/6ลิตร ฝาSlide Click\',\'8859199111651\')', 1, 'successfully'),
+(592, '2017-01-26 15:18:50', '2017-01-26 08:18:50', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,1,1,15,\'B-4026\',\'FIN\',\'ฟิน\',\'ใช้น้ำ 3/6ลิตร ฝาSlow Down\',\'8859199111644\')', 1, 'successfully'),
+(593, '2017-01-26 15:19:45', '2017-01-26 08:19:45', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,1,1,15,\'B-2144\',\'PREMA\',\'พรีม่า\',\'ใช้น้ำ 3/6ลิตร ฝาSlow Down\',\'8859199111637\')', 1, 'successfully'),
+(594, '2017-01-26 15:21:58', '2017-01-26 08:21:58', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,1,1,30,\'B-2145\',\'ORCA\',\'ออก้า\',\'ใช้น้ำ 3/6ลิตร ฝาSlide Click\',\'8859199111699\')', 1, 'successfully'),
+(595, '2017-01-26 15:22:28', '2017-01-26 08:22:28', 2, 'product', 14, 1, 'UPDATE', 'UPDATE product SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,product_catagories_id=1,product_status_id=1,supplier_id=30,name=\'B-2145\',name_english=\'ORCA\',short_description=\'ออก้า\',long_description=\'ใช้น้ำ 3/6ลิตร ฝาEasy Click , UF\',barcode=\'8859199111699\' WHERE id =14 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR product_catagories_id != 1 OR product_status_id != 1 OR supplier_id != 30 OR name != \'B-2145\' OR name_english != \'ORCA\' OR short_description != \'ออก้า\' OR long_description != \'ใช้น้ำ 3/6ลิตร ฝาEasy Click , UF\' OR barcode != \'8859199111699\' )', 1, 'successfully'),
+(596, '2017-01-26 15:23:21', '2017-01-26 08:23:21', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,1,1,15,\'ฺB-1607\',\'BEBE\',\'เบบี้\',\'ใช้น้ำ 3/6ลิตร \',\'8859199111422\')', 1, 'successfully'),
+(597, '2017-01-26 15:40:04', '2017-01-26 08:40:04', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,4,1,15,\'B-4607\',\'SPIRAL\',\'สไปรัล\',\'ใช้น้ำ 3/4.5ลิตร ฝาSlow Down \',\'8859199111019\')', 1, 'successfully'),
+(598, '2017-01-26 15:40:50', '2017-01-26 08:40:50', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,3,1,18,\'B-008\',\'SUPER BIG\',\'ซุปเปอร์บิ๊ก\',\'ใช้น้ำ 3/6ลิตร Slow Down\',\'8859199110203\')', 1, 'successfully'),
+(599, '2017-01-26 15:41:21', '2017-01-26 08:41:21', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,3,1,18,\'B-2024\',\'LOVELY\',\'เลิฟลี่\',\'ใช้น้ำ 3/6 ลิตร ฝาSlow Down\',\'8859199110234\')', 1, 'successfully'),
+(600, '2017-01-26 15:41:55', '2017-01-26 08:41:55', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,3,1,18,\'B-2025\',\'LUCKY\',\'ลัคกี้\',\'ใชน้ำ 3/6ลิตร ฝาSlow Down\',\'8859199110241\')', 1, 'successfully'),
+(601, '2017-01-26 15:44:27', '2017-01-26 08:44:27', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,9,1,29,\'B-7280\',\'JUMBO\',\'จัมโบ้\',\'37x50x41cm.\',\'8859199110265\')', 1, 'successfully'),
+(602, '2017-01-26 15:45:34', '2017-01-26 08:45:34', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,9,1,16,\'B-111 W\',\'COMFORT WHITE\',\'สบาย สีขาว\',\'38x46x38cm.\',\'8859199110302\')', 1, 'successfully'),
+(603, '2017-01-26 15:46:28', '2017-01-26 08:46:28', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,9,1,16,\'B-111 B\',\'COMFORT BLUE\',\'สบาย สีฟ้า\',\'38x46x38cm.\',\'8859199110272\')', 1, 'successfully'),
+(604, '2017-01-26 15:47:16', '2017-01-26 08:47:16', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,9,1,16,\'B-111 P\',\'COMFORT PINK\',\'สบาย สีชมพู\',\'38x46x38cm.\',\'8859199110289\')', 1, 'successfully'),
+(605, '2017-01-26 15:47:53', '2017-01-26 08:47:53', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,9,1,16,\'B-111 G\',\'COMFORT GREEN\',\'สบาย สีเขียวอ่อน\',\'38x46x38cm.\',\'8859199110296\')', 1, 'successfully'),
+(606, '2017-01-26 15:49:08', '2017-01-26 08:49:08', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,3,1,28,\'B-2138\',\'IMPERIAL\',\'อิมพีเรียล\',\'ใช้น้ำ 6ลิตร ฝาSlow Down\',\'8859199111736\')', 1, 'successfully'),
+(607, '2017-01-26 15:51:18', '2017-01-26 08:51:18', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,3,1,28,\'B-2188\',\'MODULAR\',\'โมดูลล่า\',\'ใช้น้ำ 3/6ลิตร ฝาSlow Down\',\'885919911191\')', 1, 'successfully'),
+(608, '2017-01-26 15:51:29', '2017-01-26 08:51:29', 2, 'product', 26, 1, 'UPDATE', 'UPDATE product SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=2,product_catagories_id=3,product_status_id=1,supplier_id=28,name=\'B-2188\',name_english=\'MODULAR\',short_description=\'โมดูลล่า\',long_description=\'ใช้น้ำ 3/6ลิตร ฝาSlow Down\',barcode=\'8859199111910\' WHERE id =26 AND ( id != id OR created != created OR modified != modified OR owner != 2 OR product_catagories_id != 3 OR product_status_id != 1 OR supplier_id != 28 OR name != \'B-2188\' OR name_english != \'MODULAR\' OR short_description != \'โมดูลล่า\' OR long_description != \'ใช้น้ำ 3/6ลิตร ฝาSlow Down\' OR barcode != \'8859199111910\' )', 1, 'successfully'),
+(609, '2017-01-26 16:02:47', '2017-01-26 09:02:47', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,1,1,29,\'B-4201\',\'TRIUMP\',\'ไทรอัมพ์\',\'ใช้น้ำ 3/6ลิตร ฝาEasy Click with BIDET\',\'8859199111743\')', 1, 'successfully'),
+(610, '2017-01-26 16:03:50', '2017-01-26 09:03:50', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,2,1,15,\'B-4610\',\'MAXIMUM\',\'แม็กซิมั่ม\',\'ใช้น้ำ 3/6ลิตร ฝาPP Easy Click\',\'8859199131420\')', 1, 'successfully'),
+(611, '2017-01-26 16:20:08', '2017-01-26 09:20:08', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,1,1,18,\'B-1672\',\'NATURA\',\'นาทูร่า\',\'\',\'8859199110036\')', 1, 'successfully'),
+(612, '2017-01-26 16:23:06', '2017-01-26 09:23:06', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,1,1,15,\'B-1674 G\',\'SUPER JET GOLD\',\'ซุปเปอร์เจ็ท ขอบทอง\',\'ใช้น้ำ 3/6ลิตร ฝาSlide Click\',\'\')', 1, 'successfully'),
+(613, '2017-01-26 16:23:55', '2017-01-26 09:23:55', 2, 'product', 2, 1, 'INSERT', 'INSERT INTO product (id,created,modified,owner,product_catagories_id,product_status_id,supplier_id,name,name_english,short_description,long_description,barcode) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,1,1,15,\'B-1674 S\',\'SUPER JET SILVER\',\'ซุปเปอร์เจ็ท ขอบเงิน\',\'ใช้น้ำ 3/6ลิตร ฝาSlide Click\',\'\')', 1, 'successfully'),
+(614, '2017-01-26 18:33:16', '2017-01-26 11:33:16', 1, 'product_catagories', 1, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=1,name=\'ห้องนํ้า\',name_english=\'Bathroom\',description=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 1 OR name != \'ห้องนํ้า\' OR name_english != \'Bathroom\' OR description != \'\' )', 1, 'successfully'),
+(615, '2017-01-26 18:33:30', '2017-01-26 11:33:30', 1, 'product_catagories', 5, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=1,name=\'สุขภัณฑ์\',name_english=\'Sanitary Ware\',description=\'\' WHERE id =5 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 1 OR name != \'สุขภัณฑ์\' OR name_english != \'Sanitary Ware\' OR description != \'\' )', 1, 'successfully'),
+(616, '2017-01-26 18:33:55', '2017-01-26 11:33:55', 1, 'product_catagories', 1, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=1,name=\'root\',name_english=\'root\',description=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 1 OR name != \'root\' OR name_english != \'root\' OR description != \'\' )', 1, 'successfully'),
+(617, '2017-01-26 18:34:10', '2017-01-26 11:34:10', 1, 'product_catagories', 2, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=1,name=\'ห้องนํ้า\',name_english=\'Bathroom\',description=\'root\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 1 OR name != \'ห้องนํ้า\' OR name_english != \'Bathroom\' OR description != \'root\' )', 1, 'successfully'),
+(618, '2017-01-26 18:34:19', '2017-01-26 11:34:19', 1, 'product_catagories', 5, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=2,name=\'สุขภัณฑ์\',name_english=\'Sanitary Ware\',description=\'\' WHERE id =5 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 2 OR name != \'สุขภัณฑ์\' OR name_english != \'Sanitary Ware\' OR description != \'\' )', 1, 'successfully'),
+(619, '2017-01-26 18:34:45', '2017-01-26 11:34:45', 1, 'product_catagories', 3, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=5,name=\'ชักโครก\',name_english=\'Toilet\',description=\'\' WHERE id =3 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 5 OR name != \'ชักโครก\' OR name_english != \'Toilet\' OR description != \'\' )', 1, 'successfully'),
+(620, '2017-01-26 18:36:32', '2017-01-26 11:36:32', 1, 'product_catagories', 4, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=5,name=\'บาธไลน์\',name_english=\'Bathline\',description=\'\' WHERE id =4 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 5 OR name != \'บาธไลน์\' OR name_english != \'Bathline\' OR description != \'\' )', 1, 'successfully'),
+(621, '2017-01-26 18:42:51', '2017-01-26 11:42:51', 1, 'product', 16, 1, 'UPDATE', 'UPDATE product SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_id=1,product_status_id=1,supplier_id=15,name=\'B-4607\',name_english=\'SPIRAL\',short_description=\'สไปรัล\',long_description=\'ใช้น้ำ 3/4.5ลิตร ฝาSlow Down \',barcode=\'8859199111019\' WHERE id =16 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_id != 1 OR product_status_id != 1 OR supplier_id != 15 OR name != \'B-4607\' OR name_english != \'SPIRAL\' OR short_description != \'สไปรัล\' OR long_description != \'ใช้น้ำ 3/4.5ลิตร ฝาSlow Down \' OR barcode != \'8859199111019\' )', 1, 'successfully'),
+(622, '2017-01-26 18:45:13', '2017-01-26 11:45:13', 1, 'product_catagories', 2, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=2,name=\'ห้องนํ้า\',name_english=\'Bathroom\',description=\'root\' WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 2 OR name != \'ห้องนํ้า\' OR name_english != \'Bathroom\' OR description != \'root\' )', 1, 'successfully'),
+(623, '2017-01-26 18:46:13', '2017-01-26 11:46:13', 1, 'product_catagories', 1, 1, 'UPDATE', 'UPDATE product_catagories SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_parent_id=2,name=\'root\',name_english=\'root\',description=\'\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_parent_id != 2 OR name != \'root\' OR name_english != \'root\' OR description != \'\' )', 1, 'successfully'),
+(624, '2017-01-27 01:50:58', '2017-01-26 18:50:58', 1, 'task', 37, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,1,3,843,7,\'ไทย\',\'เพิ่มลักษณะ\',\'เพิ่มลักษณะ\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(625, '2017-01-27 01:51:13', '2017-01-26 18:51:13', 1, 'task', 37, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,2,1,3,843,7,\'ไทย\',\'แก้ไข ลักษณะ\',\'เพิ่มลักษณะ\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(626, '2017-01-27 01:51:35', '2017-01-26 18:51:35', 1, 'task', 37, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,1,3,843,7,\'ไทย\',\'เพิ่ม ลักษณะ ตัวเลือก\',\'เพิ่ม ลักษณะ ตัวเลือก\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(627, '2017-01-27 01:51:44', '2017-01-26 18:51:44', 1, 'task', 37, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,2,1,3,843,7,\'ไทย\',\'แก้ไข ลักษณะ ตัวเลือก\',\'แก้ไข ลักษณะ ตัวเลือก\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(628, '2017-01-27 01:52:33', '2017-01-26 18:52:33', 1, 'task', 37, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,1,1,3,843,7,\'ไทย\',\'เพิ่ม ลักษณะ สินค้า\',\'เพิ่ม ลักษณะ สินค้า\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(629, '2017-01-27 01:52:42', '2017-01-26 18:52:42', 1, 'task', 37, 1, 'INSERT', 'INSERT INTO task (id,created,modified,owner,task_parent_id,task_action_type_id,task_status_id,job_id,amphur_id,province_id,country,name,description,task_open,task_close,error_msg_thai,error_msg_english,success_msg_thai,success_msg_english) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,2,1,3,843,7,\'ไทย\',\'แก้ไข ลักษณะ สินค้า\',\'แก้ไข ลักษณะ สินค้า\',\'2017-01-15\',\'2018-01-15\',\'\',\'\',\'\',\'\')', 1, 'successfully'),
+(630, '2017-01-27 01:53:00', '2017-01-26 18:53:00', 1, 'task', 38, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=1,task_status_id=1,job_id=3,amphur_id=843,province_id=7,country=\'ไทย\',name=\'เพิ่ม หมวดหมู่ ลักษณะ \',description=\'เพิ่ม หมวดหมู่ ลักษณะ \',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =38 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 1 OR task_status_id != 1 OR job_id != 3 OR amphur_id != 843 OR province_id != 7 OR country != \'ไทย\' OR name != \'เพิ่ม หมวดหมู่ ลักษณะ \' OR description != \'เพิ่ม หมวดหมู่ ลักษณะ \' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(631, '2017-01-27 01:53:13', '2017-01-26 18:53:13', 1, 'task', 39, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=2,task_status_id=1,job_id=3,amphur_id=843,province_id=7,country=\'ไทย\',name=\'แก้ไข หมวดหมู่ ลักษณะ \',description=\'แก้ไข หมวดหมู่ ลักษณะ \',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =39 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 2 OR task_status_id != 1 OR job_id != 3 OR amphur_id != 843 OR province_id != 7 OR country != \'ไทย\' OR name != \'แก้ไข หมวดหมู่ ลักษณะ \' OR description != \'แก้ไข หมวดหมู่ ลักษณะ \' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(632, '2017-01-27 01:54:24', '2017-01-26 18:54:24', 1, 'db_reference', 17, 1, 'INSERT', 'INSERT INTO db_reference (id,created,modified,owner,name,db_name) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'product_attribute\',\'product_attribute\')', 1, 'successfully'),
+(633, '2017-01-27 01:54:32', '2017-01-26 18:54:32', 1, 'db_reference', 17, 1, 'INSERT', 'INSERT INTO db_reference (id,created,modified,owner,name,db_name) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'product_attribute_option\',\'product_attribute_option\')', 1, 'successfully'),
+(634, '2017-01-27 01:54:40', '2017-01-26 18:54:40', 1, 'db_reference', 17, 1, 'INSERT', 'INSERT INTO db_reference (id,created,modified,owner,name,db_name) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,\'product_attribute_value\',\'product_attribute_value\')', 1, 'successfully'),
+(635, '2017-01-27 01:55:43', '2017-01-26 18:55:43', 1, 'task_db_log', 31, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,38,17)', 1, 'successfully'),
+(636, '2017-01-27 01:55:47', '2017-01-26 18:55:47', 1, 'task_db_log', 31, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,39,17)', 1, 'successfully'),
+(637, '2017-01-27 01:55:53', '2017-01-26 18:55:53', 1, 'task_db_log', 31, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,40,18)', 1, 'successfully'),
+(638, '2017-01-27 01:55:57', '2017-01-26 18:55:57', 1, 'task_db_log', 31, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,41,18)', 1, 'successfully'),
+(639, '2017-01-27 01:56:02', '2017-01-26 18:56:02', 1, 'task_db_log', 31, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,42,19)', 1, 'successfully'),
+(640, '2017-01-27 01:56:06', '2017-01-26 18:56:06', 1, 'task_db_log', 31, 1, 'INSERT', 'INSERT INTO task_db_log (id,created,modified,owner,task_id,db_reference_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,43,19)', 1, 'successfully'),
+(641, '2017-01-27 01:57:39', '2017-01-26 18:57:39', 1, 'task', 42, 1, 'UPDATE', 'UPDATE task SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,task_parent_id=1,task_action_type_id=5,task_status_id=1,job_id=3,amphur_id=843,province_id=7,country=\'ไทย\',name=\'เพิ่ม ลักษณะ สินค้า\',description=\'เพิ่ม ลักษณะ สินค้า\',task_open=\'2017-01-15\',task_close=\'2018-01-15\',error_msg_thai=\'\',error_msg_english=\'\',success_msg_thai=\'\',success_msg_english=\'\' WHERE id =42 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR task_parent_id != 1 OR task_action_type_id != 5 OR task_status_id != 1 OR job_id != 3 OR amphur_id != 843 OR province_id != 7 OR country != \'ไทย\' OR name != \'เพิ่ม ลักษณะ สินค้า\' OR description != \'เพิ่ม ลักษณะ สินค้า\' OR task_open != \'2017-01-15\' OR task_close != \'2018-01-15\' OR error_msg_thai != \'\' OR error_msg_english != \'\' OR success_msg_thai != \'\' OR success_msg_english != \'\' )', 1, 'successfully'),
+(642, '2017-01-27 02:19:25', '2017-01-26 19:19:25', 1, 'product_attribute_value', 2, 1, 'INSERT', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,3,3);', 1, 'successfully'),
+(643, '2017-01-27 02:19:35', '2017-01-26 19:19:35', 1, 'product_attribute_value', 2, 1, 'INSERT', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,3,2);', 1, 'successfully'),
+(644, '2017-01-27 02:20:07', '2017-01-26 19:20:07', 1, 'product_attribute_value', 2, 1, 'UPDATE', 'UPDATE product_attribute_value SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_id=6,product_attribute_id=2,product_attribute_option_id=1 WHERE id =2 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_id != 6 OR product_attribute_id != 2 OR product_attribute_option_id != 1 )', 1, 'successfully'),
+(645, '2017-01-27 02:21:50', '2017-01-26 19:21:50', 1, 'product_attribute_value', 5, 1, 'edit', 'UPDATE product_attribute_value SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_id=3,product_attribute_id=3,product_attribute_option_id=3 WHERE id =5 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_id != 3 OR product_attribute_id != 3 OR product_attribute_option_id != 3 )', 1, 'successfully'),
+(646, '2017-01-27 02:23:17', '2017-01-26 19:23:17', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,2,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,2,3,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,2,2,2);', 1, 'successfully'),
+(647, '2017-01-27 02:26:02', '2017-01-26 19:26:02', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,1,2,1);', 1, 'successfully'),
+(648, '2017-01-27 02:26:27', '2017-01-26 19:26:27', 1, 'product', 1, 1, 'EDIT', 'UPDATE product SET id=id,created=created,modified=CURRENT_TIMESTAMP,owner=1,product_catagories_id=1,product_status_id=1,supplier_id=15,name=\'B-4654\',name_english=\'TALAS\',short_description=\'ทาลัส\',long_description=\'ใช้น้ำ 3/4.5ลิตร ฝาUF\',barcode=\'8859199111057\' WHERE id =1 AND ( id != id OR created != created OR modified != modified OR owner != 1 OR product_catagories_id != 1 OR product_status_id != 1 OR supplier_id != 15 OR name != \'B-4654\' OR name_english != \'TALAS\' OR short_description != \'ทาลัส\' OR long_description != \'ใช้น้ำ 3/4.5ลิตร ฝาUF\' OR barcode != \'8859199111057\' )', 1, 'successfully'),
+(649, '2017-01-27 02:49:43', '2017-01-26 19:49:43', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,2,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,2,1,3),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,2,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,2,2,1);', 1, 'successfully'),
+(650, '2017-01-27 02:50:03', '2017-01-26 19:50:03', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,1,1);', 1, 'successfully'),
+(651, '2017-01-27 02:50:15', '2017-01-26 19:50:15', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(652, '2017-01-27 02:51:12', '2017-01-26 19:51:12', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(653, '2017-01-27 02:51:36', '2017-01-26 19:51:36', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(654, '2017-01-27 02:51:54', '2017-01-26 19:51:54', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(655, '2017-01-27 02:52:38', '2017-01-26 19:52:38', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(656, '2017-01-27 02:52:57', '2017-01-26 19:52:57', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(657, '2017-01-27 02:54:18', '2017-01-26 19:54:18', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(658, '2017-01-27 02:55:53', '2017-01-26 19:55:53', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(659, '2017-01-27 02:55:56', '2017-01-26 19:55:56', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(660, '2017-01-27 02:56:17', '2017-01-26 19:56:17', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(661, '2017-01-27 02:56:19', '2017-01-26 19:56:19', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(662, '2017-01-27 02:56:22', '2017-01-26 19:56:22', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(663, '2017-01-27 02:56:47', '2017-01-26 19:56:47', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(664, '2017-01-27 02:56:55', '2017-01-26 19:56:55', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(665, '2017-01-27 02:56:57', '2017-01-26 19:56:57', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(666, '2017-01-27 02:57:05', '2017-01-26 19:57:05', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(667, '2017-01-27 02:57:29', '2017-01-26 19:57:29', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(668, '2017-01-27 02:57:36', '2017-01-26 19:57:36', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(669, '2017-01-27 02:58:02', '2017-01-26 19:58:02', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(670, '2017-01-27 02:58:16', '2017-01-26 19:58:16', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(671, '2017-01-27 02:59:26', '2017-01-26 19:59:26', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(672, '2017-01-27 02:59:27', '2017-01-26 19:59:27', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(673, '2017-01-27 02:59:33', '2017-01-26 19:59:33', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(674, '2017-01-27 03:01:06', '2017-01-26 20:01:06', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(675, '2017-01-27 03:01:35', '2017-01-26 20:01:35', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(676, '2017-01-27 03:01:52', '2017-01-26 20:01:52', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,2,1),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,5,1,2);', 1, 'successfully'),
+(677, '2017-01-27 03:02:18', '2017-01-26 20:02:18', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,2,2);', 1, 'successfully'),
+(678, '2017-01-27 03:02:29', '2017-01-26 20:02:29', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,1,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,2,2);', 1, 'successfully'),
+(679, '2017-01-27 03:03:18', '2017-01-26 20:03:18', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,2,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,1,1);', 1, 'successfully'),
+(680, '2017-01-27 03:05:03', '2017-01-26 20:05:03', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,2,3),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,3,2,2);', 1, 'successfully'),
+(681, '2017-01-27 03:05:19', '2017-01-26 20:05:19', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,4,2,3),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,4,2,2);', 1, 'successfully'),
+(682, '2017-01-27 03:06:06', '2017-01-26 20:06:06', 1, 'product_attribute_value', 2, 1, 'INSERT_MULTIPLE', 'INSERT INTO product_attribute_value (id,created,modified,owner,product_id,product_attribute_id,product_attribute_option_id) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,4,2,2),(DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,4,2,1);', 1, 'successfully'),
+(683, '2017-01-27 03:07:32', '2017-01-26 20:07:32', 1, 'retail_stock_report', 9, 1, 'INSERT_MULTIPLE', 'INSERT INTO retail_stock_report (id,created,modified,owner,agent_id,product_id,quantity_remain) VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,2,1,2);', 1, 'successfully');
 
 -- --------------------------------------------------------
 
@@ -3273,9 +3414,9 @@ ALTER TABLE `order_process_status`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_product_product_catagories` (`product_catagories_id`),
   ADD KEY `FK_product_product_status` (`product_status_id`),
-  ADD KEY `FK_product_supplier` (`supplier_id`);
+  ADD KEY `FK_product_supplier` (`supplier_id`),
+  ADD KEY `FK_product_product_catagories` (`product_catagories_id`);
 
 --
 -- Indexes for table `product_attribute`
@@ -3305,8 +3446,7 @@ ALTER TABLE `product_attribute_value`
 -- Indexes for table `product_catagories`
 --
 ALTER TABLE `product_catagories`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_product_catagories_product_catagories` (`product_catagories_parent_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `product_status`
@@ -3481,7 +3621,7 @@ ALTER TABLE `attachment_type`
 -- AUTO_INCREMENT for table `db_reference`
 --
 ALTER TABLE `db_reference`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `delivery`
 --
@@ -3566,7 +3706,7 @@ ALTER TABLE `order_process_status`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `product_attribute`
 --
@@ -3581,7 +3721,7 @@ ALTER TABLE `product_attribute_option`
 -- AUTO_INCREMENT for table `product_attribute_value`
 --
 ALTER TABLE `product_attribute_value`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `product_catagories`
 --
@@ -3626,7 +3766,7 @@ ALTER TABLE `supplier_link_trader`
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 --
 -- AUTO_INCREMENT for table `task_action_type`
 --
@@ -3636,12 +3776,12 @@ ALTER TABLE `task_action_type`
 -- AUTO_INCREMENT for table `task_db_log`
 --
 ALTER TABLE `task_db_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `task_log`
 --
 ALTER TABLE `task_log`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=577;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=684;
 --
 -- AUTO_INCREMENT for table `task_log_status`
 --
@@ -3772,7 +3912,7 @@ ALTER TABLE `order_log`
 -- Constraints for table `product`
 --
 ALTER TABLE `product`
-  ADD CONSTRAINT `FK_product_product_catagories` FOREIGN KEY (`product_catagories_id`) REFERENCES `product_catagories` (`id`),
+  ADD CONSTRAINT `FK_product_product_catagories` FOREIGN KEY (`product_catagories_id`) REFERENCES `product_catagories` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_product_product_status` FOREIGN KEY (`product_status_id`) REFERENCES `product_status` (`id`),
   ADD CONSTRAINT `FK_product_supplier` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`id`);
 
@@ -3781,7 +3921,7 @@ ALTER TABLE `product`
 --
 ALTER TABLE `product_attribute`
   ADD CONSTRAINT `FK_product_attribute_product_attribute` FOREIGN KEY (`product_attribute_parent_id`) REFERENCES `product_attribute` (`id`),
-  ADD CONSTRAINT `FK_product_attribute_product_catagories` FOREIGN KEY (`product_catagories_id`) REFERENCES `product_catagories` (`id`);
+  ADD CONSTRAINT `FK_product_attribute_product_catagories` FOREIGN KEY (`product_catagories_id`) REFERENCES `product_catagories` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_attribute_option`
@@ -3796,12 +3936,6 @@ ALTER TABLE `product_attribute_value`
   ADD CONSTRAINT `FK_product_attribute_value_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   ADD CONSTRAINT `FK_product_attribute_value_product_attribute` FOREIGN KEY (`product_attribute_id`) REFERENCES `product_attribute` (`id`),
   ADD CONSTRAINT `FK_product_attribute_value_product_attribute_option` FOREIGN KEY (`product_attribute_option_id`) REFERENCES `product_attribute_option` (`id`);
-
---
--- Constraints for table `product_catagories`
---
-ALTER TABLE `product_catagories`
-  ADD CONSTRAINT `FK_product_catagories_product_catagories` FOREIGN KEY (`product_catagories_parent_id`) REFERENCES `product_catagories` (`id`);
 
 --
 -- Constraints for table `region`
