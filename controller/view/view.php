@@ -792,13 +792,14 @@ class view{
         }
     }
     public function dropdown($result,$table){
+        
         if ($result){ 
             echo $table['column']."<br>"; 
             echo '<select name="'.$table['column'].$table['form_count'].'">';
             if (!   isset($table['doc_id'])){
                 echo '<option selected value="null">please select</option>';
-            }  $i=0;
-                foreach ($result as $key => $value) {
+            }  
+                 foreach ($result as $key => $value) {
                     if (isset($table['existing'])){
                         if ($value['id']==$table['existing']){
                              echo '<option selected value="'.$value['id'].'">'.$value['name'].'</option>';
@@ -808,10 +809,10 @@ class view{
                         } 
                     }
                     else{
-                        echo '<option value="'.$value['id'].'">'.$value['name'].'</option>';
+                        echo '<option value="'.$value['id'].'">'.$value['name'].' </option>';
                     }
-                    $i++;
-                } 
+                }
+            
             echo '</select>';
         }
         else
@@ -826,7 +827,7 @@ class view{
         }
     }
     public function int_handle($table){
-
+        $validate = new validate();
         $db = new Db();
         $temp="";
         $table['relate']="";
@@ -860,8 +861,22 @@ class view{
                             INNER JOIN ".$table['relate']." on ".$table['relate'].".id = ".$table['refer_table'].".".$table['column']."
                             WHERE ".$table['refer_table'].".employee_id=".$table['user_id']."";
                     $result = $db -> select($sql);
+                }else if (array_key_exists("job",$table)&&array_key_exists("refer_table",$table)){  
+                    //APPROVAL MODE
+                        $sql_element_where_job ="";           
+                        foreach ($table['job'] as $key => $value) {
+                            $sql_element_where_job.= "job_id = ".$table['job'][$key]['job_id']."||";
+                        }
+                        $head_exist_boolean=$validate -> lookup_column_head_exist($table['relate'],"job_id");
+                        $sql_element_where_job=rtrim($sql_element_where_job,"||");
+                        if ($head_exist_boolean){
+                            $sql= "SELECT ".$table['relate'].".id,".$table['relate'].".name FROM ".$table['relate']." WHERE ".$sql_element_where_job;
+                        }else{
+                            $sql= "SELECT ".$table['relate'].".id,".$table['relate'].".name FROM ".$table['relate'];
+                        }
                 }else{
-                    $sql= "SELECT ".$table['relate'].".id,".$table['relate'].".name FROM ".$table['relate'].""; 
+                    
+                    $sql= "SELECT ".$table['relate'].".id,".$table['relate'].".name FROM ".$table['relate']."";
                 }
                               
                 $result = $db -> select($sql); 
@@ -903,7 +918,6 @@ class attachment{
    public function upload($file,$post){ 
         if ($file['fileToUpload']['size']== 0){
             return 1;
-            break;
         }
         $file_name=rand(100000000,999999999);
         $now=date("ymdhi");
@@ -966,10 +980,10 @@ class attachment{
         $extension = pathinfo($dir,PATHINFO_EXTENSION);            
          foreach ( $table_list as $key => $value) {
              if (strpos($post['form_title'], "".$value."") !== false) {
-                    $next_id= $db -> select("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'bathline_v2' AND TABLE_NAME = '".$value."'"); 
+                    $next_id= $db -> select("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'bathline_uno' AND TABLE_NAME = '".$value."'"); 
                     $next_id=$next_id[0]['AUTO_INCREMENT'];
                     $column_head=$validate->column_head('attachment');                       
-                    $sql="INSERT INTO attachment (".$column_head.") VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'".$_SESSION['employee_id']."','".$value."',".$next_id.",1,'".$dir."','".$extension."')";  
+                    $sql="INSERT INTO attachment (".$column_head.") VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,".$_SESSION['employee_id'].",'".$value."',".$next_id.",1,'".$dir."','".$extension."')";  
                     echo "<br>".$sql."</br>";
                     $result = $db->query($sql);
                 }

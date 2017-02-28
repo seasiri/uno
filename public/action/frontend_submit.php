@@ -13,7 +13,22 @@
 			{
 				$sql_element = $validate -> insert($_POST);	
 				$sql="INSERT INTO ".$_POST['form_title']." (".$sql_element['head'].") VALUES (".$sql_element['value'].")";
-				echo $sql;
+				$result=$db -> query($sql);
+				if ($result)
+				{
+					$url = '/?task='.$_POST['task'].'&act='.$_POST['act'].'&msg=เเก้ไขเรียบร้อย'; 
+					echo "<script>window.location = '".$url."';</script>";
+				}else{
+					echo '<a href="javascript:history.go(-1)">คลิกเพื่อกลับไปแก้ไข</a>';
+				}
+			}
+			break;
+		case 'approval':
+			$result = $attachment -> upload($_FILES,$_POST);
+			if($result)
+			{
+				$sql_element = $validate -> insert($_POST);	
+				$sql="INSERT INTO ".$_POST['form_title']." (".$sql_element['head'].") VALUES (".$sql_element['value'].")";
 				$result=$db -> query($sql);
 				if ($result)
 				{
@@ -56,7 +71,6 @@
 			{
 				$sql_element = $validate -> edit($_POST);
 				$sql="UPDATE ".$_POST['form_title']." SET ".$sql_element['value'];
-				ECHO $sql;
 				$result=$db -> query($sql);
 				if ($result)
 				{

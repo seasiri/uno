@@ -172,6 +172,22 @@ class validate
             return false;
         }
     }
+    public function lookup_column_head_exist($input,$name){
+        $db = new Db();
+        $column_list="";
+        $database_column = $db -> select("SHOW COLUMNS FROM ".$input);
+         $i=0;
+         foreach ($database_column as $key => $value) {
+            if ($value['Field']==$name){
+                $i++;
+            }
+         }
+         if ($i>0){
+            return true;
+         }else{
+            return false;
+         }
+    }
     public function column_head($input){
         $db = new Db();
         $column_list="";
@@ -182,11 +198,11 @@ class validate
         $column_list = rtrim($column_list,',');
         return $column_list;
     }
-    public function table_list(){
+    public function table_list(){        
         $db = new Db();
-        $database_table = $db -> query("show tables from bathline_v2");
+        $database_table = $db -> query("show tables from bathline_uno");
         foreach ($database_table as $key => $value) {
-            $table_list[] = $value['Tables_in_bathline_v2'];
+            $table_list[] = $value['Tables_in_bathline_uno'];
         }
         return $table_list;
     }
@@ -394,6 +410,10 @@ class validate
        if(strpos($key, "_")){   
         $parts = preg_split('~_(?=[^_]*$)~', $key);        
             $explode_list[$parts[0]]=0;
+       }else{
+            if(1 === preg_match('~[0-9]~', $key)){
+                $explode_list[trim(str_replace(range(0,9),'',$key))]=0;
+            }
        }
     }
     foreach ($post as $key => $value) {
@@ -401,10 +421,12 @@ class validate
             $parts = preg_split('~_(?=[^_]*$)~', $key);  
             if (array_key_exists($parts[0], $explode_list)) {
                 $explode_list[$parts[0]]++;
-            }         
-       }
+            }
+       }else if(1 === preg_match('~[0-9]~', $key)){
+                $explode_list[trim(str_replace(range(0,9),'',$key))]++;
+       }      
     }
-    
+    var_dump($explode_list);
     $explode_list_else=$explode_list;
     foreach ($explode_list as $key => $value) {
         if ($value <2){

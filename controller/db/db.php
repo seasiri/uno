@@ -49,11 +49,10 @@ class Db {
                 $table_list=$validate->table_list();              
                  foreach ( $table_list as $key => $value) {
                      if (strpos($query, " ".$value." ") !== false) {
-                            $next_id= Db::select("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'bathline_v2' AND TABLE_NAME = '".$value."'"); 
+                            $next_id= Db::select("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'bathline_uno' AND TABLE_NAME = '".$value."'"); 
                             $next_id=$next_id[0]['AUTO_INCREMENT'];
                             $column_head=$validate->column_head('task_log');                       
                             $sql="INSERT INTO task_log (".$column_head.") VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'".$_SESSION['employee_id']."','".$value."',".$next_id.",1,'".strtoupper($_POST['act'])."','".mysqli_real_escape_string($connection,$query)."',1,'successfully')";  
-                            echo $sql;
                             $result = $connection->query($sql);
                         }
                   }  

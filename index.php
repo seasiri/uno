@@ -1,9 +1,9 @@
 	<?php require "plugin/login/loginheader.php"; ?>
-	<?php require_once('/controller/route/frontend_view.php'); ?>
-	<?php require_once('/controller/route/route.php'); ?>
-	<?php require_once('/controller/view/view.php'); ?>
-	<?php require_once('/controller/validate/validate.php'); ?>
-	<?php require_once('/controller/db/db.php'); ?>	
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/controller/route/frontend_view.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/controller/route/route.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/controller/view/view.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/controller/validate/validate.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/controller/db/db.php'); ?>	
 	<?php $route = new route(); ?>
 	<?php $frontend_view = new frontend_view(); ?>	
 	<?php $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/private/config.ini');  ?>
@@ -21,7 +21,8 @@
 	<link rel="stylesheet" type="text/css" href="/public/css/main_frontend.css">
 </head>
 <body>
-<?php if ($_SESSION['employee_id']!=0 && isset($_SESSION['username'])){
+<?php
+if ($_SESSION['employee_id']!=0 && isset($_SESSION['username'])){
 		$info= $route -> authorization($_SESSION);
 		if (isset($_GET['msg'])){
 			echo '
@@ -47,7 +48,8 @@
 		</div>	
 		<div class="col-md-2">
 			<br>ใช้งานล่าสุด <br>
-			 <h4> <?php echo "<a href=''>คุณ ".$info['profile']['firstname_thai']." ".$info['profile']['lastname_thai']."</a>"; ?></h4>
+
+			 <h4> <?php  echo "<a href=''>คุณ ".$info['profile']['firstname_thai']." ".$info['profile']['lastname_thai']."</a>"; ?></h4>
 			 <a href="/plugin/login/logout.php">ออกจากระบบ</a>
 		</div>		
 	</div>

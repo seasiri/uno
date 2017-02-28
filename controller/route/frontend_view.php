@@ -49,8 +49,7 @@ class frontend_view{
                                     $view -> grid($key2);
                                 }
                                 break;
-                            case 'edit_credential_time':   
-                                                                              
+                            case 'edit_credential_time':                     
                                 if (isset($get['doc'])){
                                      $frontend_view -> edit_credential_time($key2,$get['doc']);
                                 }else{
@@ -58,7 +57,9 @@ class frontend_view{
                                 }
                                 break;
                             case 'approval':
-                                # code...
+                                if (isset($get['filter'])){
+                                    $frontend_view -> approval($key2,$info['job']); 
+                                }
                                 break;
                             case 'pending_approval':
                                 # code...
@@ -96,6 +97,9 @@ class frontend_view{
                                 break;
                             case '42':
                                 echo "<a href='?act=".strtolower($info['task'][$key2]['task_action_type'])."&task=".$info['task'][$key2]['id']."&row=1&skp=product_id'>-- ".$info['task'][$key2]['name']."</a><br>";
+                                break;
+                            case '15':
+                                echo "<a href='?act=".strtolower($info['task'][$key2]['task_action_type'])."&task=".$info['task'][$key2]['id']."&row=1&skp=order_list_id'>-- ".$info['task'][$key2]['name']."</a><br>";
                                 break;
                             default:
                                 if (isset($_GET['task'])){
@@ -426,7 +430,7 @@ class frontend_view{
             echo '</div></div>';
         }
         public function insert_multiple($title){
-            if (isset($_GET['row']) && $_GET['row']>0){
+            if (isset($_GET['row']) && $_GET['row']>0 && $_GET['row']<11){
                 $db = new Db();
                 $view = new view();
                     echo '<form action="/public/action/frontend_submit.php" method="post" >'; 
@@ -458,112 +462,206 @@ class frontend_view{
                     $i=0;                
                     foreach ($rows as $key => $value) 
                     {   
-                        if ($value["Field"]!=$_GET['skp']){    
-                            $temp=array();                     
-                                if ($i%3==0)
-                                {
-                                    echo '<div class="row">';
-                                    echo '<div class="col-md-4">';
-                                }else
-                                {
-                                    echo '<div class="col-md-4">';
-                                }   
-                                
-                                if (strpos($value["Type"] , "date") !== false) 
-                                {                               
-                                    echo '<div class="form-group">';
-                                    echo '    <label>'.$value["Field"].'</label>';
-                                    echo '    <input type="date" class="form-control input-sm" name="'.$value["Field"].'" value="'.date("m-d-Y").'" placeholder="">';
-                                    echo '</div>';              
-                                }
-                                if (strpos($value["Type"] , "timestamp") !== false) 
-                                {                               
-                                    echo '<div class="form-group">';
-                                    echo '    <label>'.$value["Field"].'</label>';
-                                    echo '    <input type="date" class="form-control input-sm" name="'.$value["Field"].'" value="'.date("m-d-Y").'" placeholder="">';
-                                    echo '</div>';              
-                                }
-                                if (strpos($value["Type"] , "int") !== false) 
-                                { 
-
-                                    if ($value["Field"]=="agent_id"){
-                                        //check credential of user on selectting drop down
-                                        $temp['user_id']=$_SESSION['employee_id'];
-                                        $temp['refer_table']='retail_pc';
+                            if ($value["Field"]!=$_GET['skp']){    
+                                $temp=array();                
+                                    if ($i%4==0)
+                                    {
+                                        echo '<div class="row">';
+                                        echo '<div class="col-md-3">';
+                                    }else
+                                    {
+                                        echo '<div class="col-md-3">';
+                                    }   
+                                    
+                                    if (strpos($value["Type"] , "date") !== false) 
+                                    {                               
+                                        echo '<div class="form-group">';
+                                        echo '    <label>'.$value["Field"].'</label>';
+                                        echo '    <input type="date" class="form-control input-sm" name="'.$value["Field"].'" value="'.date("m-d-Y").'" placeholder="">';
+                                        echo '</div>';              
                                     }
-                                    $temp['column']=$value["Field"];
-                                    $temp['session']=$title;
-                                    //for multiple insert row
-                                    $temp['form_count']=$form_count;
-                                    $view -> int_handle($temp);
-
-                                }
-                                if (strpos($value["Type"] , "decimal") !== false) 
-                                { 
-                                    $temp['column']=$value["Field"];
-                                    $temp['session']=$title;
-                                    $view -> int_handle($temp);
-
-                                }
-                                if (strpos($value["Type"] , "varchar") !== false) 
-                                {               
-                                    echo '<div class="form-group">';
-                                    echo '    <label>'.$value["Field"].'</label>';
-                                    echo '    <input type="text" class="form-control input-sm" name="'.$value["Field"].'" placeholder="">';
-                                    echo '</div>';              
-                                }
-                                if (strpos($value["Type"] , "text") !== false) 
-                                {               
-                                    echo '<div class="form-group">';
-                                    echo '    <label>'.$value["Field"].'</label>';
-                                    echo '    <input type="text" class="form-control input-sm" name="'.$value["Field"].'" placeholder="">';
-                                    echo '</div>';              
-                                }
-                                if (strpos($value["Type"] , "email") !== false) 
-                                {               
-                                    echo '<div class="form-group">';
-                                    echo '    <label>'.$value["Field"].'</label>';
-                                    echo '    <input type="email" class="form-control input-sm" name="'.$value["Field"].'" placeholder="">';
-                                    echo '</div>';              
-                                }
-                            
-                                if ($i%3==2)
-                                {
-                                    echo '</div>';
-                                    echo '</div>';                  
-                                }               
-                                else                
-                                {
-                                    echo '</div>';
-                                }
-                                $i++;
-                                $first_time_of_row++;
-                            }else{
-                                if ($first_time_of_row==0){
+                                    if (strpos($value["Type"] , "timestamp") !== false) 
+                                    {                               
+                                        echo '<div class="form-group">';
+                                        echo '    <label>'.$value["Field"].'</label>';
+                                        echo '    <input type="date" class="form-control input-sm" name="'.$value["Field"].'" value="'.date("m-d-Y").'" placeholder="">';
+                                        echo '</div>';              
+                                    }
                                     if (strpos($value["Type"] , "int") !== false) 
                                     { 
+
                                         if ($value["Field"]=="agent_id"){
+                                            //check credential of user on selectting drop down
                                             $temp['user_id']=$_SESSION['employee_id'];
                                             $temp['refer_table']='retail_pc';
                                         }
                                         $temp['column']=$value["Field"];
                                         $temp['session']=$title;
+                                        //for multiple insert row
+                                        $temp['form_count']=$form_count;
                                         $view -> int_handle($temp);
-                                        echo "<hr>";
+
                                     }
-                                }
-                            }            
-                    }
-                    if ($i%3==2 ){
-                        echo '</div>';
+                                    if (strpos($value["Type"] , "decimal") !== false) 
+                                    { 
+                                        $temp['column']=$value["Field"];
+                                        $temp['session']=$title;
+                                        $view -> int_handle($temp);
+
+                                    }
+                                    if (strpos($value["Type"] , "varchar") !== false) 
+                                    {               
+                                        echo '<div class="form-group">';
+                                        echo '    <label>'.$value["Field"].'</label>';
+                                        echo '    <input type="text" class="form-control input-sm" name="'.$value["Field"].'" placeholder="">';
+                                        echo '</div>';              
+                                    }
+                                    if (strpos($value["Type"] , "text") !== false) 
+                                    {               
+                                        echo '<div class="form-group">';
+                                        echo '    <label>'.$value["Field"].'</label>';
+                                        echo '    <input type="text" class="form-control input-sm" name="'.$value["Field"].'" placeholder="">';
+                                        echo '</div>';              
+                                    }
+                                    if (strpos($value["Type"] , "email") !== false) 
+                                    {               
+                                        echo '<div class="form-group">';
+                                        echo '    <label>'.$value["Field"].'</label>';
+                                        echo '    <input type="email" class="form-control input-sm" name="'.$value["Field"].'" placeholder="">';
+                                        echo '</div>';              
+                                    }
+                                    
+                                    if ($i%4==3)
+                                    {
+                                        echo '</div>';
+                                        echo '</div>';                  
+                                    }               
+                                    else                
+                                    {
+                                        echo '</div>';
+                                    }
+                                    $i++;
+                                    $first_time_of_row++;
+                                }else{
+                                    if ($first_time_of_row==0){
+                                        if (strpos($value["Type"] , "int") !== false) 
+                                        { 
+                                            if ($value["Field"]=="agent_id"){
+                                                $temp['user_id']=$_SESSION['employee_id'];
+                                                $temp['refer_table']='retail_pc';
+                                            }
+                                            $temp['column']=$value["Field"];
+                                            $temp['session']=$title;
+                                            $view -> int_handle($temp);
+                                            echo "<hr>";
+                                        }
+                                    }
+                                }            
+                        }
+                        if ($i%4==3 ){
+                            echo '</div>';
                     }
                     $form_count ++;   //count loop for adding numbberr after name attribute
+                    if ($i%4==1 || $i%4==2 ){
+                        echo '</div>';
+                    }  
                 }
-                
+              
                 echo '<div class="row"><div class="col-md-10"></div><div class="col-md-2">';
                 echo      '<button type="submit" class="btn btn-default">Submit</button>';
                 echo '</div></div>';
             }
         }
+        public function approval($title,$job){
+                $db = new Db();
+                $view = new view();
+                $rows = $db -> select("SHOW COLUMNS FROM ".$title." WHERE Field NOT IN ('id', 'created','modified','owner');");
+                $i=0;
+                echo '<form action="/public/action/frontend_submit.php" method="post" enctype="multipart/form-data">'; 
+                echo '<input id="fileToUpload" name="fileToUpload" type="file" class="file" /><br>';
+                echo '<input type="hidden" name="act" value="'.$_GET['act'].'">';
+                echo '<input type="hidden" name="form_title" value="'.$title.'">';
+                echo '<input type="hidden" name="task" value="'.$_GET['task'].'">';
+                
+                foreach ($rows as $key => $value) 
+                {                             
+                        if ($i%3==0)
+                        {
+                            echo '<div class="row">';
+                            echo '<div class="col-md-4">';
+                        }else
+                        {
+                            echo '<div class="col-md-4">';
+                        }   
+                        
+                        if (strpos($value["Type"] , "date") !== false) 
+                        {                               
+                            echo '<div class="form-group">';
+                            echo '    <label>'.$value["Field"].'</label>';
+                            echo '    <input type="date" class="form-control input-sm" name="'.$value["Field"].'" value="'.date("m-d-Y").'" placeholder="">';
+                            echo '</div>';              
+                        }
+                        if (strpos($value["Type"] , "timestamp") !== false) 
+                        {                               
+                            echo '<div class="form-group">';
+                            echo '    <label>'.$value["Field"].'</label>';
+                            echo '    <input type="date" class="form-control input-sm" name="'.$value["Field"].'" value="'.date("m-d-Y").'" placeholder="">';
+                            echo '</div>';              
+                        }
+                        if (strpos($value["Type"] , "int") !== false) 
+                        { 
+                                $temp['column']=$value["Field"];
+                                $temp['session']=$title;
+                                $temp['job']=$job;
+                                $temp['refer_table']=$_GET['filter'];
+                                $view -> int_handle($temp);
+                        }
+                        if (strpos($value["Type"] , "decimal") !== false) 
+                        { 
+                            $temp['column']=$value["Field"];
+                            $temp['session']=$title;
+                            $view -> int_handle($temp);
+
+                        }
+                        if (strpos($value["Type"] , "varchar") !== false) 
+                        {               
+                            echo '<div class="form-group">';
+                            echo '    <label>'.$value["Field"].'</label>';
+                            echo '    <input type="text" class="form-control input-sm" name="'.$value["Field"].'" placeholder="">';
+                            echo '</div>';              
+                        }
+                        if (strpos($value["Type"] , "text") !== false) 
+                        {               
+                            echo '<div class="form-group">';
+                            echo '    <label>'.$value["Field"].'</label>';
+                            echo '    <input type="text" class="form-control input-sm" name="'.$value["Field"].'" placeholder="">';
+                            echo '</div>';              
+                        }
+                        if (strpos($value["Type"] , "email") !== false) 
+                        {               
+                            echo '<div class="form-group">';
+                            echo '    <label>'.$value["Field"].'</label>';
+                            echo '    <input type="email" class="form-control input-sm" name="'.$value["Field"].'" placeholder="">';
+                            echo '</div>';              
+                        }
+                    
+                        if ($i%3==2)
+                        {
+                            echo '</div>';
+                            echo '</div>';                  
+                        }               
+                        else                
+                        {
+                            echo '</div>';
+                        }
+                        $i++;                
+                }
+                if ($i%3==2 ){
+                    echo '</div>';
+                }
+                echo '<div class="row"><div class="col-md-10"></div><div class="col-md-2">';
+                echo      '<button type="submit" class="btn btn-default">Submit</button>';
+                echo '</div></div>';
+            }
 }
 ?>

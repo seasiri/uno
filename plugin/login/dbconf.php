@@ -1,9 +1,10 @@
 <?php
 //DATABASE CONNECTION VARIABLES
+$config = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/private/config.ini'); 
 $host = "localhost"; // Host name
 $username = "root"; // Mysql username
-$password = ""; // Mysql password
-$db_name = "bathline_v2"; // Database name
+$password = "sunnykung"; // Mysql password
+$db_name = $config['dbname']; // Database name
 
 //DO NOT CHANGE BELOW THIS LINE UNLESS YOU CHANGE THE NAMES OF THE MEMBERS AND LOGINATTEMPTS TABLES
 

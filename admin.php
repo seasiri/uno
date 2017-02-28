@@ -1,4 +1,4 @@
-<?php require "plugin/login/loginheader.php"; ?>
+<?php  require "plugin/login/loginheader.php"; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,9 +7,9 @@
 	<meta http-equiv=Content-Type content="text/html; charset=tis-620">
 	<link href="/public/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/public/css/bootstrap.min.css" rel="stylesheet">
-	<?php require_once('/controller/view/view.php'); ?>
-	<?php require_once('/controller/validate/validate.php'); ?>
-	<?php require_once('/controller/db/db.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/controller/view/view.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/controller/validate/validate.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/controller/db/db.php'); ?>
 	<?php $view = new view(); ?>
 	<?php $validate = new validate(); ?>
 

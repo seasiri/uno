@@ -1,31 +1,30 @@
-# UNO #
-is ALL IN ONE BUSINESS PLATFORM
-PHP-BASE software that aim to dynamicly change database schematic on demand to be able to keep up with world demand today.
+# README #
 
-### Features ###
-* Dynamic Mysql database schematic 
-* SOFTWARE FOR BUSINESS ALL IN ONE. 
-* System Login
-* Level of permission per jobs and tasks
+This README would normally document whatever steps are necessary to get your application up and running.
 
 ### What is this repository for? ###
-Make Business more efficient
+
+* Quick summary
+Bathline Private System for trader company
+* Version
+* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
 ### How do I get set up? ###
-* Setup PHP7.1+  
-* MYSQL server 5.7 
-* "/sql/github_uno.sql" import to mysql 
-* URL to "localhost" or "127.0.0.1"
-* Register User
-* NOTE: Login to Mysql 
-     * need to change value in TABLE authentication COLUMN employee_id to 1 (FROM 0)*
-* Login with your username and password
-* URL to "localhost/admin.php"
-* Edit and insert all table and rows as you want.
+
+* Summary of set up
+* Configuration
+* Dependencies
+* Database configuration
+* How to run tests
+* Deployment instructions
 
 ### Contribution guidelines ###
-* optimized the efficientcy of the platform
-* make it better
+
+* Writing tests
+* Code review
+* Other guidelines
 
 ### Who do I talk to? ###
-* me
+
+* Repo owner or admin
+* Other community or team contact
