@@ -1,3 +1,4 @@
+<html>
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT'].'/controller/view/view.php'); 
  	require_once($_SERVER['DOCUMENT_ROOT'].'/controller/validate/validate.php');
@@ -75,7 +76,7 @@
 				if ($result)
 				{
 					$url = '/?task='.$_POST['task'].'&act='.$_POST['act'].'&msg=เเก้ไขเรียบร้อย'; 
-					echo "<script>window.location = '".$url."';</script>";
+					//echo "<script>window.location = '".$url."';</script>";
 				}else{
 					echo '<a href="javascript:history.go(-1)">คลิกเพื่อกลับไปแก้ไข</a>';
 				}
@@ -105,3 +106,4 @@
 	
 	//var_dump($error);
 ?>
+</html>

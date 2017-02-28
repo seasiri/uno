@@ -502,6 +502,7 @@ class view{
             case 'task_log':
                     $show_list= "id,
                                 record_name,
+                                owner,
                                 record_document,
                                 task_id,
                                 task_action_type                                                                                                                                                                             

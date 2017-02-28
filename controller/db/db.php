@@ -38,7 +38,9 @@ class Db {
         //$check -> validate_query();
         // Connect to the database
         $connection = $this -> connect();
-
+        //echo "<pre>";
+        //print_r($_POST);
+        //echo "</pre>";
         // Query the database
         mysqli_real_escape_string($connection,$query);
         $result = $connection -> query($query);
@@ -52,7 +54,8 @@ class Db {
                             $next_id= Db::select("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'bathline_uno' AND TABLE_NAME = '".$value."'"); 
                             $next_id=$next_id[0]['AUTO_INCREMENT'];
                             $column_head=$validate->column_head('task_log');                       
-                            $sql="INSERT INTO task_log (".$column_head.") VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'".$_SESSION['employee_id']."','".$value."',".$next_id.",1,'".strtoupper($_POST['act'])."','".mysqli_real_escape_string($connection,$query)."',1,'successfully')";  
+                            $sql="INSERT INTO task_log (".$column_head.") VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'".$_SESSION['employee_id']."','".$value."',".$next_id.",".$_POST['task'].",'".strtoupper($_POST['act'])."','".mysqli_real_escape_string($connection,$query)."',1,'successfully')";  
+
                             $result = $connection->query($sql);
                         }
                   }  
@@ -63,7 +66,8 @@ class Db {
                     if (strpos($query, " ".$value." ") !== false) {
                             preg_match('/(?<=WHERE id =)\S+/i', $query, $doc_id);   
                             $column_head=$validate->column_head('task_log');                       
-                            $sql="INSERT INTO task_log (".$column_head.") VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'".$_SESSION['employee_id']."','".$value."',".$doc_id[0].",1,'".strtoupper($_POST['act'])."','".mysqli_real_escape_string($connection,$query)."',1,'successfully')";  
+                            $sql="INSERT INTO task_log (".$column_head.") VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'".$_SESSION['employee_id']."','".$value."',".$doc_id[0].",".$_POST['task'].",'".strtoupper($_POST['act'])."','".mysqli_real_escape_string($connection,$query)."',1,'successfully')";  
+                            
                             $result = $connection->query($sql);  
                         }                      
                   }  
