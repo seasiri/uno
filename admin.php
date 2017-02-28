@@ -1,4 +1,4 @@
-<?php  require "plugin/login/loginheader.php"; ?>
+<?php  require $_SERVER['DOCUMENT_ROOT']."/plugin/login/loginheader.php"; ?>
 <!DOCTYPE html>
 <html>
 <head>

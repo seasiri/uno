@@ -1,4 +1,4 @@
-	<?php require "plugin/login/loginheader.php"; ?>
+	<?php require $_SERVER['DOCUMENT_ROOT']."/plugin/login/loginheader.php"; ?>
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/controller/route/frontend_view.php'); ?>
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/controller/route/route.php'); ?>
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/controller/view/view.php'); ?>
