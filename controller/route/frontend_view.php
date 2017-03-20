@@ -69,6 +69,13 @@ class frontend_view{
                                     $frontend_view -> insert_multiple($key2);
                                 }
                                 break;
+                            case 'confirm_attachment': 
+                                if (isset($get['doc'])){
+                                     $frontend_view -> confirm_attachment($key2,$get['doc']);
+                                }else{
+                                    $view -> grid($key2);
+                                }
+                                break;
                             default:
                                 # code...
                                 break;
@@ -93,7 +100,7 @@ class frontend_view{
                     {
                         switch ($info['task'][$key2]['id']) {
                             case '30':
-                                echo "<a href='?act=".strtolower($info['task'][$key2]['task_action_type'])."&task=".$info['task'][$key2]['id']."&row=1&skp=agent_id'>-- ".$info['task'][$key2]['name']."</a><br>";
+                                echo "<a href='?act=".strtolower($info['task'][$key2]['task_action_type'])."&task=".$info['task'][$key2]['id']."&row=1&skp=agent_id-customer_type_id-order_ref'>-- ".$info['task'][$key2]['name']."</a><br>";
                                 break;
                             case '42':
                                 echo "<a href='?act=".strtolower($info['task'][$key2]['task_action_type'])."&task=".$info['task'][$key2]['id']."&row=1&skp=product_id'>-- ".$info['task'][$key2]['name']."</a><br>";
@@ -339,6 +346,116 @@ class frontend_view{
         echo      '<button type="submit" class="btn btn-default">UPDATE</button>';
         echo '</div></div>';
     }
+    public function confirm_attachment($title,$doc_id){
+        $db = new Db();
+        $view = new view();
+        echo "SELECT * FROM  ".$title." WHERE id = ".$doc_id." AND owner =".$_SESSION['employee_id'];
+        $doc_raw = $db -> select("SELECT * FROM  ".$title." WHERE id = ".$doc_id." AND owner =".$_SESSION['employee_id']." ");       
+        if (!$doc_raw)
+        {
+            return "doc_id_not_found";
+        }
+        foreach ($doc_raw as $key => $value) {
+            foreach ($value as $key2 => $value2) {
+                $doc[$key2] = $value2;
+            }
+        }        
+        $rows = $db -> select("SHOW COLUMNS FROM ".$title." WHERE Field NOT IN ('id', 'created','modified','owner')");
+        $i=0;
+        echo '<form action="/public/action/frontend_submit.php"method="post" enctype="multipart/form-data">'; 
+        echo '<input id="fileToUpload" name="fileToUpload" type="file" class="file" /><br>';
+        echo '<input type="hidden" name="act" value="'.$_GET['act'].'">';
+        echo '<input type="hidden" name="doc" value="'.$_GET['doc'].'">';
+        echo '<input type="hidden" name="form_title" value="'.$title.'">';
+        echo '<input type="hidden" name="task" value="'.$_GET['task'].'">';
+        foreach ($rows as $key => $value) 
+        {                             
+                if ($i%3==0)
+                {
+                    echo '<div class="row">';
+                    echo '<div class="col-md-4">';
+                }else
+                {
+                    echo '<div class="col-md-4">';
+                }   
+                if (preg_match("~\bdate\b~",$value["Type"]) ) 
+                {   
+                    $datetime = strtotime($doc[$value["Field"]]);
+                    $mysqldate = date("Y-m-d", $datetime);                                                 
+                    echo '<div class="form-group">';
+                    echo '    <label>'.$value["Field"].'</label>';
+                    echo '    <input type="date" class="form-control input-sm" name="'.$value["Field"].'"  placeholder="" value="'.$mysqldate.'">';
+                    echo '</div>';              
+                }
+                if (preg_match("~\bdatetime\b~",$value["Type"]) ) 
+                {   
+                    $datetime = strtotime($doc[$value["Field"]]);
+                    $mysqldate = date("Y-m-d", $datetime);                             
+                    echo '<div class="form-group">';
+                    echo '    <label>'.$value["Field"].'</label>';
+                    echo '    <input type="date" class="form-control input-sm" name="'.$value["Field"].'"  placeholder="" value="'.$mysqldate.'">';
+                    echo '</div>';              
+                }
+                if (preg_match("~\btimestamp\b~",$value["Type"]) )  
+                {   
+                    $datetime = strtotime($doc[$value["Field"]]);
+                    $mysqldate = date("Y-m-d", $datetime);                              
+                    echo '<div class="form-group">';
+                    echo '    <label>'.$value["Field"].'</label>';
+                    echo '    <input type="date" class="form-control input-sm" name="'.$value["Field"].'"  placeholder="" value="'.$mysqldate.'">';
+                    echo '</div>';              
+                }
+                if (preg_match("~\bint\b~",$value["Type"]) ) 
+                {
+                    $temp['column']=$value["Field"];
+                    $temp['session']=$title;
+                    $temp['doc_id']=$doc_id;
+                    $view -> int_handle($temp);               
+                }
+                if (preg_match("~\bdecimal\b~",$value["Type"]) ) 
+                {
+                    $temp['column']=$value["Field"];
+                    $temp['session']=$title;
+                    $temp['doc_id']=$doc_id;
+                    $view -> int_handle($temp);               
+                }
+                if (preg_match("~\bvarchar\b~",$value["Type"]) ) 
+                {               
+                    echo '<div class="form-group">';
+                    echo '    <label>'.$value["Field"].'</label>';
+                    echo '    <input type="text" class="form-control input-sm" name="'.$value["Field"].'" placeholder="" value="'.$doc[$value["Field"]].'">';
+                    echo '</div>';              
+                }
+                if (preg_match("~\btext\b~",$value["Type"]) ) 
+                {               
+                    echo '<div class="form-group">';
+                    echo '    <label>'.$value["Field"].'</label>';
+                    echo '    <input type="text" class="form-control input-sm" name="'.$value["Field"].'" placeholder="" value="'.$doc[$value["Field"]].'">';
+                    echo '</div>';              
+                }
+                if (preg_match("~\bemail\b~",$value["Type"]) ) 
+                {               
+                    echo '<div class="form-group">';
+                    echo '    <label>'.$value["Field"].'</label>';
+                    echo '    <input type="email" class="form-control input-sm  " name="'.$value["Field"].'" placeholder="" value="'.$doc[$value["Field"]].'">';
+                    echo '</div>';              
+                }
+                if ($i%3==2)
+                {
+                    echo '</div>';
+                    echo '</div>';                  
+                }               
+                else                
+                {
+                    echo '</div>';
+                }   
+                $i++;
+            
+        }
+        echo '<div class="row"><div class="col-md-10"></div><div class="col-md-2">';
+        echo      '<button type="submit" class="btn btn-default">UPDATE</button>';
+        echo '</div></div>';
+    }
     public function insert($title){
             $db = new Db();
             $view = new view();
@@ -454,7 +571,7 @@ class frontend_view{
                     $keep= str_replace("&row=".$row_explode[1]."&","&row=".$i."&",$_SERVER['REQUEST_URI']);
                     echo "<a href='".$keep."'> ".$i." </a>";
                 } 
-                echo "<br><br>";
+                echo "<br><hr>";
                 $form_count=0; 
                 $first_time_of_row=0;  
                 foreach ($count as $key => $value) {   
@@ -462,7 +579,8 @@ class frontend_view{
                     $i=0;                
                     foreach ($rows as $key => $value) 
                     {   
-                            if ($value["Field"]!=$_GET['skp']){    
+                            $skp=explode("-", $_GET['skp']);                                 
+                            if (!in_array($value["Field"], $skp)){    
                                 $temp=array();                
                                     if ($i%4==0)
                                     {
@@ -510,7 +628,7 @@ class frontend_view{
 
                                     }
                                     if (strpos($value["Type"] , "varchar") !== false) 
-                                    {               
+                                    {          
                                         echo '<div class="form-group">';
                                         echo '    <label>'.$value["Field"].'</label>';
                                         echo '    <input type="text" class="form-control input-sm" name="'.$value["Field"].'" placeholder="">';
@@ -546,14 +664,21 @@ class frontend_view{
                                     if ($first_time_of_row==0){
                                         if (strpos($value["Type"] , "int") !== false) 
                                         { 
-                                            if ($value["Field"]=="agent_id"){
-                                                $temp['user_id']=$_SESSION['employee_id'];
-                                                $temp['refer_table']='retail_pc';
-                                            }
-                                            $temp['column']=$value["Field"];
-                                            $temp['session']=$title;
-                                            $view -> int_handle($temp);
-                                            echo "<hr>";
+                                                unset($temp);
+                                                if ($value["Field"]=="agent_id" ){
+                                                    $temp['user_id']=$_SESSION['employee_id'];
+                                                    $temp['refer_table']='retail_pc';
+                                                }
+                                                $temp['column']=$value["Field"];
+                                                $temp['session']=$title;
+                                                $view -> int_handle($temp);
+                                                echo "<br><br>";
+                                        }else{
+                                            echo '<div class="form-group">';
+                                            echo '    <label>'.$value["Field"].'</label>';
+                                            echo '    <input type="text" class="form-control" name="'.$value["Field"].'" placeholder="">';
+                                            echo '</div><hr>';
+
                                         }
                                     }
                                 }            

@@ -304,6 +304,13 @@ class view{
                                 ";
                 view::grid_make($title,$show_list); 
                 break;
+            case 'customer_type':
+                    $show_list= "id,
+                                name,
+                                description              
+                                ";
+                view::grid_make($title,$show_list); 
+                break;
             case 'vehicle_status':
                     $show_list= "id,
                                 name,
@@ -620,11 +627,11 @@ class view{
             case 'retail_stock_report':
                     $show_list= "id,
                                 created,
-                                agent_id,
-                                product_id,
-                                quantity_remain    
+                                order_ref,
+                                quantity,
+                                price
                                 ";
-                view::grid_make($title,$show_list); 
+                view::grid_confirm($title,$show_list); 
                 break;
             case 'retail_pc':
                     $show_list= "id,
@@ -719,6 +726,106 @@ class view{
                 break;
         }
         
+    }
+    public function grid_confirm($title,$show_list){
+        $db = new Db();
+        $validate = new validate();
+        switch ($_GET['act']) {
+            case 'confirm_attachment':
+            echo "SELECT ".$show_list." FROM ".$title." WHERE owner =".$_SESSION['employee_id'];
+                    $rows = $db -> select("SELECT ".$show_list." FROM ".$title." WHERE owner =".$_SESSION['employee_id']." ");
+                break;
+            default:
+                # code...
+                break;
+        }
+        foreach ($rows as $key => $value) {
+            foreach ($rows[$key] as $key2 => $value2) {
+                if (strpos($key2, 'id') && !strpos($key2, 'parent_id')){
+                   $temp = $validate -> lookup_join_table($key2,$value2);
+                   $rows[$key][$key2]=$temp[0]['name'];
+                }else{
+                    if (strpos($key2, 'parent_id')){
+                        $temp = $validate -> lookup_join_table($key2,$value2);
+                       $rows[$key][$key2]=$temp[0]['name'];
+                    }
+                }
+            }
+        }
+        $i=0;
+        foreach ($rows as $key => $value) {                    
+            foreach ($rows[$key] as $key2 => $value2) {
+                if ($key2=="price"){
+                    echo $key;
+                     $list[$rows[$key]["order_ref"]]["id"]=0;
+                    $list[$rows[$key]["order_ref"]]["order_ref"]="";
+                    $list[$rows[$key]["order_ref"]]["total"]=0;                   
+                    $i++;
+                }
+             
+            }
+        }
+        $i=0;
+        
+        foreach ($rows as $key => $value) {            
+            foreach ($rows[$key] as $key2 => $value2) {
+                if ($key2=="price"){
+                  $list[$rows[$key]["order_ref"]]['id']=$rows[$key]["id"]; 
+                  $list[$rows[$key]["order_ref"]]['order_ref']=$rows[$key]["order_ref"];  
+                  $list[$rows[$key]["order_ref"]]['total']=$list[$rows[$key]["order_ref"]]['total']+($rows[$key]['quantity']*$rows[$key]['price']);  
+                  $i++;
+                }
+                
+            }
+        }
+        $rows=$list;
+        echo "<pre>";
+        var_dump($list);
+        echo "</pre>";
+        if ($rows){
+            $total_column=count($list);  
+            echo '<div class="row">'; 
+            echo '<table class="table">';
+            echo '<thead>';   
+                echo '<tr>';
+                $i=0;
+                foreach ($rows as $key => $value) {                        
+                    foreach ($rows[$key] as $key2 => $value2) {
+                        if ($i==0){
+                            echo '<th>'.$key2.'</th>'; 
+                        }
+                    }
+                    $i++;
+                }
+                echo '<th>act</th>';
+                echo '</tr>';
+                                
+            echo '</thead>';  
+            echo '<tbody>';                    
+            $result= explode("&",$_SERVER['QUERY_STRING']);
+            //var_dump($result);
+            foreach ($result as $key => $value) {
+               $temp=explode("=",$value);
+               $get[$temp[0]]=$temp[1];
+            }
+            foreach ($rows as $key => $array) {   
+                echo "<tr>"; 
+                foreach ($array as $key => $value) {                            
+                    echo '<td>'.$value.'</td>';
+                     
+                }
+                if(isset($get['task'])){
+                    echo '<td><a href="?db='.$title.'&act='.$get['act'].'&doc='.$array['id'].'&task='.$get['task'].'"> edit </a> / <a href="?db='.$title.'&act=edit"> del </a></td>';
+                }else{
+                    echo '<td><a href="?db='.$title.'&act=edit&doc='.$array['id'].'"> edit </a> / <a href="?db='.$title.'&act=edit"> del </a></td>';
+
+                }
+                echo '</tr>'; 
+            }
+            echo '</tbody>'; 
+            echo '</table>';
+            echo '</div>';
+        }
     }
     public function grid_make($title,$show_list){
         $db = new Db();

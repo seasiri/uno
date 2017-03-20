@@ -44,7 +44,10 @@ class Db {
         // Query the database
         mysqli_real_escape_string($connection,$query);
         $result = $connection -> query($query);
-        //echo $connection -> affected_rows."<br>";         
+        //echo $connection -> affected_rows."<br>";   
+        if (!isset($_POST['task'])){
+            $_POST['task']=1;
+        }      
         if ($result)
         {
             if (strpos($query, 'INSERT') !== false) {
