@@ -3,6 +3,7 @@
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/controller/route/route.php'); ?>
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/controller/view/view.php'); ?>
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/controller/validate/validate.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/controller/function/db_help.php'); ?>
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/controller/db/db.php'); ?>	
 	<?php $route = new route(); ?>
 	<?php $frontend_view = new frontend_view(); ?>	
@@ -16,9 +17,57 @@
 	<script src="/public/js/bootstrap.min.js"></script> 
 	<script src="/public/js/main.js"></script>
 	<meta http-equiv=Content-Type content="text/html; charset=tis-620">
-	<link href="/public/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/plugin/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/public/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="/public/css/main_frontend.css">
+	<style type="text/css">
+		.container { width: 85% !important; }
+		body  {
+			    background-image: url("/public/upload/default/whirlpool.png");
+			    background-attachment: fixed;
+			}
+		.breadcrumb {
+			 color: #FFFFFF;
+			 background-color: #07a79f;
+			 background-attachment: fixed;
+		}
+		.sidebar-left {
+			 background-color: #a7eed7;
+			 border-radius: 22px; 
+
+			    background: linear-gradient(#a7eed7, #cbdb62); /* Standard syntax */
+		}
+		.sidebar-left a{
+			 color: #1A2E58;
+			 line-height: 0.1em;
+		}
+		.main {
+			 
+			 background-color: #fefefe; 
+			 border-style: dotted dashed solid double;
+			 border-radius: 22px; 
+			 box-shadow: 10px 10px 5px grey;
+		}
+		.topbar-right {
+			 color: #FFFFFF;
+			 background-color: #07a79f;
+			 background-attachment: fixed;
+		}
+		.profile-top {
+			 color: #FFFFFF;
+			 background-color: #07a79f;
+			 background-attachment: fixed;
+		}
+		.logo {
+			 color: #FFFFFF;
+			 background-color: #07a79f;
+			 background-attachment: fixed;
+			 border-radius: 22px; 
+			 text-align: right;
+		}
+		 
+		
+	</style>
 </head>
 <body>
 <?php
@@ -35,56 +84,76 @@ if ($_SESSION['employee_id']!=0 && isset($_SESSION['username'])){
 			';			
 		}
 ?>
-<div class="container">
-	<div class="row">	
-		<div class="col-md-2">
-			<h1>BATHLINE / UNO </h1><small><?php echo $config['version']; ?></small>
-		</div>	
-		<div class="col-md-3">
-			<br><blockquote>"บอกให้รู้ไว้ หัวใจรักจริง"</blockquote>
-		</div>
-		<div class="col-md-4">
-			<small><br>คุณภาพ คือ การใส่ใจในการป้อน ข้อมูล <br>ข้อมูล คือ ความเข้าใจในงาน<br>ประสิทธิภาพ คือ ความเชื่อมั่นในระบบ และ พัฒนาตามความต้องการ<br>ผลลัพธ์ คือ ความชัดเจนของข้อมูล</small>
-		</div>	
-		<div class="col-md-2">
-			<br>ใช้งานล่าสุด <br>
 
-			 <h4> <?php  echo "<a href=''>คุณ ".$info['profile']['firstname_thai']." ".$info['profile']['lastname_thai']."</a>"; ?></h4>
-			 <a href="/plugin/login/logout.php">ออกจากระบบ</a>
-		</div>		
+
+<div class="container">
+
+	<div class="row" style="">
+		<div class="col-md-4 ">
+			<div class="row" style="">
+				<div class="col-md-3 ">
+					<img class="img-responsive" src="/public/upload/default/no_profile.png" alt="Smiley face" >
+				</div>
+				<div class="col-md-8 ">
+					 <a class="btn bt-md  " href="#">
+			         <i class="fa fa-user-o fa-2x pull-left"></i>
+					 <small>เข้าใช้งาน เมื่อ <?php $db = new Db(); $raw = $db -> select("SELECT mod_timestamp FROM authentication WHERE employee_id=".$info['profile']['id']); 
+					  echo $raw[0]['mod_timestamp'];   ?> </small>
+					 <br><b> <?php  echo "คุณ ".$info['profile']['firstname_thai']." ".$info['profile']['lastname_thai']; ?></b></a>
+			         
+			         <a class="btn btn-danger" href="/plugin/login/logout.php" aria-label="logoff">
+				     <i class="fa fa-remove" aria-hidden="true"></i></a><br>
+
+					  <?php  echo "<i class='fa fa-id-card-o fa-1x' aria-hidden='true'> </i><a href='mailto:".$info['profile']['email']."'> ".$info['profile']['email']."" ?></small></a>
+					  <?php  echo " <i class='fa fa-mobile-phone fa-1x' aria-hidden='true'> </i><small><a href='tel:".$info['profile']['phone']."'> ".$info['profile']['phone']."" ?></small></a>
+				</div>
+
+			</div>
+			 
+		</div>
+		<div class="col-md-5">
+			<blockquote class="blockquote blockquote-reverse">
+			<small><b>you look at any giant corporation, and I mean the biggies, and they all started with a guy with an idea, doing it well.</b></small>
+			<footer class="blockquote-footer">Irv Robbins</footer>
+			</blockquote>
+		</div>	
+		<div class="col-md-3 logo">
+			<h1><a style="color :#FFFFFF;" href="http://www.bathline.in.th">BATHLINE</a> / <a style="color :#FFFFFF;" href="http://bathline.seasiri.org">UNO</a> </h1><small><?php echo $config['version']; ?></small>
+		</div>	
+				
 	</div>
 	<hr>
 	<div class="row">	
 		<div class="col-md-3">
-			<div class="panel panel-info panel-round">
-				<div class="panel panel-body">
+			<div class="panel panel-info panel-round sidebar-left" >
+				<div class="panel panel-body sidebar-left" >
 			<?php  $frontend_view -> navigation($info); ?>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-1">
-		</div>
-		<div class="col-md-7">
-			<div class="row">
-			<?php $frontend_view -> template($info,$_GET); ?>
-				<div class="row">	
-					<?php
-						/*
-						echo '<pre>';
-						print_r($info);
-						echo '</pre>';
-						*/
-					?>
+		<div class="col-md-9 main" id="main">
+			<div class="container">
+				<div class="row">
+				<?php $frontend_view -> template($info,$_GET); ?>
+					<div class="row">	
+						<?php
+							/*
+							echo '<pre>';
+							print_r($info);
+							echo '</pre>';
+							*/
+						?>
+					</div>
 				</div>
 			</div>
 			<div class="row">
 			<?php if ($_SERVER['QUERY_STRING']==""){ ?>
 				<div class="panel panel-default">
 				  <div class="panel-body">
-				    <h3>บาธไลน์ จะมีฐานข้อมูลที่ ดีที่สุดในเมืองไทย ต้องทำอย่างไร?</h3><h4>จะมีรายได้ และ ขายในราคาที่สูงกว่า Cotto, American, Kohler ต้องทำอย่างไร?</h4><small>ตอบได้เมลมาได้ที่ seawaykung@gmail.com</small>
+				    <h3>ระบบส่วนกลาง บาธไลน์</small>
 				  </div>
 				  <div class="panel-footer">
-				  		<h4>สิ่งที่ต้องทำ:</h4> ตํ่าแหน่งที่พวกเรายืนอยู่ 
+				  		<h4>แนวทางการพัฒนา</h4> สถานะ
 						<div class="progress">				  
 						  <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 35%;">
 						    35%
@@ -120,14 +189,12 @@ if ($_SESSION['employee_id']!=0 && isset($_SESSION['username'])){
 						    <span class="sr-only">5% Complete (danger)</span>
 						  </div>
 						</div>
-						<code>-ใจเย็นยิ่งเขียนยิ่งเห็นงาน อันนี้ไว้ว่ากันสามอันบนให้เสร็จก่อน</code>
+						<code>-</code>
 						
 				<?php }else{ ?>
 						<br><br>
-						<h4>อ่านด้วย! แนวทางการกรอก เบื้องต้น</h4><hr>
-						*ทุกอย่างแก้ไขภายหลังได้ ลองผิดลองถูกได้ ถ้าผิดก็แค่เข้าหมวดแก้ไข (ตอนนี้ยังไม่มีการลบ)<br>
-						*ช่องที่มี parent_id ลงท้าย คือ การเพิ่มชั้นงาน<br>
-						*สำหรับ ดำแหน่งงาน อำเภอ ใส่เป็นอะไรก็ได้ แต่ใส่จังหวัดลพบุรี<br></div>
+						<!-- SAY WQHAT U WANT GLOBAL-->
+						</div>
 				</div>	<!-- PANEL DIV-->
 				<?php } ?>
 				
@@ -176,5 +243,6 @@ if ($_SESSION['employee_id']!=0 && isset($_SESSION['username'])){
 }
 ?>
 </body>
+©<small><?php  echo " ".date("Y "); ?> BATHLINE. All Rights Reserved.</small><hr>
 </html>
 	

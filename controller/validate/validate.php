@@ -6,7 +6,7 @@ class validate
         if($user_id)
         {
             $db = new Db();
-            $result = $db -> select("SELECT firstname_thai, lastname_thai, name, phone, email, start_date, national_id FROM employee WHERE id = ".$user_id."");
+            $result = $db -> select("SELECT id,firstname_thai, lastname_thai, name, phone, email, start_date, national_id FROM employee WHERE id = ".$user_id."");
             if ($result){
                 return $result;
             }

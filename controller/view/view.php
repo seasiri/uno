@@ -631,7 +631,7 @@ class view{
                                 quantity,
                                 price
                                 ";
-                view::grid_confirm($title,$show_list); 
+                view::grid_confirm_order($title,$show_list); 
                 break;
             case 'retail_pc':
                     $show_list= "id,
@@ -727,7 +727,7 @@ class view{
         }
         
     }
-    public function grid_confirm($title,$show_list){
+    public function grid_confirm_order($title,$show_list){
         $db = new Db();
         $validate = new validate();
         switch ($_GET['act']) {
@@ -766,7 +766,6 @@ class view{
             }
         }
         $i=0;
-        
         foreach ($rows as $key => $value) {            
             foreach ($rows[$key] as $key2 => $value2) {
                 if ($key2=="price"){
@@ -1023,7 +1022,7 @@ class view{
     }
 }
 class attachment{
-   public function upload($file,$post){ 
+   public function upload($file,$post){
         if ($file['fileToUpload']['size']== 0){
             return 1;
         }
@@ -1034,7 +1033,7 @@ class attachment{
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
         $target_file = $target_dir . basename($now."-".$file_name.".".$imageFileType);       
         $uploadOk = 1;
-        
+        $target_url="/public/upload/attachment/". basename($now."-".$file_name.".".$imageFileType);
         // Check if image file is a actual image or fake image
         if(isset($_POST["submit"])) {
             $check = getimagesize($file["fileToUpload"]["tmp_name"]);
@@ -1073,7 +1072,7 @@ class attachment{
         } else {
             if (move_uploaded_file($file["fileToUpload"]["tmp_name"], $target_file)) {
                 echo "The file ". basename( $file["fileToUpload"]["name"]). " has been uploaded.";
-                $this -> log($target_file,$post);
+                $this -> log($target_url,$post);
                 return true;
             } else {
                 return false;
@@ -1085,14 +1084,14 @@ class attachment{
         $db = new Db();
         $validate = new validate();
         $table_list=$validate->table_list();  
-        $extension = pathinfo($dir,PATHINFO_EXTENSION);            
+        $extension = pathinfo($dir,PATHINFO_EXTENSION);
          foreach ( $table_list as $key => $value) {
              if (strpos($post['form_title'], "".$value."") !== false) {
                     $next_id= $db -> select("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'bathline_uno' AND TABLE_NAME = '".$value."'"); 
                     $next_id=$next_id[0]['AUTO_INCREMENT'];
                     $column_head=$validate->column_head('attachment');                       
-                    $sql="INSERT INTO attachment (".$column_head.") VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,".$_SESSION['employee_id'].",'".$value."',".$next_id.",1,'".$dir."','".$extension."')";  
-                    echo "<br>".$sql."</br>";
+                    $sql="INSERT INTO attachment (".$column_head.") VALUES (DEFAULT,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,".$_SESSION['employee_id'].",'".$value."',".$post['doc'].",1,'".$dir."','".$extension."')";  
+                    //echo "<br>".$sql."</br>";
                     $result = $db->query($sql);
                 }
           }  
